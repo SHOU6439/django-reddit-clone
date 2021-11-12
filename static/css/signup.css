@@ -1,0 +1,97 @@
+.signup-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.signup-img {
+    display: block;
+    height: 770px;
+    margin-right: 100px;
+}
+
+.signup-form {
+    padding: 50px;
+}
+.Policy-text {
+    margin-top: 20px;
+}
+
+.Policy-sentence-url {
+    color: #0079d3;
+}
+
+.Policy-sentence-url:hover {
+    opacity: 0.8;
+}
+
+.linked-login-button {
+    display: flex;
+    align-items: center;
+    border: 2px solid #0079d3;
+    border-radius: 4px;
+    margin-top: 30px;
+    background-color: #FFFFFF;
+}
+.linked-login-button-img {
+    height: 50px;
+    width: 50px;
+}
+
+.linked-login-button:hover {
+    display: flex;
+    align-items: center;
+    border: 2px solid #0079d3;
+    border-radius: 4px;
+    margin-top: 30px;
+    background-color: #0079d3;
+    color: #FFFFFF;
+}
+
+.linked-login-button-text {
+    margin-left:10px;
+}
+
+
+.signup-catch {
+    display: flex;
+    align-items: center; /* 垂直中心 */
+    justify-content: center; /* 水平中心 */
+    margin-top: 30px;
+  }
+.signup-catch:before, .signup-catch:after {
+    border-top: 1px solid;
+    content: "";
+    width: 150px; /* 線の長さ */
+}
+.signup-catch:before {
+    margin-right: 1em; /* 文字の右隣 */
+}
+.signup-catch:after {
+    margin-left: 1em; /* 文字の左隣 */
+}
+
+.input-userinfo-textarea {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 385px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-left: 5px;
+}
+.signup-Continue-button {
+    font-weight: bold;
+    padding: 15px 40% 15px 40%;
+    border: 1px solid #0079d3;
+    border-radius: 50px;
+    color: white;
+    background-color: #0079d3;
+    margin-bottom: 10px;
+}
+
+.LOGIN-url {
+    color: #0079d3;
+}
+.LOGIN-url:hover {
+    opacity: 0.8;
+}

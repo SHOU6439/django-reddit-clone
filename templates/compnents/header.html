@@ -1,0 +1,63 @@
+{% load static %}
+
+<header class="header-cover">
+    <div class="header-content">
+        <div class="header-site-logo">
+            <a class="header-top-icon" href="{% url 'news_posts:index' %}">
+                <img class="reddit_logo" src="{% static 'img/reddit_logo.png' %}" alt="reddit_logo">
+            </a>
+        </div>
+        <div class="header-search-area">
+            <form action="#" class="header-search-form" method="get">
+                <label class="header-search-laber" for="header_search_bar">
+                    <div><i class="fas fa-search" style="height: 20px; width: 20px; opacity: 0.3;"></i></div>
+                </label>
+                <input class="header-search-content" type="text" id="header_search_bar" placeholder="Search Reddit"/>
+            </form>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="header-menu-bar">
+            <ul class="header-menu-bar-ul">
+                <li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/chat_button_icon.png' %}" alt="chat"></li>
+                <li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/notifications_button_icon.png' %}" alt="notifications"></li>
+                <li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/create_post_button_icon.png' %}" alt="createpost"></li>
+            </ul>
+            <div class="header-account-fix">
+                <a class="user-nav-button" href="{% url 'users:logout' %}">
+                    <button class="header-account-config-fix" type="button">
+                        <img class="user-icon-img" src="{% static 'img/reddit_default_user_icon.png' %}" alt="icon">
+                        <div class="user-info-container">
+                            <div class="user-name-container">{{ user.username }}</div>
+                            <i class="fas fa-angle-down" style="margin-top: 5px;"></i>
+                        </div>
+                    </button>
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <div class="header-account">
+            <a class="header-login-button" href="{% url 'users:login' %}">
+                Log In
+            </a>
+            <a class="header-signup-button" href="{% url 'users:signup' %}">
+                Sign Up
+            </a>
+            <button class="header-account-config" type="button">
+                <i class="far fa-user"></i>
+                <i class="fas fa-angle-down"></i>
+            </button>
+        </div>
+        {% endif %}
+    </div>
+
+</header>
+
+
+
+
+
+
+
+
+
+

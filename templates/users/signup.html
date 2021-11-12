@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <title>Signup</title>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-img-container">
+            <img src="{% static 'img/signup_img.png' %}" class="signup-img">
+        </div>
+        <div class="signup-form">
+            <h1 class="signup-form-h2">Signup</h1>
+            <p class="Policy-text">
+                By continuing, you agree to our <a class="Policy-sentence-url" href="https://www.redditinc.com/policies/user-agreement">User Agreement</a><br>
+                and <a class="Policy-sentence-url" href="https://www.redditinc.com/policies/privacy-policy">Privacy Policy</a>.
+            </p>
+            <div class="linked-login-button">
+                <img class="linked-login-button-img" src="{% static 'img/google_logo.png' %}" alt="google">
+                <p class="linked-login-button-text">CONTINUE WITH GOOGLE</p>
+            </div>
+            <div class="linked-login-button">
+                <img class="linked-login-button-img" src="{% static 'img/apple_logo.png' %}" alt="apple">
+                <p class="linked-login-button-text">CONTINUE WITH APPLE</p>
+            </div>
+            <div class="signup-catch">
+                OR
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if not field.name in remove_forms %}
+                        <div>{{ field }}</div>
+                    {% endif %}
+                {% endfor %}
+                <button type="submit" class="signup-Continue-button">Continue</button>
+            </form>
+            <p>Already a redditor? <a class="LOGIN-url" href="{% url 'users:login' %}">LOG IN</a></p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

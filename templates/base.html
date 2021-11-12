@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reddit</title>
+        <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        {% block extra-begin-css %}
+        {% endblock %}
+        {% block extra-begin-script %}
+        {% endblock %}
+        <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    </head>
+    <body>
+        {% block header %}
+        {% include 'compnents/header.html' %}
+        {% endblock %}
+        {% block main-content %}
+        {% endblock %}
+        {% block footer %}
+        {% endblock %}
+        {% block extra-after-script %}
+        {% endblock %}
+    </body>
+</html>

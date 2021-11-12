@@ -1,0 +1,26 @@
+body {
+    background-color: #edeff1;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+a,
+button,
+input[type="button"],
+input[type="sumbit"] {
+    cursor: pointer;
+}
+
+button:hover:hover,
+input[type="button"]:hover,
+input[type="sumbit"]:hover {
+    opacity: 0.7;
+}
+
+.main-content-cover {
+    margin: 0 auto;
+    width: 70%;
+}
