@@ -107,3 +107,48 @@
     cursor: pointer;
     cursor: hand;
 }
+
+.drop-down-menu-container {
+    display: none;
+    position: fixed;
+    width: 200px;
+    right: 100px;
+    background-color: #FFFFFF;
+    padding-right: 5px;
+    padding-left: 10px;
+    border-right: 1px solid #a9a9a9;
+    border-left: 1px solid #a9a9a9;
+    border-bottom: 1px solid #a9a9a9;
+    border-radius: 4px;
+}
+
+.drop-down-menu-li{
+    display: flex;
+    text-align: center;
+}
+.drop-down-menu-li:hover{
+    display: flex;
+    text-align: center;
+    background-color: #0079D3;
+}
+.drop-down-menu-li-p{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.user-menu-button{
+    display: flex;
+}
+
+.is-open{
+    display: block;
+    position: fixed;
+    width: 200px;
+    right: 100px;
+    background-color: #FFFFFF;
+    padding-right: 5px;
+    padding-left: 10px;
+    border-right: 1px solid #a9a9a9;
+    border-left: 1px solid #a9a9a9;
+    border-bottom: 1px solid #a9a9a9;
+    border-radius: 4px;
+}

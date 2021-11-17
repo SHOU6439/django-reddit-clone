@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig', # 追記
-    'news_posts.apps.NewsPostsConfig', # 追記
+    'users.apps.UsersConfig', # カスタムユーザー機能
+    'news_posts.apps.NewsPostsConfig', # 投稿ポスト機能
+    'communities.apps.CommunitiesConfig' # コミュニティ機能
 
 ]
 

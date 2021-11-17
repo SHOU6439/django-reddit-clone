@@ -5,7 +5,11 @@ from .models import NewsPosts
 
 class IndexView(generic.ListView):
     template_name = 'news_posts/index.html'
-    
+
     def get_queryset(self):
         return NewsPosts.objects.all()
+
+class CreatePostView(generic.CreateView):
+    model = NewsPosts
+    
 
