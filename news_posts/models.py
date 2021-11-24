@@ -10,7 +10,7 @@ class NewsPosts(models.Model):
     title = models.CharField(max_length=64)
     content = models.TextField(max_length=512)
     vote = models.IntegerField(default=0)
-    community = models.ForeignKey(Communities, on_delete=models.CASCADE)
+    community = models.ForeignKey(Communities, on_delete=models.CASCADE, blank=True, null=True, related_name='community')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -3,6 +3,6 @@ const dropDownMenuContainer = document.getElementById('drop-down-id')
 
 if(accountDropDownButton){
     accountDropDownButton.addEventListener('click', function(){
-        dropDownMenuContainer.classList.toggle('is-open')
+        dropDownMenuContainer.classList.toggle('user-menu-is-open')
     });
 }

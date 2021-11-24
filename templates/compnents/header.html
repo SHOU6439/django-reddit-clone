@@ -63,24 +63,24 @@
             <i class="far fa-plus-square" style="height: 18px; margin-right:5px;"></i>
             <p class="drop-down-menu-li-p">Create a Community</p>
         </li>
-        <a class="user-menu-button" href="{% url 'users:logout' %}">
-            <li class="drop-down-menu-li">
+        <li class="drop-down-menu-li">
+            <a class="user-menu-button" href="{% url 'users:logout' %}">
                 <i class="fas fa-external-link-alt" style="height: 18px; margin-right:5px;"></i>
-                    <p class="drop-down-menu-li-p">Log Out</p>
-                </a>
-            </li>
-        </a>
+                <p class="drop-down-menu-li-p">Log Out</p>
+            </a>
+        </li>
+
     </ul>
 </div>
 {% else %}
 <div class="drop-down-menu-container" id="drop-down-id">
     <ul class="drop-down-menu-ul" id="drop-down-id">
-        <a class="user-menu-button" href="{% url 'users:login' %}">
-            <li class="drop-down-menu-li">
+        <li class="drop-down-menu-li">
+            <a class="user-menu-button" href="{% url 'users:login' %}">
                 <i class="fas fa-sign-in-alt" style="height: 18px; margin-right:5px;"></i>
                 <p class="drop-down-menu-li-p">Log In/Sign Up</p>
-            </li>
-        </a>
+            </a>
+        </li>
     </ul>
 </div>
 {% endif %}

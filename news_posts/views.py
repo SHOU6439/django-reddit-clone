@@ -11,5 +11,5 @@ class IndexView(generic.ListView):
 
 class CreatePostView(generic.CreateView):
     model = NewsPosts
-    
+
 

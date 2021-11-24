@@ -38,6 +38,10 @@
     padding: 0px 9px 0px 15px;
 }
 
+.header-search-content{
+    width: 500px;
+}
+
 .header-login-button{
     margin-right: 20px;
     border: 1px solid #0079D3;
@@ -139,7 +143,7 @@
     display: flex;
 }
 
-.is-open{
+.user-menu-is-open{
     display: block;
     position: fixed;
     width: 200px;
