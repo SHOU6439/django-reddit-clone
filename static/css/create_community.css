@@ -1,0 +1,112 @@
+.community-type-select-radio-button {
+    width: 16px;
+    height: 16px;
+    border: solid 2px #7c7c7c;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+.community-type-select-radio-button:hover{
+    border: solid 3px #0079D3;
+
+}
+.community-type-select-radio-button:checked{
+    background-color: #0079D3;
+    border: solid 3px #7c7c7c;
+}
+.community-type-select-label {
+    display: block;
+}
+.create-community-form{
+    margin-left: 33%;
+    margin-right:33%;
+}
+.create-community-title {
+    display: block;
+    font-size: 50px;
+    text-align: center;
+
+
+}
+.create-community-subtitle {
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.create-community-title-container{
+    padding: 20px;
+    border-bottom: solid 2px #7c7c7c;
+}
+.create-community-name-warning-txt {
+    color: #7c7c7c;
+    font-size: 20px;
+}
+.community-name-input-textarea {
+    border: solid 2px #7c7c7c;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    width: 500px;
+}
+
+.community-type-typename {
+    font-size: 20px;
+}
+
+.create-community-name-character-limit {
+    font-size: 20px;
+    color: #7c7c7c;
+}
+.community-is-nsfw-check {
+    width: 20px;
+    height: 20px;
+    border: solid 2px #7c7c7c;
+    border-radius: 5px;
+
+}
+.community-is-nsfw-check:hover{
+    border: solid 3px #0079D3;
+
+}
+.community-is-nsfw-check:checked{
+    background-color: #0079D3;
+    border: solid 3px #7c7c7c;
+}
+.community-is-nsfw-check-text {
+    font-size: 22px;
+}
+
+.create-community-display-control-container {
+    display: flex;
+    margin-top: 30px;
+}
+.create-Cancel-button {
+    margin-right: 20px;
+    border: 1px solid #0079D3;
+    border-radius: 9999px;
+    display: block;
+    height: 30px;
+    width: 50%;
+    padding-left: 17%;
+    font-weight: bold;
+    color: #0079D3;
+}
+
+.create-community-Decision-button {
+    margin-right: 20px;
+    background-color: #0079D3;
+    border-radius: 9999px;
+    display: block;
+    height: 30px;
+    width: 50%;
+    padding-left: 7%;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.create-Cancel-button:hover {
+    opacity: 0.7;
+}
+
+.create-community-Decision-button:hover {
+    opacity: 0.7;
+}

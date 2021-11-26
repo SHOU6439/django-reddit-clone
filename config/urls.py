@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('news_posts.urls')),
     path('users/', include('users.urls')),
+    path('community/', include('communities.urls'))
 ]

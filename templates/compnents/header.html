@@ -60,8 +60,10 @@
             <p class="drop-down-menu-li-p">User Settings</p>
         </li>
         <li class="drop-down-menu-li">
-            <i class="far fa-plus-square" style="height: 18px; margin-right:5px;"></i>
-            <p class="drop-down-menu-li-p">Create a Community</p>
+            <a class="user-menu-button" href="{% url 'communities:create_community' %}">
+                <i class="far fa-plus-square" style="height: 18px; margin-right:5px;"></i>
+                <p class="drop-down-menu-li-p">Create a Community</p>
+            </a>
         </li>
         <li class="drop-down-menu-li">
             <a class="user-menu-button" href="{% url 'users:logout' %}">

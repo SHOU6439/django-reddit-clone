@@ -7,11 +7,15 @@ from config import settings
 
 # Create your models here.
 class Communities(models.Model):
-    name = models.CharField(max_length=21)
-    admin = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='admin')
+    name = models.CharField(max_length=21, unique=True)
+    admin = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='admin',blank=True, null=True)
     member = models.ManyToManyField(get_user_model(), related_name='member')
-    community_type = ('public', 'restrict', 'private')
-    is_nsfw = models.BooleanField(null=True)
+    community_type = (
+            ('0','public'),
+            ('1','restrict'),
+            ('2','private'),
+        ),
+    is_nsfw = models.BooleanField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
