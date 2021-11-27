@@ -5,6 +5,15 @@
     border-radius: 50%;
     box-sizing: border-box;
 }
+.create-community-container{
+    border: solid 2px black;
+    padding-bottom: 50px;
+    margin-top: 20px;
+    box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+}
+.create-community-big-container{
+    padding: 0px 20% 0 20%;
+}
 .community-type-select-radio-button:hover{
     border: solid 3px #0079D3;
 
@@ -17,8 +26,8 @@
     display: block;
 }
 .create-community-form{
-    margin-left: 33%;
-    margin-right:33%;
+    margin-left: 20%;
+    margin-right:20%;
 }
 .create-community-title {
     display: block;
@@ -29,7 +38,7 @@
 }
 .create-community-subtitle {
     font-weight: bold;
-    font-size: 30px;
+    font-size: 25px;
     margin-top: 10px;
     margin-bottom: 15px;
 }
@@ -65,12 +74,12 @@
 
 }
 .community-is-nsfw-check:hover{
-    border: solid 3px #0079D3;
+    border: solid 4px #0079D3;
 
 }
 .community-is-nsfw-check:checked{
     background-color: #0079D3;
-    border: solid 3px #7c7c7c;
+    border: solid 4px #7c7c7c;
 }
 .community-is-nsfw-check-text {
     font-size: 22px;
@@ -87,7 +96,7 @@
     display: block;
     height: 30px;
     width: 50%;
-    padding-left: 17%;
+    padding-left: 17.2%;
     font-weight: bold;
     color: #0079D3;
 }
