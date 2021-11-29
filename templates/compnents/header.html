@@ -8,11 +8,11 @@
             </a>
         </div>
         <div class="header-search-area">
-            <form action="#" class="header-search-form" method="get">
+            <form action="{% url 'search:index' %}" class="header-search-form" method="get">
                 <label class="header-search-laber" for="header_search_bar">
                     <div><i class="fas fa-search" style="height: 20px; width: 20px; opacity: 0.3;"></i></div>
                 </label>
-                <input class="header-search-content" type="text" id="header_search_bar" placeholder="Search Reddit"/>
+                <input class="header-search-content" type="text" id="header_search_bar" name="q" placeholder="Search Reddit"/>
             </form>
         </div>
         {% if user.is_authenticated %}
