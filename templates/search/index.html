@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block main-content %}
+{% for news in object_list %}
+<li>{{ news }}</li>
+{% endfor %}
 {% if user.is_authenticated %}
 {% else %}
 {% endif %}
