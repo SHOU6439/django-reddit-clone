@@ -5,7 +5,9 @@ from communities.models import Communities
 class NewsPosts(models.Model):
     user = models.ForeignKey(
         User,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
     )
     title = models.CharField(max_length=64)
     content = models.TextField(max_length=512)
