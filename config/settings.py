@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig', # カスタムユーザー機能
     'news_posts.apps.NewsPostsConfig', # 投稿ポスト機能
     'communities.apps.CommunitiesConfig', # コミュニティ機能
-
+    'search.apps.SearchConfig',
 
 ]
 

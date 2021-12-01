@@ -1,3 +1,10 @@
+.create-post-title-container{
+    margin-top: 50px;
+    border-bottom: solid 3px #dae0e6;
+    padding-bottom: 20px;
+    width: 65%;
+}
+
 .post-title-input-textarea {
     border: solid 2px black;
     display: block;
@@ -9,12 +16,13 @@
 .create-post-container{
     border: solid 2px black;
     padding-bottom: 50px;
-    width: 50%;
+    width: 65%;
     margin-top: 50px;
     box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+    background-color: #ffffff;
 }
 .create-post-big-container{
-    padding: 0px 20% 0 20%;
+    padding: 0px 7% 0 7%;
 }
 .create-post-display-control-container {
     display: flex;

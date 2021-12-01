@@ -9,7 +9,7 @@ class NewsPosts(models.Model):
         null=True,
         blank=True
     )
-    title = models.CharField(max_length=64)
+    title = models.CharField(max_length=64, unique=False)
     content = models.TextField(max_length=512)
     vote = models.IntegerField(default=0)
     community = models.ForeignKey(Communities, on_delete=models.CASCADE, blank=True, null=True, related_name='community')

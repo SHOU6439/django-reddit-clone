@@ -1,6 +1,6 @@
 .community-type-select-radio-button {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border: solid 2px #7c7c7c;
     border-radius: 50%;
     box-sizing: border-box;
@@ -82,7 +82,7 @@
     border: solid 4px #7c7c7c;
 }
 .community-is-nsfw-check-text {
-    font-size: 22px;
+    font-size: 15px;
 }
 
 .create-community-display-control-container {
@@ -118,4 +118,13 @@
 
 .create-community-Decision-button:hover {
     opacity: 0.7;
+}
+.community-type-description {
+    margin-left: 5px;
+    color: #7c7c7c;
+    font-size: 10px;
+}
+.community-type-radio-item-name{
+    margin-left: 10px;
+    font-size: 15px;
 }

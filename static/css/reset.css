@@ -35,3 +35,8 @@ table {
 textarea {
     white-space: revert;
 }
+
+input[type=radio],
+input[type=checkbox] {
+    all: revert;
+}
