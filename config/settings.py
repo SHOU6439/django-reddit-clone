@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'imagekit',
     'users.apps.UsersConfig', # カスタムユーザー機能
     'news_posts.apps.NewsPostsConfig', # 投稿ポスト機能
     'communities.apps.CommunitiesConfig', # コミュニティ機能
@@ -132,6 +133,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 
 
 AUTH_USER_MODEL = 'users.user' # 追記

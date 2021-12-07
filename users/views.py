@@ -4,6 +4,7 @@ from django.http.response import HttpResponseRedirect
 from users.forms import LoginForm, UserForm
 from django.contrib.auth import views
 from django.contrib.auth import authenticate, login, get_user_model
+from django.views import generic
 # Create your views here.
 
 User = get_user_model()
@@ -32,6 +33,15 @@ class LoginView(views.LoginView):
     form_class = LoginForm
     template_name = 'users/login.html'
 
+
+class ProfileDetailView(generic.DetailView):
+    model = User
+    def get(self, request, *args, **kwargs):
+        user_data = User.objects.get(id=request.user.id)
+
+        return render(request, 'users/profile_detail.html', {
+            'user_data': user_data,
+        })
 
 
 

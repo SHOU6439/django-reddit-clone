@@ -5,21 +5,49 @@
     <div class="create-post-title-container">
         <h1 class="create-post-title">Create a post</h1>
     </div>
-    <div class="create-post-container">
-        <form class="create-post-form" method="POST">
-            {% csrf_token %}
-            {{ form.title }} <!-- class:post-title-input-textarea -->
-            <div class="add-meta-content">
-                <ul class="meta-info-list">
-                    <li class="meta-info-list-element"><i class="far fa-image" style="height:30px; width: 30px;"></i></li>
-                    <li class="meta-info-list-element"><i class="fab fa-youtube" style="height:30px; width: 30px;"></i></li>
-                </ul>
+    <div class="create-post-middle-container">
+        <div class="create-post-container">
+            <form class="create-post-form" action="{% url 'news_posts:create_post' %}" method="POST">
+                {% csrf_token %}
+                {{ form.title }} <!-- class:post-title-input-textarea -->
+                <div class="add-meta-content">
+                    <ul class="meta-info-list">
+                        <li class="meta-info-list-element">
+                            <label class="post-input-image-field-wrapper" for="post-input-image-field-id">
+                                <i class="fas fa-image" style="height:30px; width: 30px;"></i>
+                                <input type="file" class="post-input-image-field" name="photo" id="post-input-image-field-id" accept='image/*' onchange="previewImage(this);">
+                            </label>
+                        </li>
+                        <li class="meta-info-list-element"><i class="fab fa-youtube" style="height:30px; width: 30px;"></i></li>
+                    </ul>
+                </div>
+                <div class="form-content-box">
+                    {{ form.content }} <!-- post-content-input-textarea -->
+                    <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+                </div>
+                <div class="create-post-display-control-container">
+                    <button type="submit" class="create-post-submit-post-button">Post</button>
+                </div>
+            </form>
+        </div>
+        <div class="create-post-right-side-element-container">
+            <div class="profile-detail-container">
+                <div class="profile-all-image-container">
+                    <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
+                    <div class="profile-thumbnail-icon-wrapper">
+                        <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                    </div>
+                </div>
+                <div class="profile-username-and-config-button-container">
+                    <p class="profile-detail-user-name">{{ user.username }}</p>
+                    <i class="fas fa-cog" style="margin-top: 20px; margin-left: 200px;"></i>
+                </div>
+                <div class="profile-detail-user-about-container">
+                    <p class="profile-detail-user-about">{% if user.about %}{{ user.about }}{% else %}My name is {{ user.username }}{% endif %}</p>
+                </div>
+
             </div>
-            {{ form.content }} <!-- post-content-input-textarea -->
-            <div class="create-post-display-control-container">
-                <button type="submit" class="create-post-submit-post-button">Post</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 

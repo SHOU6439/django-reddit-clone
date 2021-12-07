@@ -145,7 +145,7 @@
 
 .user-menu-is-open{
     display: block;
-    position: fixed;
+    position: absolute;
     width: 200px;
     right: 100px;
     background-color: #FFFFFF;
@@ -155,4 +155,5 @@
     border-left: 1px solid #a9a9a9;
     border-bottom: 1px solid #a9a9a9;
     border-radius: 4px;
+    z-index: 20;
 }

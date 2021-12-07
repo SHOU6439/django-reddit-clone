@@ -52,8 +52,10 @@
 <div class="drop-down-menu-container" id="drop-down-id">
     <ul class="drop-down-menu-ul">
         <li class="drop-down-menu-li">
-            <i class="far fa-user-circle" style="height: 18px; margin-right:5px;"></i>
-            <p class="drop-down-menu-li-p">Profile</p>
+            <a class="user-menu-button" href="{% url 'users:detail' %}">
+                <i class="far fa-user-circle" style="height: 18px; margin-right:5px;"></i>
+                <p class="drop-down-menu-li-p">Profile</p>
+            </a>
         </li>
         <li class="drop-down-menu-li">
             <i class="fas fa-cog" style="height: 18px; margin-right:5px;"></i>

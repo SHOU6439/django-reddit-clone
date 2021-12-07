@@ -1,2 +1,4 @@
 mysqlclient==2.0.3
 django==3.2.8
+Pillow==8.1.0
+django-imagekit==4.0.2

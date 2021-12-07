@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="profile-detail-background-container">
+    <div class="profile-detail-container">
+        <div class="profile-all-image-container">
+            <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
+            <div class="profile-thumbnail-icon-wrapper">
+                <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+            </div>
+        </div>
+        <div class="profile-username-and-config-button-container">
+            <p class="profile-detail-user-name">{{ user.username }}</p>
+            <i class="fas fa-cog" style="margin-top: 20px; margin-left: 200px;"></i>
+        </div>
+        <div class="profile-detail-user-about-container">
+            <p class="profile-detail-user-about">{% if user.about %}{{ user.about }}{% else %}My name is {{ user.username }}{% endif %}</p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
