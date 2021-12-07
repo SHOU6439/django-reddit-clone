@@ -1,28 +1,45 @@
 .create-post-title-container{
-    margin-top: 50px;
-    border-bottom: solid 3px #dae0e6;
+    border-bottom: solid 3px #eceff1;
     padding-bottom: 20px;
     width: 65%;
 }
+.create-post-container {
+    border-radius: 4px;
+}
 
 .post-title-input-textarea {
-    border: solid 2px black;
+    border: solid 1px #dae0e6;
+    border-radius: 4px;
     display: block;
     margin-bottom: 10px;
+    width: 93%;
+    margin-left: 3.5%;
+    margin-right: 3.5%;
+    margin-top: 20px;
+    height: 40px;
+    padding-left: 5px;
 }
 .post-content-input-textarea {
-    border: solid 2px black;
+    border-bottom: solid 1px #dae0e6;
+    border-right: solid 1px #dae0e6;
+    border-left: solid 1px #dae0e6;
+    width: 93%;
+    margin-left: 3.5%;
+    margin-right: 3.5%;
+    border-radius: 0 0 4px 4px;
+    padding: 5px;
 }
 .create-post-container{
-    border: solid 2px black;
+    border: solid 2px #dae0e6;
     padding-bottom: 50px;
     width: 65%;
     margin-top: 50px;
-    box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
     background-color: #ffffff;
 }
 .create-post-big-container{
-    padding: 0px 7% 0 7%;
+    padding: 50px 10% 0 6%;
+    background-color: #dae0e6;
+    height: 720px;
 }
 .create-post-display-control-container {
     display: flex;
@@ -30,16 +47,38 @@
 }
 
 .create-post-submit-post-button {
-    margin-left: 300px;
+    margin-left: 86%;
     background-color: #0079D3;
     border-radius: 9999px;
     display: block;
     height: 30px;
-    width: 20%;
-    padding-left: 5%;
+    width: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
     font-weight: bold;
     color: #FFFFFF;
 }
 .create-post-submit-post-button:hover {
     opacity: 0.7;
+}
+
+.meta-info-list {
+    display: flex;
+    flex-wrap: center;
+    margin-left: 80%;
+
+}
+.add-meta-content {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    height: 60px;
+    background-color: #f6f7f8;
+    width: 93%;
+    margin-left: 3.5%;
+    margin-right: 3.5%;
+    margin-top: 20px;
+    border-radius: 4px 4px 0 0;
+}
+.meta-info-list-element{
+    margin-left: 20px;
 }

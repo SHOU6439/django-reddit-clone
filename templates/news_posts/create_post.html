@@ -8,8 +8,14 @@
     <div class="create-post-container">
         <form class="create-post-form" method="POST">
             {% csrf_token %}
-            {{ form.title }}
-            {{ form.content }}
+            {{ form.title }} <!-- class:post-title-input-textarea -->
+            <div class="add-meta-content">
+                <ul class="meta-info-list">
+                    <li class="meta-info-list-element"><i class="far fa-image" style="height:30px; width: 30px;"></i></li>
+                    <li class="meta-info-list-element"><i class="fab fa-youtube" style="height:30px; width: 30px;"></i></li>
+                </ul>
+            </div>
+            {{ form.content }} <!-- post-content-input-textarea -->
             <div class="create-post-display-control-container">
                 <button type="submit" class="create-post-submit-post-button">Post</button>
             </div>
