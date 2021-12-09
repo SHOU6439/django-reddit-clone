@@ -36,9 +36,16 @@
                     </li>
                 </ul>
             </div>
-
         </div>
         {% endfor %}
+    </div>
+    <div class="communities-detail-box">
+        <div class="communities-detail-box-row">
+            <img src="{% static 'img/communities-list-header.jpeg' %}" alt="">
+            {% for communities in communities_list %}
+                <li class="communities-detail-list">{{ communities }}</li>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
