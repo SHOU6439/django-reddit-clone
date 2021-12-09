@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http.response import HttpResponseRedirect
@@ -34,7 +35,7 @@ class LoginView(views.LoginView):
     template_name = 'users/login.html'
 
 
-class ProfileDetailView(generic.DetailView):
+class ProfileDetailView(generic.DetailView, LoginRequiredMixin):
     model = User
     def get(self, request, *args, **kwargs):
         user_data = User.objects.get(id=request.user.id)

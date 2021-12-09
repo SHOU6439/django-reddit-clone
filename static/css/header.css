@@ -157,3 +157,7 @@
     border-radius: 4px;
     z-index: 20;
 }
+.header-cover {
+    position: sticky;
+    top: 0;
+}

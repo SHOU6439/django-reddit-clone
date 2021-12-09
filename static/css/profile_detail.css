@@ -49,7 +49,7 @@
     margin-top: 5px;
     border-radius: 5px;
     padding: 4px;
-    word-break: normal;
+    word-break: break-all;
 }
 .profile-detail-user-about{
     font-size: 14px;

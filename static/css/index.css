@@ -24,3 +24,97 @@ input[type="sumbit"]:hover {
     margin: 0 auto;
     width: 70%;
 }
+
+.news-posts-news-detail-box {
+    border: solid #cccccc 2px;
+    margin-top: 20px;
+    min-height: 100px;
+    border-radius: 4px;
+    padding: 5px　5px 5px 0;
+    display: flex;
+    background-color: #fff;
+
+}
+
+.news-posts-all-list {
+    width: 60%;
+}
+.news-posts-home-index {
+    padding-left: 15%;
+    padding-right: 10%;
+}
+
+.posted-title-string-list {
+    list-style: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.posted-content-string-list {
+    list-style: none;
+    font-size: 14px;
+    word-break: break-all;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.posted-by-community-name-list {
+    list-style: none;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
+.posted-by-user-name-span {
+    font-size: 12px;
+    color:rgb(120, 124, 126);
+}
+
+.posted-by-user-of-info-container {
+    display: flex;
+    align-items: center;
+}
+.posted-of-user-thumbnail {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+
+.posted-post-control-button-list{
+    display: flex;
+
+
+}
+
+.posted-post-control-button {
+    display: flex;
+    align-items: center;
+}
+.posted-post-control-button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+.posted-post-control-button-label {
+    color: #878a8c;
+    font-size: 12px;
+    margin-left: 5px;
+    margin-right: 25px;
+}
+.news-posts-news-detail-box-left-menu {
+    width: 40px;
+    border-radius: 4px 0 0 4px;
+    background-color: #f8f9fa;
+    padding-right:10px;
+    padding-left: 10px;
+    padding-top: 10px;
+
+}
+.vote-count {
+    font-weight: bold;
+    text-align: center;
+    font-size: 10px;
+
+}
+.news-posts-news-detail-box-center-menu {
+    padding: 5px;
+}

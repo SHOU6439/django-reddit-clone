@@ -1,7 +1,46 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main-content %}
+<div class="news-posts-home-index">
+    <div class="news-posts-all-list">
+        {% for post in post_list %}
+        <div class="news-posts-news-detail-box">
+            <div class="news-posts-news-detail-box-left-menu">
+                <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+                <p class="vote-count">0</p>
+                <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+            </div>
+            <div class="news-posts-news-detail-box-center-menu">
+                <div class="posted-by-user-of-info-container">
+                    <img class="posted-of-user-thumbnail" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                    <li class="posted-by-community-name-list">{% if post.community is None %}{{ post.user }}{% else %}{{ post.community }} <span class="posted-by-user-name-span">Posted By {{ post.user }}</span> {% endif %}</li>
+                </div>
+                <li class="posted-title-string-list">{{ post.title }}</li>
+                <li class="posted-content-string-list">{{ post.content }}</li>
+                <ul class="posted-post-control-button-list">
+                    <li class="posted-post-control-button">
+                        <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Comments</label>
+                    </li>
+                    <li class="posted-post-control-button">
+                        <i class="fas fa-gift" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Award</label>
+                    </li>
+                    <li class="posted-post-control-button">
+                        <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Share</label>
+                    </li>
+                    <li class="posted-post-control-button">
+                        <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Save</label>
+                    </li>
+                </ul>
+            </div>
 
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
 {% block model %}
 {% endblock %}

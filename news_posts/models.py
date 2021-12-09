@@ -1,15 +1,13 @@
 from django.db import models
-from users.models import User
+from django.contrib.auth import get_user_model
 from communities.models import Communities
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
 
 class NewsPosts(models.Model):
     user = models.ForeignKey(
-        User,
+        get_user_model(),
         on_delete=models.CASCADE,
-        null=True,
-        blank=True
     )
     title = models.CharField(max_length=64, unique=False)
     content = models.TextField(max_length=512)

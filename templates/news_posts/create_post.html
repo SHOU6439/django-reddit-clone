@@ -9,6 +9,7 @@
         <div class="create-post-container">
             <form class="create-post-form" action="{% url 'news_posts:create_post' %}" method="POST">
                 {% csrf_token %}
+                {{ form.community }}
                 {{ form.title }} <!-- class:post-title-input-textarea -->
                 <div class="add-meta-content">
                     <ul class="meta-info-list">
