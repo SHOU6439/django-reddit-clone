@@ -10,7 +10,7 @@ class NewsPosts(models.Model):
         on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=64, unique=False)
-    content = models.TextField(max_length=512)
+    content = models.TextField(max_length=512, null=True, blank=True)
     photo = models.ImageField(verbose_name='写真', blank=True, null=True, upload_to='images/')
     post_photo = ImageSpecField(source='photo',processors=[ResizeToFill(1080,1080)],format='JPEG',options={'quality':60})
     vote = models.IntegerField(default=0)
