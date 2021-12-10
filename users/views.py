@@ -35,7 +35,7 @@ class LoginView(views.LoginView):
     template_name = 'users/login.html'
 
 
-class ProfileDetailView(generic.DetailView, LoginRequiredMixin):
+class ProfileDetailView(LoginRequiredMixin ,generic.DetailView):
     model = User
     def get(self, request, *args, **kwargs):
         user_data = User.objects.get(id=request.user.id)

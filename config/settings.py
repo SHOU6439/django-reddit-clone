@@ -142,6 +142,6 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.user' # 追記
 
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
 LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/'

@@ -6,7 +6,7 @@ from communities.forms import CommunityForm
 from .models import Communities
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
-class CreateCommunityView(generic.CreateView, LoginRequiredMixin):
+class CreateCommunityView(LoginRequiredMixin, generic.CreateView):
     template_name = 'communities/create_community.html'
     model = Communities
     form_class = CommunityForm

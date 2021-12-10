@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.urls.base import reverse_lazy
+from django.urls.base import reverse, reverse_lazy
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic.base import TemplateView
@@ -21,7 +21,7 @@ class IndexView(generic.ListView):
         context['communities_list'] = Communities.objects.order_by('-created_at')
         return context
 
-class CreatePostView(generic.CreateView, LoginRequiredMixin):
+class CreatePostView(LoginRequiredMixin, generic.CreateView):
     model = NewsPosts
     form_class = CreatePostForm
     template_name = 'news_posts/create_post.html'
@@ -36,6 +36,11 @@ class CreatePostView(generic.CreateView, LoginRequiredMixin):
 
     def get_queryset(self):
         return Communities.objects.all()
+
+
+class DeletePostView(LoginRequiredMixin, generic.DeleteView):
+    model = NewsPosts
+    success_url = reverse_lazy('news_posts:index')
 
 
 
