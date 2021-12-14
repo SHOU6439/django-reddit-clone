@@ -1,14 +1,24 @@
 .profile-detail-background-container {
     width: 100%;
+    padding-right: 40%;
+    padding-left: 15%;
 }
 
-.profile-detail-container {
+.profile-detail-container-for-create-post-html {
     height: 332px;
     width: 312px;
     background-color: #ffffff;
     border-radius: 5px;
 }
-
+.profile-detail-container-for-profile-detail-html {
+    height: 332px;
+    width: 312px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    position: absolute;
+    top: 66px;
+    right: 250px;
+}
 .profile-detail-user-name {
     font-size: 15px;
     font-weight: bold;
@@ -60,4 +70,8 @@
 }
 .post-input-image-field-wrapper{
     cursor: pointer;
+}
+
+.profile-detail-user-name-box {
+    width: 275px;
 }

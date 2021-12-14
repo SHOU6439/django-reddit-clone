@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import SuccessURLAllowedHostsMixin
 from django.shortcuts import render
 from django.urls.base import reverse, reverse_lazy
 from django.shortcuts import render, redirect
@@ -44,3 +45,6 @@ class DeletePostView(LoginRequiredMixin, generic.DeleteView):
 
 
 
+class DeleteLoginUserPostView(LoginRequiredMixin, generic.DeleteView):
+    model = NewsPosts
+    success_url = reverse_lazy('users:detail')

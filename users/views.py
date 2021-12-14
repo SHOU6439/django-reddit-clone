@@ -1,7 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import request
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http.response import HttpResponseRedirect
+from django.views.generic.base import TemplateView
+from news_posts.models import NewsPosts
 from users.forms import LoginForm, UserForm
 from django.contrib.auth import views
 from django.contrib.auth import authenticate, login, get_user_model
@@ -37,12 +40,16 @@ class LoginView(views.LoginView):
 
 class ProfileDetailView(LoginRequiredMixin ,generic.DetailView):
     model = User
-    def get(self, request, *args, **kwargs):
-        user_data = User.objects.get(id=request.user.id)
+    template_name = 'users/profile_detail.html'
+    # def get(self, request, *args, **kwargs):
+    #     user_data = User.objects.get(id=request.user.id)
 
-        return render(request, 'users/profile_detail.html', {
-            'user_data': user_data,
-        })
-
+    #     return render(request, 'users/profile_detail.html', {
+    #         'user_data': user_data,
+    #     })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['userpost_list'] = NewsPosts.objects.filter(user_id=self.request.user.id).order_by("-created_at")
+        return context
 
 

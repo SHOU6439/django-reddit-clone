@@ -32,7 +32,7 @@
             </form>
         </div>
         <div class="create-post-right-side-element-container">
-            <div class="profile-detail-container">
+            <div class="profile-detail-container-for-create-post-html">
                 <div class="profile-all-image-container">
                     <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
                     <div class="profile-thumbnail-icon-wrapper">
@@ -40,8 +40,8 @@
                     </div>
                 </div>
                 <div class="profile-username-and-config-button-container">
-                    <p class="profile-detail-user-name">{{ user.username }}</p>
-                    <i class="fas fa-cog" style="margin-top: 20px; margin-left: 200px;"></i>
+                    <div class="profile-detail-user-name-box"><p class="profile-detail-user-name">{{ user.username }}</p></div>
+                    <i class="fas fa-cog" style="margin-top: 10px;"></i>
                 </div>
                 <div class="profile-detail-user-about-container">
                     <p class="profile-detail-user-about">{% if user.about %}{{ user.about }}{% else %}My name is {{ user.username }}{% endif %}</p>
