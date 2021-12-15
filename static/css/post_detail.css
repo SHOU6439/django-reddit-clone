@@ -1,0 +1,21 @@
+.news-posts-news-detail-expansion-box{
+    border: solid #cccccc 2px;
+    margin-top: 20px;
+    min-height: 500px;
+    border-radius: 4px;
+    padding: 5px 5px 5px 0;
+    display: flex;
+    background-color: #fff;
+    width: 63%;
+}
+.user-select-post-detail-expansion {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.posted-title-string-list-expansion {
+    list-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

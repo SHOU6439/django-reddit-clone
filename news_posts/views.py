@@ -1,3 +1,4 @@
+from typing import ContextManager
 from urllib.parse import urlencode
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -44,9 +45,11 @@ class DeletePostView(LoginRequiredMixin, generic.DeleteView):
     model = NewsPosts
     success_url = reverse_lazy('news_posts:index')
 
-
-
 class DeleteLoginUserPostView(LoginRequiredMixin, generic.DeleteView):
     model = NewsPosts
     def get_success_url(self):
         return reverse('users:detail', kwargs={'pk': self.request.user.id})
+
+class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
+    model = NewsPosts
+    template_name = 'news_posts/post_detail.html'

@@ -5,5 +5,5 @@ from . import views
 
 app_name="communities"
 urlpatterns = [
-    path('create-community/', views.CreateCommunityView.as_view(), name='create_community'),
+    path('create/', views.CreateCommunityView.as_view(), name='create'),
 ]
