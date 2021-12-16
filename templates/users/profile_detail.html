@@ -4,7 +4,7 @@
 
 <div class="profile-detail-background-container">
     {% for userpost in userpost_list %}
-    <div class="news-posts-news-detail-box">
+    <a href="{% url 'news_posts:post_detail' userpost.id %}"><div class="news-posts-news-detail-box">
         <div class="news-posts-news-detail-box-left-menu">
             <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
             <p class="vote-count">0</p>
@@ -13,7 +13,7 @@
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">
                 <img class="posted-of-user-thumbnail" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
-                <li class="posted-by-community-name-list">{% if userpost.community is None %}{{ userpost.user }}{% else %}{{ userpost.community }} <span class="posted-by-user-name-span">Posted By {{ userpost.user }}</span> {% endif %}</li>
+                <li class="posted-by-community-name-list">{% if userpost.community is None %}{{ userpost.user }} <span class="posted-by-user-name-span">{{ userpost.created_at|date:'n/j H:i' }}</span>{% else %}{{ userpost.community }} <span class="posted-by-user-name-span">Posted By {{ userpost.user }} {{ userpost.created_at|date:'n/j H:i' }}</span> {% endif %}</li>
             </div>
             <li class="posted-title-string-list">{{ userpost.title }}</li>
             <li class="posted-content-string-list">{{ userpost.content }}</li>
@@ -41,7 +41,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div></a>
     {% endfor %}
     <div class="profile-detail-container-for-profile-detail-html">
         <div class="profile-all-image-container">
