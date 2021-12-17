@@ -58,8 +58,10 @@
             </a>
         </li>
         <li class="drop-down-menu-li">
-            <i class="fas fa-cog" style="height: 18px; margin-right:5px;"></i>
-            <p class="drop-down-menu-li-p">User Settings</p>
+            <a class="user-menu-button" href="{% url 'users:edit' %}">
+                <i class="fas fa-cog" style="height: 18px; margin-right:5px;"></i>
+                <p class="drop-down-menu-li-p">User Settings</p>
+            </a>
         </li>
         <li class="drop-down-menu-li">
             <a class="user-menu-button" href="{% url 'communities:create' %}">

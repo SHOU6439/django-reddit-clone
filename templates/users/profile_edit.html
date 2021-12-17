@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
+<div class="profile-edit-big-container">
+    <div class="profile-edit-container">
+        <h3 class="profile-edit-user-settings-heading">User settings</h3>
+        <h2 class="profile-edit-customize-profile-heading">Customize profile</h2>
+        <form class="profile-edit-customize-profile-form" method="POST" action="{% url 'users:edit' %}">
+            {% csrf_token %}
+            <h3 class="profile-edit-smallest-heading">PROFILE INFORMATION</h3>
+            <h3 class="profile-edit-option-title">Display name(optional)</h3>
+            <p class="profile-edit-help-text">Set a display name. This does not change your username.</p>
+            {{ form.username }} <!-- class="profile-edit-new-name-input-textarea" -->
+            <p class="profile-edit-help-text">20 Characters remaining</p>
+            <h3 class="profile-edit-option-title">About (optional)</h3>
+            <p class="profile-edit-help-text">A brief description of yourself shown on your profile.</p>
+            {{ form.about }} <!-- profile-edit-new-user-about-input-textarea -->
+            <p class="profile-edit-help-text">200 Characters remaining</p>
+            <button class="profile-edited-data-save-button" type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

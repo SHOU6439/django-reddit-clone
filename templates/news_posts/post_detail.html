@@ -58,7 +58,7 @@
         <div class="profile-username-and-config-button-container">
             <div class="profile-detail-user-name-box"><p class="profile-detail-user-name">{{ object.user }}</p></div>
             {% if object.user == request.user %}
-            <i class="fas fa-cog" style="margin-top: 10px;"></i>
+            <a href="{% url 'users:edit' %}"><i class="fas fa-cog" style="margin-top: 10px;"></i></a>
             {% endif %}
         </div>
         <div class="profile-detail-user-about-container">

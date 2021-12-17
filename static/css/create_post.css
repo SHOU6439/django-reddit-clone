@@ -63,9 +63,6 @@
     font-weight: bold;
     color: #FFFFFF;
 }
-.create-post-submit-post-button:hover {
-    opacity: 0.7;
-}
 
 .meta-info-list {
     display: flex;
@@ -114,8 +111,10 @@
 }
 #id_community {
     margin-left: 30px;
-    width: 150px;
+    width: 298px;
     margin-top: 10px;
+    height: 38px;
+    border: solid 1px #dae0e6;
+    border-radius: 4px;
 }
-
 

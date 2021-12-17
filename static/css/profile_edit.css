@@ -1,0 +1,72 @@
+.profile-edit-big-container{
+    background-color: #ffffff;
+    min-height: 725px;
+    padding-bottom: 30px;
+}
+.profile-edit-user-settings-heading{
+    font-weight: 500;
+    font-size: 18px;
+    padding: 20px 20px 20px 0;
+}
+.profile-edit-customize-profile-heading{
+    font-weight: 500;
+    font-size: 20px;
+    padding: 40px 0;
+}
+.profile-edit-smallest-heading {
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    border-bottom: #edeff1 1px solid;
+    color: #7c7c7c;
+}
+
+.profile-edit-container {
+    padding: 0 10%;
+
+}
+.profile-edit-new-name-input-textarea {
+    width: 600px;
+    border: 1px solid #edeff1;
+    height: 48px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 12px;
+}
+.profile-edit-option-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1c1c1c;
+    margin-bottom: 4px;
+    margin-top: 32px;
+}
+.profile-edit-help-text {
+    font-weight: 400;
+    color: #7c7c7c;
+    font-size: 12px;
+}
+.profile-edit-new-user-about-input-textarea {
+    background-color: #ffffff;
+    border: 1px solid #edeff1;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #1c1c1c;
+    display: block;
+    padding: 10px;
+    width: 600px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+.profile-edited-data-save-button{
+    background-color: #0079D3;
+    border-radius: 9999px;
+    display: block;
+    height: 30px;
+    width: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-top:30px;
+}

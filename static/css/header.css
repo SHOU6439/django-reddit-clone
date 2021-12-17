@@ -4,6 +4,7 @@
     display: flex;
     padding: 0px 20px;
     align-items: center;
+    border-bottom: 1px solid #edeff1;
 }
 .header-content .header-search-form {
     display: flex;
@@ -152,6 +153,7 @@
     padding-right: 5px;
     padding-left: 10px;
     border-right: 1px solid #a9a9a9;
+    border-top: 1px solid #a9a9a9;
     border-left: 1px solid #a9a9a9;
     border-bottom: 1px solid #a9a9a9;
     border-radius: 4px;

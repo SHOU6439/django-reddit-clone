@@ -3,9 +3,10 @@ from django.http import request
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http.response import HttpResponseRedirect
+from django.urls.base import reverse_lazy
 from django.views.generic.base import TemplateView
 from news_posts.models import NewsPosts
-from users.forms import LoginForm, UserForm
+from users.forms import LoginForm, ProfileEditForm, UserForm
 from django.contrib.auth import views
 from django.contrib.auth import authenticate, login, get_user_model
 from django.views import generic
@@ -52,4 +53,12 @@ class ProfileDetailView(LoginRequiredMixin ,generic.DetailView):
         context['userpost_list'] = NewsPosts.objects.filter(user_id=self.request.user.id).order_by("-created_at")
         return context
 
+class ProfileEditView(LoginRequiredMixin, generic.UpdateView):
+    model = User
+    form_class = ProfileEditForm
+    template_name = 'users/profile_edit.html'
+    def get_success_url(self):
+        return reverse('users:detail', kwargs={'pk': self.request.user.id})
 
+    def get_object(self):
+        return self.request.user
