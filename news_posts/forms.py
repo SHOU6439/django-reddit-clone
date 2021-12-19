@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import fields
-from .models import NewsPosts
+from .models import Comment, NewsPosts
 from communities.models import Communities
 
 
@@ -13,3 +13,10 @@ class CreatePostForm(forms.ModelForm):
     class Meta:
         model = NewsPosts
         fields = ('title', 'content' , 'photo', 'community')
+
+class CreateCommentForm(forms.ModelForm):
+    content = forms.CharField(max_length=512, widget=forms.widgets.Textarea(attrs={'class':"comment-content-input-textarea", 'placeholder': "What are your thoughts?"}))
+
+    class Meta:
+        model = Comment
+        fields = ('content',)

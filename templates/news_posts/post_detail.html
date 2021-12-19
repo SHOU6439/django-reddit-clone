@@ -16,10 +16,12 @@
             <li class="posted-title-string-list-expansion">{{ object.title }}</li>
             <li class="posted-content-string-list">{{ object.content }}</li>
             <ul class="posted-post-control-button-list">
-                <li class="posted-post-control-button">
-                    <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
-                    <lable class="posted-post-control-button-label">Comments</label>
-                </li>
+                <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' object.pk %}">
+                    <li class="posted-post-control-button">
+                        <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Comments</label>
+                    </li>
+                </a>
                 {% if object.user.id == user.id %}
                 <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_post' object.id %}">
                     {% csrf_token %}
@@ -45,6 +47,9 @@
                     <lable class="posted-post-control-button-label">Save</label>
                 </li>
             </ul>
+            {% for comment in comment_list %}
+            <li>{{ comment.content }}</li>
+            {% endfor %}
         </div>
     </div>
     {% if object.community is None %}

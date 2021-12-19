@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
+<form class="create-comment-form" method="POST" action="{% url 'news_posts:create_comment' target_post.id %}">
+    {% csrf_token %}
+    {{ form.content }} <!-- class:comment-content-input-textarea -->
+    <button class="comment-content-data-submit-button" type="submit">Comment</button>
+</form>
+
+{% endblock %}

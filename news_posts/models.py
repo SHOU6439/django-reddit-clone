@@ -20,3 +20,12 @@ class NewsPosts(models.Model):
 
     class Meta:
         db_table = 'news_posts'
+
+class Comment(models.Model):
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+    )
+    content = models.CharField(max_length=512, null=True, blank=True)
+    target = models. ForeignKey(NewsPosts, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
