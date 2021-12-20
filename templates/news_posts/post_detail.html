@@ -47,9 +47,51 @@
                     <lable class="posted-post-control-button-label">Save</label>
                 </li>
             </ul>
-            {% for comment in comment_list %}
-            <li>{{ comment.content }}</li>
-            {% endfor %}
+            <div class="comment-background-container">
+                {% for comment in comment_list %}
+                <div class="comment-detail-box">
+                    <div class="posted-by-user-of-info-container">
+                        <img class="posted-of-user-thumbnail" src="{% if comment.user.thumbnail %}{{ comment.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                        <li class="posted-by-community-name-list">{{ comment.user }} <span class="posted-by-user-name-span">{{ comment.created_at|date:'n/j H:i' }}</span></li>
+                    </div>
+                    <ul class="comment-list-parent">
+                        <li class="comment-list-child">{{ comment.content }}</li>
+                    </ul>
+                    <ul class="posted-post-control-button-list">
+                        <a class="posted-post-comment-button" href="{% comment %}{% url 'news_posts:create_comment' object.pk %}{% endcomment %}">
+                            <li class="posted-post-control-button">
+                                <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
+                                <lable class="posted-post-control-button-label">Replay</label>
+                            </li>
+                        </a>
+                        {% if comment.user.id == user.id %}
+                        <form class="posted-news-delete-form" method="POST" action="{% comment %}{% url 'news_posts:delete_post' object.id %}{% endcomment %}">
+                            {% csrf_token %}
+                            <button class="posted-news-delete-button" type="submit" onclick='return confirm("Are you sure you want to delete your post? You cant undo this.");'>
+                                <li class="posted-post-control-button">
+                                    <i class="far fa-trash-alt" style="height: 20px; width: 20px;"></i>
+                                    <lable class="posted-post-control-button-label">Delete</label>
+                                </li>
+                            </button>
+                        </form>
+                        {% else %}
+                        <li class="posted-post-control-button">
+                            <i class="fas fa-gift" style="height: 20px; width: 20px;"></i>
+                            <lable class="posted-post-control-button-label">Award</label>
+                        </li>
+                        {% endif %}
+                        <li class="posted-post-control-button">
+                            <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
+                            <lable class="posted-post-control-button-label">Share</label>
+                        </li>
+                        <li class="posted-post-control-button">
+                            <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
+                            <lable class="posted-post-control-button-label">Save</label>
+                        </li>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
     {% if object.community is None %}

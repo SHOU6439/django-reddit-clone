@@ -19,3 +19,16 @@
     margin-top: 5px;
     margin-bottom: 5px;
 }
+.comment-detail-box {
+    margin-left: 20px;
+    border-top: #d2d2d2 solid 1px;
+    border-bottom: #d2d2d2 solid 1px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.comment-list-parent {
+    margin-bottom: 10px;
+}
+.comment-background-container {
+    margin-top: 20px;
+}
