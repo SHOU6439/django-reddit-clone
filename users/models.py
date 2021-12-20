@@ -1,27 +1,9 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
-
-class UserManager(BaseUserManager):
-    def create_user(self, username, email, password=None):
-        if not username:
-            raise ValueError('Users must have a username')
-        elif not email:
-            raise ValueError('Users must have an email address')
-        elif not password:
-            raise not ValueError('Users must have a password')
-
-        user = self.model(
-            username = username,
-            email = self.normalize_email(email)
-        )
-        user.set_password(password)
-        user.save(using=self._db)
-
-        return user
 
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
@@ -52,6 +34,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    is_staff = models.BooleanField(
+        ('staff status'),
+        default=False,
+        help_text=('Designates whether the user can log into this admin site.'),
+    )
 
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
