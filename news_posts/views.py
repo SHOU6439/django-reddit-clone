@@ -4,6 +4,7 @@ from urllib.parse import urlencode
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import SuccessURLAllowedHostsMixin
+from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls.base import reverse, reverse_lazy
 from django.shortcuts import render, redirect
@@ -14,6 +15,7 @@ from communities.models import Communities
 from users.models import User
 from .models import NewsPosts, Comment
 from .forms import CreateCommentForm, CreatePostForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 class IndexView(generic.ListView):
@@ -25,6 +27,8 @@ class IndexView(generic.ListView):
         context['post_list'] = NewsPosts.objects.order_by('-created_at')
         context['communities_list'] = Communities.objects.order_by('-created_at')
         return context
+
+
 
 class CreatePostView(LoginRequiredMixin, generic.CreateView):
     model = NewsPosts
@@ -88,3 +92,17 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
         context = super().get_context_data(**kwargs)
         context['target_post'] = get_object_or_404(NewsPosts, pk=self.kwargs['pk'])
         return context
+
+@login_required
+def vote_up(request, pk):
+    post = NewsPosts.objects.get(pk=pk)
+    post.vote += 1
+    post.save()
+    return redirect('news_posts:index')
+
+@login_required
+def vote_down(request, pk):
+    post = NewsPosts.objects.get(pk=pk)
+    post.vote -= 1
+    post.save()
+    return redirect('news_posts:index')

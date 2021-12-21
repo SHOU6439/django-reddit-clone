@@ -17,6 +17,8 @@ class NewsPosts(models.Model):
     community = models.ForeignKey(Communities, on_delete=models.CASCADE, blank=True, null=True, related_name='community')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # def __init__(self):
+    #     return self.vote
 
     class Meta:
         db_table = 'news_posts'
