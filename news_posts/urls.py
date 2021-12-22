@@ -10,5 +10,7 @@ urlpatterns = [
     path('post-detail/<int:pk>/', views.NewsPostDetailView.as_view(), name="post_detail"),
     path('create-comment/<int:pk>', views.CreateCommentView.as_view(), name="create_comment"),
     path('vote_up/<int:pk>', views.vote_up, name="vote_up"),
-    path('vote_down/<int:pk>', views.vote_down, name="vote_down")
+    path('vote_down/<int:pk>', views.vote_down, name="vote_down"),
+    path('delete-comment/<int:pk>', views.DeleteCommentView.as_view(), name="delete_comment"),
+    path('edit/<int:pk>', views.NewsPostEditView.as_view(), name='edit')
 ]

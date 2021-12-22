@@ -4,18 +4,22 @@
 <div class="news-posts-home-index">
     <div class="news-posts-all-list">
         {% for post in post_list %}
-        <a href="{% url 'news_posts:post_detail' post.id %}"><div class="news-posts-news-detail-box">
+        <div class="news-posts-news-detail-box">
             <div class="news-posts-news-detail-box-left-menu">
-                <a href="{% url 'news_posts:vote_up' post.id %}"><i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i></a>
+                <a href="{% url 'news_posts:vote_up' post.id %}">
+                    <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+                </a>
                 <p class="vote-count">{{ post.vote }}</p>
-                <a href="{% url 'news_posts:vote_down' post.id %}"><i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i></a>
+                <a href="{% url 'news_posts:vote_down' post.id %}">
+                    <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+                </a>
             </div>
             <div class="news-posts-news-detail-box-center-menu">
                 <div class="posted-by-user-of-info-container">
                     <img class="posted-of-user-thumbnail" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
-                    <li class="posted-by-community-name-list">{% if post.community is None %}{{ post.user }} <span class="posted-by-user-name-span">{{ post.created_at|date:'n/j H:i' }}</span>{% else %}{{ post.community }} <span class="posted-by-user-name-span">Posted By {{ post.user }} {{ post.created_at|date:'n/j H:i' }}</span> {% endif %}</li>
+                    <li class="posted-by-community-name-list">{% if post.community is None %}{{ post.user }} <span class="posted-by-user-name-span">{{ post.created_at|timesince }}</span>{% else %}{{ post.community }} <span class="posted-by-user-name-span">Posted By {{ post.user }} {{ post.created_at|date:'n/j H:i' }}</span> {% endif %}</li>
                 </div>
-                <li class="posted-title-string-list">{{ post.title }}</li>
+                <a href="{% url 'news_posts:post_detail' post.id %}"><li class="posted-title-string-list">{{ post.title }}</li></a>
                 <li class="posted-content-string-list">{{ post.content }}</li>
                 <ul class="posted-post-control-button-list">
                     <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' post.pk %}">
@@ -48,9 +52,17 @@
                         <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Save</label>
                     </li>
+                    {% if post.user.id == user.id %}
+                    <li class="posted-post-control-button">
+                        <a class="posted-post-edit-button" href="{% url 'news_posts:edit' post.id %}">
+                            <i class="fas fa-pen" style="height: 20px; width: 20px;"></i>
+                            <lable class="posted-post-control-button-label">Edit Post</label>
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
-        </div></a>
+        </div>
         {% endfor %}
     </div>
     <div class="communities-detail-box">

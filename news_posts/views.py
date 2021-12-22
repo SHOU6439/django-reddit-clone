@@ -14,7 +14,7 @@ from django.views.generic.base import TemplateView
 from communities.models import Communities
 from users.models import User
 from .models import NewsPosts, Comment
-from .forms import CreateCommentForm, CreatePostForm
+from .forms import CreateCommentForm, CreatePostForm, NewsPostEditForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -56,6 +56,11 @@ class DeleteLoginUserPostView(LoginRequiredMixin, generic.DeleteView):
     def get_success_url(self):
         return reverse('users:detail', kwargs={'pk': self.request.user.id})
 
+class DeleteCommentView(LoginRequiredMixin, generic.DeleteView):
+    model = Comment
+    success_url = reverse_lazy('news_posts:index')
+
+
 class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
     model = NewsPosts
     template_name = 'news_posts/post_detail.html'
@@ -64,6 +69,12 @@ class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['comment_list'] = Comment.objects.filter(target=post_pk)
         return context
+class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
+    model = NewsPosts
+    form_class = NewsPostEditForm
+    template_name = 'news_posts/post_edit.html'
+    def get_success_url(self):
+        return reverse('users:detail', kwargs={'pk': self.request.user.id})
 
 
 class CreateCommentView(LoginRequiredMixin, generic.CreateView):

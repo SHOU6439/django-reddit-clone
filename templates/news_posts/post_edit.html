@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
+<form class="news-post-edit-form" method="POST" action="{% url 'news_posts:edit' object.id %}">
+    {% csrf_token %}
+    <div class="user-select-post-detail-expansion">
+        <div class="news-posts-news-detail-expansion-box">
+            <div class="news-posts-news-detail-box-left-menu">
+                <a href="{% url 'news_posts:vote_up' object.id %}">
+                    <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+                </a>
+                <p class="vote-count">{{ object.vote }}</p>
+                <a href="{% url 'news_posts:vote_down' object.id %}">
+                    <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+                </a>
+            </div>
+            <div class="news-posts-news-detail-box-center-menu">
+                <div class="posted-by-user-of-info-container">
+                    <img class="posted-of-user-thumbnail" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                    <li class="posted-by-community-name-list">{% if object.community is None %}{{ object.user }} <span class="posted-by-user-name-span">{{ object.created_at|timesince }}</span>{% else %}{{ object.community }} <span class="posted-by-user-name-span">Posted By {{ object.user }} {{ object.created_at|date:'n/j H:i' }}</span> {% endif %}</li>
+                </div>
+                <li class="posted-title-string-list-expansion">{{ object.title }}</li>
+                {{ form.content }} <!-- post-content-input-textarea-edit -->
+                <div class="for-news-posts-edited-data-save-button-container"><button class="news-posts-edited-data-save-button" type="submit">Save</button></div>
+                <ul class="posted-post-control-button-list">
+                    <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' object.pk %}">
+                        <li class="posted-post-control-button">
+                            <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
+                            <lable class="posted-post-control-button-label">Comments</label>
+                        </li>
+                    </a>
+                    {% if object.user.id == user.id %}
+                    <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_post' object.id %}">
+                        {% csrf_token %}
+                        <button class="posted-news-delete-button" type="submit" onclick='return confirm("Are you sure you want to delete your post? You cant undo this.");'>
+                            <li class="posted-post-control-button">
+                                <i class="far fa-trash-alt" style="height: 20px; width: 20px;"></i>
+                                <lable class="posted-post-control-button-label">Delete</label>
+                            </li>
+                        </button>
+                    </form>
+                    {% else %}
+                    <li class="posted-post-control-button">
+                        <i class="fas fa-gift" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Award</label>
+                    </li>
+                    {% endif %}
+                    <li class="posted-post-control-button">
+                        <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Share</label>
+                    </li>
+                    <li class="posted-post-control-button">
+                        <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Save</label>
+                    </li>
+                    {% if object.user.id == user.id %}
+                    <li class="posted-post-control-button">
+                        <a href="{% url 'news_posts:edit' object.id %}">
+                            <i class="fas fa-pen" style="height: 20px; width: 20px;"></i>
+                            <lable class="posted-post-control-button-label">Edit Post</label>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% if object.community is None %}
+        <div class="profile-detail-container-for-profile-detail-html">
+            <div class="profile-all-image-container">
+                <img class="profile-header-img" src="{% if object.user.header %}{{ object.user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
+                <div class="profile-thumbnail-icon-wrapper">
+                    <img class="profile-thumbnail-icon-img" src="{% if object.user.thumbnail %}{{ object.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                </div>
+            </div>
+            <div class="profile-username-and-config-button-container">
+                <div class="profile-detail-user-name-box"><p class="profile-detail-user-name">{{ object.user }}</p></div>
+                {% if object.user == request.user %}
+                <a href="{% url 'users:edit' %}"><i class="fas fa-cog" style="margin-top: 10px;"></i></a>
+                {% endif %}
+            </div>
+            <div class="profile-detail-user-about-container">
+                <p class="profile-detail-user-about">{% if object.user.about %}{{ object.user.about }}{% else %}My name is {{ object.user }}{% endif %}</p>
+            </div>
+        </div>
+        {% else %}
+        <div class="profile-detail-container-for-profile-detail-html">
+            <div class="profile-all-image-container">
+                <img class="profile-header-img" src="{% if object.community.header %}{{ object.community.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
+                <div class="profile-thumbnail-icon-wrapper">
+                    <img class="profile-thumbnail-icon-img" src="{% if object.community.thumbnail %}{{ object.community.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                </div>
+            </div>
+            <div class="profile-username-and-config-button-container">
+                <div class="profile-detail-user-name-box"><p class="profile-detail-user-name">{{ object.community }}</p></div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+
+</form>
+{% endblock %}

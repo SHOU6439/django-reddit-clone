@@ -1,0 +1,24 @@
+.news-posts-edited-data-save-button{
+    background-color: #0079D3;
+    border-radius: 9999px;
+    display: block;
+    height: 30px;
+    width: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.post-content-input-textarea-edit{
+    border: solid 1px #cccccc;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.for-news-posts-edited-data-save-button-container {
+    background-color: #f6f7f8;
+    width: 378px;
+    padding: 5px 0px 5px 0px;
+    margin-top: -5px;
+    border-radius: 0px 0px 4px 4px;
+    margin-bottom: 80px;
+}

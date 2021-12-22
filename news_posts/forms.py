@@ -20,3 +20,9 @@ class CreateCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('content',)
+
+class NewsPostEditForm(forms.ModelForm):
+    content = forms.CharField(max_length=512, widget=forms.widgets.Textarea(attrs={'class': "post-content-input-textarea-edit", 'placeholder': "Text(Optional)"}))
+    class Meta:
+        model = NewsPosts
+        fields = ('content',)

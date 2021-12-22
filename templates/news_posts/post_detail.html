@@ -4,14 +4,18 @@
 <div class="user-select-post-detail-expansion">
     <div class="news-posts-news-detail-expansion-box">
         <div class="news-posts-news-detail-box-left-menu">
-            <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
-            <p class="vote-count">0</p>
-            <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+            <a href="{% url 'news_posts:vote_up' object.id %}">
+                <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+            </a>
+            <p class="vote-count">{{ object.vote }}</p>
+            <a href="{% url 'news_posts:vote_down' object.id %}">
+                <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+            </a>
         </div>
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">
                 <img class="posted-of-user-thumbnail" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
-                <li class="posted-by-community-name-list">{% if object.community is None %}{{ object.user }} <span class="posted-by-user-name-span">{{ object.created_at|date:'n/j H:i' }}</span>{% else %}{{ object.community }} <span class="posted-by-user-name-span">Posted By {{ object.user }} {{ object.created_at|date:'n/j H:i' }}</span> {% endif %}</li>
+                <li class="posted-by-community-name-list">{% if object.community is None %}{{ object.user }} <span class="posted-by-user-name-span">{{ object.created_at|timesince }}</span>{% else %}{{ object.community }} <span class="posted-by-user-name-span">Posted By {{ object.user }} {{ object.created_at|date:'n/j H:i' }}</span> {% endif %}</li>
             </div>
             <li class="posted-title-string-list-expansion">{{ object.title }}</li>
             <li class="posted-content-string-list">{{ object.content }}</li>
@@ -46,6 +50,14 @@
                     <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
                     <lable class="posted-post-control-button-label">Save</label>
                 </li>
+                {% if object.user.id == user.id %}
+                <li class="posted-post-control-button">
+                    <a href="{% url 'news_posts:edit' object.id %}">
+                        <i class="fas fa-pen" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Edit Post</label>
+                    </a>
+                </li>
+                {% endif %}
             </ul>
             <div class="comment-background-container">
                 {% for comment in comment_list %}
@@ -65,7 +77,7 @@
                             </li>
                         </a>
                         {% if comment.user.id == user.id %}
-                        <form class="posted-news-delete-form" method="POST" action="{% comment %}{% url 'news_posts:delete_post' object.id %}{% endcomment %}">
+                        <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_comment' comment.id %}">
                             {% csrf_token %}
                             <button class="posted-news-delete-button" type="submit" onclick='return confirm("Are you sure you want to delete your post? You cant undo this.");'>
                                 <li class="posted-post-control-button">
