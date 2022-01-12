@@ -28,8 +28,6 @@ class IndexView(generic.ListView):
         context['communities_list'] = Communities.objects.order_by('-created_at')
         return context
 
-
-
 class CreatePostView(LoginRequiredMixin, generic.CreateView):
     model = NewsPosts
     form_class = CreatePostForm
@@ -60,7 +58,6 @@ class DeleteCommentView(LoginRequiredMixin, generic.DeleteView):
     model = Comment
     success_url = reverse_lazy('news_posts:index')
 
-
 class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
     model = NewsPosts
     template_name = 'news_posts/post_detail.html'
@@ -74,9 +71,8 @@ class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
     form_class = NewsPostEditForm
     template_name = 'news_posts/post_edit.html'
     def get_success_url(self):
-        return reverse('users:detail', kwargs={'pk': self.request.user.id})
-
-
+        post_pk = self.kwargs['pk']
+        return reverse('news_posts:post_detail', kwargs={'pk': post_pk})
 class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     template_name = 'news_posts/create_comment.html'
     form_class = CreateCommentForm
