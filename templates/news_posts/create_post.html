@@ -7,7 +7,7 @@
     </div>
     <div class="create-post-middle-container">
         <div class="create-post-container">
-            <form class="create-post-form" action="{% url 'news_posts:create_post' %}" method="POST">
+            <form class="create-post-form" action="{% url 'news_posts:create_post' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.community }}
                 {{ form.title }} <!-- class:post-title-input-textarea -->

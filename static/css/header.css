@@ -77,11 +77,14 @@
     height: 24px;
     width: 24px;
     object-fit: cover;
+    border-radius: 4px;
+
 }
 
 .user-info-container {
     display: flex;
     text-align: center;
+    margin-left: 5px;
 }
 .user-name-container {
     margin-right: 5px;

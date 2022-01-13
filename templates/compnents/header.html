@@ -24,7 +24,7 @@
             </ul>
             <div class="header-account-fix">
                 <button class="header-account-config-fix" type="button" id="account-drop-down-button">
-                    <img class="user-icon-img" src="{% static 'img/reddit_default_user_icon.png' %}" alt="icon">
+                    <img class="user-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon">
                     <div class="user-info-container">
                         <div class="user-name-container">{{ user.username }}</div>
                         <i class="fas fa-angle-down" style="margin-top: 5px;"></i>

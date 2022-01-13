@@ -16,11 +16,14 @@
         </div>
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">
-                <img class="posted-of-user-thumbnail" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                <img class="posted-of-user-thumbnail" src="{% if userpost.user.thumbnail %}{{ userpost.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
                 <li class="posted-by-community-name-list">{% if userpost.community is None %}{{ userpost.user }} <span class="posted-by-user-name-span">{{ userpost.created_at|date:'n/j H:i' }}</span>{% else %}{{ userpost.community }} <span class="posted-by-user-name-span">Posted By {{ userpost.user }} {{ userpost.created_at|timesince }}</span> {% endif %}</li>
             </div>
             <a href="{% url 'news_posts:post_detail' userpost.id %}"><li class="posted-title-string-list">{{ userpost.title }}</li></a>
             <li class="posted-content-string-list">{{ userpost.content }}</li>
+            {% if userpost.post_photo %}
+                <img class="posted-news-uploaded-photo" src="{{ userpost.post_photo.url }}" alt="photo">
+            {% endif %}
             <ul class="posted-post-control-button-list">
                 <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' userpost.pk %}">
                     <li class="posted-post-control-button">

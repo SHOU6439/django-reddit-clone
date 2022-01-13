@@ -11,7 +11,7 @@ class SearchView(generic.ListView):
         q = self.request.GET.get('q')
         object_list = NewsPosts.objects.filter(
             Q(title__icontains=q) | Q(content__icontains=q)
-        ).distinct
+        ).order_by('-created_at').distinct
         return object_list
 
     def get_context_data(self, **kwargs):

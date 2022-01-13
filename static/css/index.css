@@ -149,3 +149,6 @@ input[type="sumbit"]:hover {
     border-top: #eceff1 solid 2px;
     padding-top: 10px;
 }
+.posted-news-uploaded-photo{
+    margin-bottom: 5px;
+}

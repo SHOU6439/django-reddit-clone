@@ -36,9 +36,10 @@ class CreatePostView(LoginRequiredMixin, generic.CreateView):
     def post(self, request):
         form = CreatePostForm(request.POST)
 
-        get_user_id = form.save(commit=False)
-        get_user_id.user = get_user_model().objects.get(id=request.user.id)
-        get_user_id.save()
+        post_data = form.save(commit=False)
+        post_data.user = get_user_model().objects.get(id=request.user.id)
+        post_data.photo = request.FILES.get('photo')
+        post_data.save()
         return redirect('news_posts:index')
 
     def get_queryset(self):
