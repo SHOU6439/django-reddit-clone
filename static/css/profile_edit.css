@@ -11,7 +11,6 @@
 .profile-edit-customize-profile-heading{
     font-weight: 500;
     font-size: 20px;
-    padding: 40px 0;
 }
 .profile-edit-smallest-heading {
     font-size: 10px;
@@ -19,6 +18,7 @@
     margin-bottom: 32px;
     border-bottom: #edeff1 1px solid;
     color: #7c7c7c;
+    margin-top: 32px;
 }
 
 .profile-edit-container {
@@ -69,4 +69,37 @@
     font-weight: bold;
     color: #FFFFFF;
     margin-top:30px;
+}
+
+.profile-edit-input-new-image {
+    display: none;
+}
+.profile-edit-profile-image-upload-field {
+    cursor: pointer;
+}
+.profile-edit-profile-before-image {
+    border-radius: 4px;
+    margin-top: 20px;
+}
+.profile-edit-profile-image-upload-container {
+    display: flex;
+}
+
+#before_header_id {
+    margin-left: 20px;
+}
+
+#preview_new_thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+#preview_new_header {
+    width: 312px;
+    height: 94px;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-left: 20px;
 }
