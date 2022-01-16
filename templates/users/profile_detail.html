@@ -20,7 +20,7 @@
                 <li class="posted-by-community-name-list">{% if userpost.community is None %}{{ userpost.user }} <span class="posted-by-user-name-span">{{ userpost.created_at|date:'n/j H:i' }}</span>{% else %}{{ userpost.community }} <span class="posted-by-user-name-span">Posted By {{ userpost.user }} {{ userpost.created_at|timesince }}</span> {% endif %}</li>
             </div>
             <a href="{% url 'news_posts:post_detail' userpost.id %}"><li class="posted-title-string-list">{{ userpost.title }}</li></a>
-            <li class="posted-content-string-list">{{ userpost.content }}</li>
+            <li class="posted-content-string-list">{{ userpost.content|linebreaksbr|urlize }}</li>
             {% if userpost.post_photo %}
                 <img class="posted-news-uploaded-photo" src="{{ userpost.post_photo.url }}" alt="photo">
             {% endif %}

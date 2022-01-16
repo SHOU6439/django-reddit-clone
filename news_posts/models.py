@@ -31,3 +31,12 @@ class Comment(models.Model):
     content = models.CharField(max_length=512, null=True, blank=True)
     target = models. ForeignKey(NewsPosts, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+# class Replay(models.Model):
+#     user = models.ForeignKey(
+#         get_user_model(),
+#         on_delete=models.CASCADE
+#     )
+#     content = models.CharField(max_length=512, null=True, blank=True)
+#     target = models. ForeignKey(Comment, on_delete=models.CASCADE)
+#     created_at = models.DateTimeField(auto_now_add=True)
