@@ -73,7 +73,7 @@
                         <li class="comment-list-child">{{ comment.content|linebreaksbr|urlize }}</li>
                     </ul>
                     <ul class="posted-post-control-button-list">
-                        <a class="posted-post-comment-button" href="{% comment %}{% url 'news_posts:create_comment' object.pk %}{% endcomment %}">
+                        <a class="posted-post-comment-button" href="{% comment %}{% url 'news_posts:create_replay' comment.pk %}{% endcomment %}">
                             <li class="posted-post-control-button">
                                 <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
                                 <lable class="posted-post-control-button-label">Replay</label>

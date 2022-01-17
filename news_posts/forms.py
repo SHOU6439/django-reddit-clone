@@ -1,5 +1,4 @@
 from django import forms
-from django.db.models import fields
 from .models import Comment, NewsPosts
 from communities.models import Communities
 
@@ -20,6 +19,14 @@ class CreateCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('content',)
+
+# class CreateReplayForm(forms.ModelForm):
+#     mension = forms.CharField(max_length=20, widget=forms.widgets.TextInput(attrs={'class':"replay-mension-input-textarea", 'placeholder': "Who do you want to reply to?"}))
+#     content = forms.CharField(max_length=512, widget=forms.widgets.Textarea(attrs={'class':"replay-content-input-textarea", 'placeholder': "What are your thoughts?"}))
+
+#     class Meta:
+#         model = Replay
+#         fields = ('mension', 'content')
 
 class NewsPostEditForm(forms.ModelForm):
     content = forms.CharField(max_length=512, widget=forms.widgets.Textarea(attrs={'class': "post-content-input-textarea-edit", 'placeholder': "Text(Optional)"}))

@@ -12,5 +12,6 @@ urlpatterns = [
     path('vote_up/<int:pk>', views.vote_up, name="vote_up"),
     path('vote_down/<int:pk>', views.vote_down, name="vote_down"),
     path('delete-comment/<int:pk>', views.DeleteCommentView.as_view(), name="delete_comment"),
-    path('edit/<int:pk>', views.NewsPostEditView.as_view(), name='edit')
+    path('edit/<int:pk>', views.NewsPostEditView.as_view(), name='edit'),
+    # path('create-replay/<int:pk>', views.CreateReplayView.as_view(), name="create_replay")
 ]

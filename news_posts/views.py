@@ -114,3 +114,22 @@ def vote_down(request, pk):
     post.vote -= 1
     post.save()
     return redirect('news_posts:index')
+
+# class CreateReplayView(LoginRequiredMixin, generic.CreateView):
+#     model = Replay
+#     form_class = CreateReplayForm
+#     template_name = "news_posts/create_replay.html"
+
+#     def form_valid(self, form):
+#         comment_pk = self.kwargs['pk']
+#         comment = get_object_or_404(Comment, pk=comment_pk)
+#         replay = form.save(commit=False)
+#         replay.target = comment
+#         replay.user = get_user_model().objects.get(id=self.request.user.id)
+#         replay.save()
+#         return redirect('news_posts:post_detail', pk=comment_pk)
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['target_comment'] = get_object_or_404(Comment, pk=self.kwargs['pk'])
+#         return context
