@@ -1,19 +1,12 @@
-import contextlib
-from typing import ContextManager
-from urllib.parse import urlencode
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import SuccessURLAllowedHostsMixin
-from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls.base import reverse, reverse_lazy
 from django.shortcuts import render, redirect
 from django.views import generic
-from django.views.generic import detail
-from django.views.generic.base import TemplateView
 from communities.models import Communities
 from users.models import User
-from .models import NewsPosts, Comment
+from .models import NewsPosts, Comment, Vote
 from .forms import CreateCommentForm, CreatePostForm, NewsPostEditForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -103,16 +96,30 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
 
 @login_required
 def vote_up(request, pk):
+    vote = Vote()
     post = NewsPosts.objects.get(pk=pk)
+    is_vote = Vote.objects.filter(voted_user=request.user, voted_post=post).count()
+    if is_vote > 0:
+        return redirect('news_posts:index')
     post.vote += 1
     post.save()
+    vote.voted_user = request.user
+    vote.voted_post = post
+    vote.save()
     return redirect('news_posts:index')
 
 @login_required
 def vote_down(request, pk):
+    vote = Vote()
     post = NewsPosts.objects.get(pk=pk)
+    is_vote = Vote.objects.filter(voted_user=request.user, voted_post=post).count()
+    if is_vote > 0:
+        return redirect('news_posts:index')
     post.vote -= 1
     post.save()
+    vote.voted_user = request.user
+    vote.voted_post = post
+    vote.save()
     return redirect('news_posts:index')
 
 # class CreateReplayView(LoginRequiredMixin, generic.CreateView):

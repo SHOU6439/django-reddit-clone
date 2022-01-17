@@ -41,3 +41,12 @@ class Comment(models.Model):
 #     target = models. ForeignKey(Comment, on_delete=models.CASCADE)
 #     mension = models.CharField(max_length=20, null=True, blank=True)
 #     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Vote(models.Model):
+    voted_user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    voted_post = models.ForeignKey(NewsPosts, on_delete=models.CASCADE, related_name="voted_post")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.voted_user) + "が" + str(self.voted_post) + "を投票した"
