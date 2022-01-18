@@ -1,0 +1,57 @@
+.community-detail-header {
+    width: 100%;
+    background-color: #FFF;
+    min-height: 125px;
+    padding: 35px 200px 35px 200px;
+}
+.community-detail-community-name {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.community-detail-header-main-components {
+    display: flex;
+}
+
+.community-detail-main-content {
+    display: flex;
+    padding-left:15%;
+    padding-right: 10%;
+}
+
+.community-detail-community-name-heading-2 {
+    color: #7c7c7c;
+    font-size: 14px;
+}
+
+.community-detail-right-menu {
+    margin-left: 5%;
+    margin-top: 20px;
+}
+
+.community-detail-community-about-header {
+    height: 50px;
+    width: 310px;
+    padding-top: 15px;
+    background-color: #0079d3;
+    border-radius: 4px 4px 0 0;
+}
+
+.community-detail-community-about-title{
+    font-weight: bold;
+    font-size: 14px;
+    color: #FFF;
+    margin-left: 10px;
+}
+
+.community-detail-community-about-main-content-created{
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.community-detail-community-about-main-conntent{
+    background-color: #FFF;
+    height: 50px;
+    border-radius: 0 0 4px 4px;
+}

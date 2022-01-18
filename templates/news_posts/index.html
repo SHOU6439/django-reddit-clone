@@ -72,7 +72,7 @@
         <div class="communities-detail-box-row">
             <img src="{% static 'img/communities-list-header.jpeg' %}" alt="">
             {% for communities in communities_list %}
-                <li class="communities-detail-list">r/{{ communities }}</li>
+                <a href="{% url 'communities:detail' communities.pk %}"><li class="communities-detail-list">r/{{ communities.name }}</li></a>
             {% endfor %}
         </div>
     </div>

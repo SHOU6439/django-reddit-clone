@@ -36,5 +36,3 @@ class Communities(models.Model):
     class Meta:
         db_table = 'communities'
 
-
-
