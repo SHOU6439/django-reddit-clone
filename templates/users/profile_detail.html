@@ -6,11 +6,11 @@
     {% for userpost in userpost_list %}
     <div class="news-posts-news-detail-box">
         <div class="news-posts-news-detail-box-left-menu">
-            <a href="{% url 'news_posts:vote_up' userpost.id %}">
+            <a href="{% url 'news_posts:vote_up' userpost.id %}" onclick='return confirm("You can only vote once");'>
                 <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
             </a>
             <p class="vote-count">{{ userpost.vote }}</p>
-            <a href="{% url 'news_posts:vote_down' userpost.id %}">
+            <a href="{% url 'news_posts:vote_down' userpost.id %}" onclick='return confirm("You can only vote once");'>
                 <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
             </a>
         </div>
