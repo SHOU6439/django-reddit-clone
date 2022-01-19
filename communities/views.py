@@ -2,6 +2,7 @@ from django.shortcuts import redirect
 from django.urls.base import reverse_lazy
 from django.views import generic
 from django.views.generic.base import TemplateView
+import communities
 from communities.forms import CommunityForm
 from news_posts.models import NewsPosts
 from .models import Communities
@@ -25,8 +26,16 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
     model = Communities
     template_name = 'communities/community_detail.html'
 
-    def get_context_data(self, **kwargs,):
+    def get_context_data(self, **kwargs):
         pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
         context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-created_at")
         return context
+
+class JoinCommunityView(LoginRequiredMixin, generic.View):
+    def join(self, request):
+        pk = self.kwargs.get('pk')
+        communities = Communities.objects.get(pk=pk)
+        communities.member = request.user
+        communities.save()
+        return redirect('communities/community_detail.html')

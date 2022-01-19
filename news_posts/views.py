@@ -1,3 +1,4 @@
+from sys import flags
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
@@ -9,6 +10,7 @@ from users.models import User
 from .models import NewsPosts, Comment, Vote
 from .forms import CreateCommentForm, CreatePostForm, NewsPostEditForm
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 # Create your views here.
 
 class IndexView(generic.ListView):
@@ -16,8 +18,11 @@ class IndexView(generic.ListView):
     template_name = 'news_posts/index.html'
 
     def get_context_data(self, **kwargs):
+        # post = NewsPosts.objects.get(pk=self.kwargs.pk)
+        print(self.kwargs)
         context = super().get_context_data(**kwargs)
         context['post_list'] = NewsPosts.objects.order_by('-created_at')
+        context['vote_list'] = Vote.objects.filter(voted_user_id=self.request.user.id)
         context['communities_list'] = Communities.objects.order_by('-created_at')
         return context
 
@@ -95,31 +100,51 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
         return context
 
 @login_required
+@transaction.atomic
 def vote_up(request, pk):
-    vote = Vote()
+    # print('up')
     post = NewsPosts.objects.get(pk=pk)
-    is_vote = Vote.objects.filter(voted_user=request.user, voted_post=post).count()
-    if is_vote > 0:
-        return redirect('news_posts:index')
-    post.vote += 1
-    post.save()
-    vote.voted_user = request.user
-    vote.voted_post = post
+    vote = Vote.objects.filter(voted_user=request.user, voted_post=post).first()
+    if not vote:
+        vote = Vote()
+        # print('up, none')
+        vote.voted_user = request.user
+        vote.voted_post = post
+        vote.flag = 0
+    if vote.flag <= 0:
+        # print('up, -1 or 0')
+        vote.flag += 1
+        post.vote += 1
+    else:
+        # print('up, 1')
+        vote.flag -= 1
+        post.vote -= 1
     vote.save()
+    post.save()
     return redirect('news_posts:index')
 
 @login_required
+@transaction.atomic
 def vote_down(request, pk):
-    vote = Vote()
+    # print('down')
     post = NewsPosts.objects.get(pk=pk)
-    is_vote = Vote.objects.filter(voted_user=request.user, voted_post=post).count()
-    if is_vote > 0:
-        return redirect('news_posts:index')
-    post.vote -= 1
-    post.save()
-    vote.voted_user = request.user
-    vote.voted_post = post
+    vote = Vote.objects.filter(voted_user=request.user, voted_post=post).first()
+    if not vote:
+        # print('down, none')
+        vote = Vote()
+        vote.voted_user = request.user
+        vote.voted_post = post
+        vote.flag = 0
+    if vote.flag >= 0:
+        # print('down, 0 or 1')
+        vote.flag -= 1
+        post.vote -= 1
+    else:
+        # print('down, -1')
+        vote.flag += 1
+        post.vote += 1
     vote.save()
+    post.save()
     return redirect('news_posts:index')
 
 # class CreateReplayView(LoginRequiredMixin, generic.CreateView):
