@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from django.urls.base import reverse, reverse_lazy
 from django.shortcuts import render, redirect
+from django.db.models import Sum, Count,Prefetch
 from django.views import generic
 from communities.models import Communities
 from users.models import User
@@ -18,9 +19,8 @@ class IndexView(generic.ListView):
     template_name = 'news_posts/index.html'
 
     def get_context_data(self, **kwargs):
-        # post = NewsPosts.objects.get(pk=self.kwargs.pk)
-        print(self.kwargs)
         context = super().get_context_data(**kwargs)
+        # context['post_list'] = NewsPosts.objects.order_by('-created_at').prefetch_related(Prefetch('voted_post', queryset=Vote.objects.all().annotate(c=Sum('flag'))))
         context['post_list'] = NewsPosts.objects.order_by('-created_at')
         context['vote_list'] = Vote.objects.filter(voted_user_id=self.request.user.id)
         context['communities_list'] = Communities.objects.order_by('-created_at')
