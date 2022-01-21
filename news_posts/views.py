@@ -31,6 +31,11 @@ class CreatePostView(LoginRequiredMixin, generic.CreateView):
     form_class = CreatePostForm
     template_name = 'news_posts/create_post.html'
     success_url = reverse_lazy('news_posts:index')
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(user=request.user)
+        return render(request, self.template_name, {'form': form})
+
     def post(self, request):
         form = CreatePostForm(user=request.user, data=request.POST)
 
