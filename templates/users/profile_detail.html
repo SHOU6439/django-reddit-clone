@@ -58,19 +58,29 @@
         </div>
     </div>
     {% endfor %}
-    <div class="profile-detail-container-for-profile-detail-html">
-        <div class="profile-all-image-container">
-            <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
-            <div class="profile-thumbnail-icon-wrapper">
-                <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+    <div class="profile-detail-right-background-container">
+        <div class="profile-detail-container-for-profile-detail-html">
+            <div class="profile-all-image-container">
+                <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
+                <div class="profile-thumbnail-icon-wrapper">
+                    <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                </div>
+            </div>
+            <div class="profile-username-and-config-button-container">
+                <div class="profile-detail-user-name-box"><p class="profile-detail-user-name">{{ user.username }}</p></div>
+                <a href="{% url 'users:edit' %}"><i class="fas fa-cog" style="margin-top: 10px;"></i></a>
+            </div>
+            <div class="profile-detail-user-about-container">
+                <p class="profile-detail-user-about">{% if user.about %}{{ user.about }}{% else %}My name is {{ user.username }}{% endif %}</p>
             </div>
         </div>
-        <div class="profile-username-and-config-button-container">
-            <div class="profile-detail-user-name-box"><p class="profile-detail-user-name">{{ user.username }}</p></div>
-            <a href="{% url 'users:edit' %}"><i class="fas fa-cog" style="margin-top: 10px;"></i></a>
-        </div>
-        <div class="profile-detail-user-about-container">
-            <p class="profile-detail-user-about">{% if user.about %}{{ user.about }}{% else %}My name is {{ user.username }}{% endif %}</p>
+        <div class="communities-detail-box-for-profile-detail-html">
+            <div class="communities-detail-box-row-for-profile-detail-html">
+                <p class="communities-detail-box-joined-communities-heading">joined communities</p>
+                {% for communities in communities_list %}
+                    <li class="communities-detail-list-for-profile-detail-html">r/{{ communities }}</li>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

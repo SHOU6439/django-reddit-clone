@@ -10,6 +10,7 @@ from users.forms import LoginForm, ProfileEditForm, UserForm
 from django.contrib.auth import views
 from django.contrib.auth import authenticate, login, get_user_model
 from django.views import generic
+from communities.views import Communities
 # Create your views here.
 
 User = get_user_model()
@@ -51,6 +52,7 @@ class ProfileDetailView(LoginRequiredMixin ,generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['userpost_list'] = NewsPosts.objects.filter(user_id=self.request.user.id).order_by("-created_at")
+        context['communities_list'] = Communities.objects.filter(member=self.request.user)
         return context
 
 class ProfileEditView(LoginRequiredMixin, generic.UpdateView):

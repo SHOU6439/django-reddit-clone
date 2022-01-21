@@ -152,3 +152,31 @@ input[type="sumbit"]:hover {
 .posted-news-uploaded-photo{
     margin-bottom: 5px;
 }
+
+.communities-detail-box-for-profile-detail-html {
+    position: absolute;
+    top: 450px;
+    right: 250px;
+    border: #cccccc solid 2px;
+    border-radius: 4px;
+    width: 21.5%;
+    min-height:500px;
+    background-color: #fff;
+    z-index: 10;
+}
+.communities-detail-list-for-profile-detail-html {
+    list-style: none;
+    height: 48px;
+    text-align: center;
+    font-size: 14px;
+    border-top: #eceff1 solid 2px;
+    padding-top: 10px;
+}
+.communities-detail-box-joined-communities-heading {
+    height: 130px;
+    text-align: center;
+    font-size: 24px;
+    padding-top: 50px;
+    font-weight: bold;
+    background-color: #ff4600;
+}
