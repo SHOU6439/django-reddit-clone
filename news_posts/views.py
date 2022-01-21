@@ -32,7 +32,7 @@ class CreatePostView(LoginRequiredMixin, generic.CreateView):
     template_name = 'news_posts/create_post.html'
     success_url = reverse_lazy('news_posts:index')
     def post(self, request):
-        form = CreatePostForm(request.POST)
+        form = CreatePostForm(user=request.user, data=request.POST)
 
         post_data = form.save(commit=False)
         post_data.user = get_user_model().objects.get(id=request.user.id)

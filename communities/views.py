@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.urls.base import reverse_lazy
 from django.views import generic
 from django.views.generic.base import TemplateView
@@ -8,6 +8,7 @@ from news_posts.models import NewsPosts
 from .models import Communities
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 class CreateCommunityView(LoginRequiredMixin, generic.CreateView):
     template_name = 'communities/create_community.html'
@@ -32,10 +33,9 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
         context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-created_at")
         return context
 
-class JoinCommunityView(LoginRequiredMixin, generic.View):
-    def join(self, request):
-        pk = self.kwargs.get('pk')
-        communities = Communities.objects.get(pk=pk)
-        communities.member = request.user
-        communities.save()
-        return redirect('communities/community_detail.html')
+@login_required
+def join(request, pk):
+    community = Communities.objects.get(pk=pk)
+    community.member.add(request.user.id)
+    community.save()
+    return redirect('communities:detail', pk=pk)
