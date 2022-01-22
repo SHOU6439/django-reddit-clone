@@ -175,8 +175,9 @@ input[type="sumbit"]:hover {
 .communities-detail-box-joined-communities-heading {
     height: 130px;
     text-align: center;
-    font-size: 24px;
-    padding-top: 50px;
+    font-size: 35px;
+    padding-top: 37.5px;
     font-weight: bold;
     background-color: #ff4600;
+    font-family: cursive;
 }
