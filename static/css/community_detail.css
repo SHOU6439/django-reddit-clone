@@ -51,13 +51,14 @@
 
 .community-detail-community-about-main-content-created{
     font-size: 20px;
-    text-align: center;
     padding-top: 10px;
+    margin-left: 20px;
+    font-family: serif;
 }
 
 .community-detail-community-about-main-conntent{
     background-color: #FFF;
-    height: 50px;
+    height: 130px;
     border-radius: 0 0 4px 4px;
 }
 
@@ -91,4 +92,31 @@
     right: 32.5%;
     margin-top: 13px;
     border: #0079D3 solid 2px;
+}
+
+.community-detail-community-about-main-content-community-active-info{
+    padding-top: 20px;
+    display: flex;
+}
+
+.community-detail-community-about-main-content-community-member-info-box {
+    height: 50px;
+    width: 40%;
+    margin-left: 20px;
+}
+.community-detail-community-about-main-content-community-post-info-box {
+    height: 50px;
+    width: 40%;
+    margin-left: 20px;
+}
+
+.community-detail-community-about-main-content-community-info-count {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: serif;
+}
+.community-detail-community-about-main-content-community-name-of-info {
+    font-size: 12px;
+    font-family: serif;
+    font-weight: 500;
 }

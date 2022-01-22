@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.urls.base import reverse_lazy
 from django.views import generic
-from django.views.generic.base import TemplateView
-import communities
 from communities.forms import CommunityForm
 from news_posts.models import NewsPosts
+from users.models import User
 from .models import Communities
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
@@ -31,6 +30,8 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
         pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
         context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-created_at")
+        context['member_count'] = User.objects.filter(member=pk).count()
+        print(Communities.objects.filter(id=pk))
         return context
 
 @login_required
