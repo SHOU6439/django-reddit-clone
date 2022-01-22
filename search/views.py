@@ -16,5 +16,6 @@ class SearchView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['communities_list'] = Communities.objects.order_by('-created_at')
+        q = self.request.GET.get('q')
+        context['communities_list'] = Communities.objects.filter(name__icontains=q).order_by('-created_at')
         return context

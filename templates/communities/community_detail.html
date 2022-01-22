@@ -5,7 +5,11 @@
     <div class="community-detail-header">
         <div class="community-detail-header-main-components">
             <h1 class="community-detail-community-name">{{ object.name }}</h1>
+            {% if current_community in is_joined %}
+            <a class="community-detail-leave-community-button" href="{% url 'communities:leave' object.pk %}">Leave</a>
+            {% else %}
             <a class="community-detail-join-community-button" href="{% url 'communities:join' object.pk %}">Join</a>
+            {% endif %}
         </div>
         <h2 class="community-detail-community-name-heading-2">r/{{ object.name }}</h2>
     </div>

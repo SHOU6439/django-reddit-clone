@@ -94,6 +94,37 @@
     border: #0079D3 solid 2px;
 }
 
+.community-detail-leave-community-button {
+    background-color: #0079D3;
+    border-radius: 9999px;
+    display: block;
+    height: 30px;
+    width: 100px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-weight: bold;
+    color: #FFFFFF;
+    position: absolute;
+    right: 32%;
+    margin-top: 13px;
+    border: #0079D3 solid 2px;
+}
+.community-detail-leave-community-button:hover {
+    background-color: #FFFFFF;
+    border-radius: 9999px;
+    display: block;
+    height: 30px;
+    width: 100px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-weight: bold;
+    color: #0079D3;
+    position: absolute;
+    right: 32%;
+    margin-top: 13px;
+    border: #0079D3 solid 2px;
+}
+
 .community-detail-community-about-main-content-community-active-info{
     padding-top: 20px;
     display: flex;

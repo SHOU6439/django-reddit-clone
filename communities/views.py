@@ -31,12 +31,20 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-created_at")
         context['member_count'] = User.objects.filter(member=pk).count()
-        print(Communities.objects.filter(id=pk))
+        context['is_joined'] = Communities.objects.filter(member=self.request.user)
+        context['current_community'] = Communities.objects.get(id=pk)
         return context
 
 @login_required
 def join(request, pk):
     community = Communities.objects.get(pk=pk)
     community.member.add(request.user.id)
+    community.save()
+    return redirect('communities:detail', pk=pk)
+
+login_required
+def leave(request, pk):
+    community = Communities.objects.get(pk=pk)
+    community.member.remove(request.user.id)
     community.save()
     return redirect('communities:detail', pk=pk)
