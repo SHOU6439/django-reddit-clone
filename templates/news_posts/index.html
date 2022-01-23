@@ -9,7 +9,7 @@
                 <a href="{% url 'news_posts:vote_up' post.id %}" onclick='return confirm("You can only vote once");'>
                     <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
                 </a>
-                <p class="vote-count">{{ post.vote }}</p>
+                <p class="vote-count">{{ post.vote_count }}</p>
                 <a href="{% url 'news_posts:vote_down' post.id %}" onclick='return confirm("You can only vote once");'>
                     <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
                 </a>
