@@ -15,7 +15,7 @@
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">
                 <img class="posted-of-user-thumbnail" src="{% if object.user.thumbnail %}{{ object.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
-                <li class="posted-by-community-name-list">{% if object.community is None %}{{ object.user }} <span class="posted-by-user-name-span">{{ object.created_at|timesince }}</span>{% else %}{{ object.community }} <span class="posted-by-user-name-span">Posted By {{ object.user }} {{ object.created_at|date:'n/j H:i' }}</span> {% endif %}</li>
+                <li class="posted-by-community-name-list">{% if object.community is None %}{{ object.user }} <span class="posted-by-user-name-span">{{ object.created_at|timesince }}</span>{% else %}r/{{ object.community }} <span class="posted-by-user-name-span">Posted By {{ object.user }} {{ object.created_at|date:'n/j H:i' }}</span> {% endif %}</li>
             </div>
             <li class="posted-title-string-list-expansion">{{ object.title }}</li>
             <li class="posted-content-string-list">{{ object.content|linebreaksbr|urlize }}</li>
