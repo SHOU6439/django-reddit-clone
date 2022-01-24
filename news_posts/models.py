@@ -20,7 +20,8 @@ class NewsPosts(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     # def __init__(self):
     #     return self.vote
-
+    def __str__(self):
+        return self.title
     class Meta:
         db_table = 'news_posts'
 
