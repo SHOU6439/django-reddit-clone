@@ -1,9 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main-content %}
-通知
-{% for notifications in notification_list %}
-<li>{{ notifications.title }}</li>
-<li>{{ notifications.message }}</li>
-{% endfor %}
+<div class="notification-list-background-container">
+    <h1 class="notification-list-heading">Notifications</h1>
+    {% for notifications in notification_list %}
+    <div class="norification-list-element-box">
+        <div class="notification-element-created-at-container">
+            <p class="notification-element-created-at">{{ notifications.created_at }}</p>
+        </div>
+        <div class="notification-main-element-container">
+            <div class="notification-title-element-container">
+                <li class="notification-element-title">{{ notifications.title }}</li>
+                <i class="far fa-trash-alt" style="height: 20px; width: 20px; position: absolute; right: 20px;"></i>
+            </div>
+            <div class="notification-message-element-container">
+                <li class="notification-element-message">{{ notifications.message|linebreaksbr|urlize }}</li>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
 {% endblock %}
