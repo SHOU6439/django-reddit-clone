@@ -1,3 +1,4 @@
+from re import template
 from sys import flags
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +9,7 @@ from django.db.models import Sum, Count,Prefetch
 from django.views import generic
 from communities.models import Communities
 from users.models import User
-from .models import NewsPosts, Comment, Vote
+from .models import NewsPosts, Comment, Notification, Vote
 from .forms import CreateCommentForm, CreatePostForm, NewsPostEditForm
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -25,7 +26,7 @@ class IndexView(generic.ListView):
         context['communities_list'] = Communities.objects.order_by('-created_at')
         return context
 
-class CreatePostView(LoginRequiredMixin, generic.CreateView):
+class CreatePostView(LoginRequiredMixin, generic.View):
     model = NewsPosts
     form_class = CreatePostForm
     template_name = 'news_posts/create_post.html'
@@ -90,12 +91,24 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     #     return redirect('news_posts:index')
 
     def form_valid(self, form):
+        # このメソッドの中にあるコメントは対象のコメントを削除した時に通知も削除されるようにするための試みであったが、できなかったので今後実装するかもしれない
         post_pk = self.kwargs['pk']
         post = get_object_or_404(NewsPosts, pk=post_pk)
         comment = form.save(commit=False)
+        notification = Notification
+        title = self.request.user.username + "が      " + post.title + "      に対してコメントした"
+        # comment_notification = notification.objects.filter(title=title, message=comment.content, destination=post.user)
         comment.target = post
         comment.user = get_user_model().objects.get(id=self.request.user.id)
         comment.save()
+        # comment_query = Comment.objects.filter(
+        #     target=post,
+        #     user=get_user_model().objects.get(id=self.request.user.id),
+        #     content=comment.content
+        # )
+        notification.objects.create(title=title, message=comment.content, destination=post.user)
+        # if not comment_query:
+        #     comment_notification.delete()
         return redirect('news_posts:post_detail', pk=post_pk)
 
     def get_context_data(self, **kwargs):
@@ -109,6 +122,9 @@ def vote_up(request, pk):
     # print('up')
     post = NewsPosts.objects.get(pk=pk)
     vote = Vote.objects.filter(voted_user=request.user, voted_post=post).first()
+    notification = Notification
+    message = request.user.username + "が      " + post.title + "      を賛成した。"
+    vote_notification = notification.objects.filter(title="vote通知", message=message, destination=post.user)
     if not vote:
         vote = Vote()
         # print('up, none')
@@ -119,6 +135,8 @@ def vote_up(request, pk):
         # print('up, -1 or 0')
         vote.flag += 1
         post.vote += 1
+        if not vote_notification:
+            notification.objects.create(title="vote通知", message=message, destination=post.user)
     else:
         # print('up, 1')
         vote.flag -= 1
@@ -169,3 +187,12 @@ def vote_down(request, pk):
 #         context = super().get_context_data(**kwargs)
 #         context['target_comment'] = get_object_or_404(Comment, pk=self.kwargs['pk'])
 #         return context
+
+class NotificationListView(generic.ListView):
+    model = Notification
+    template_name = 'notification/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['notification_list'] = Notification.objects.filter(destination=self.request.user).order_by("-created_at")
+        return context

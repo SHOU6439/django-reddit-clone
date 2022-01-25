@@ -19,7 +19,7 @@
         <div class="header-menu-bar">
             <ul class="header-menu-bar-ul">
                 <li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/chat_button_icon.png' %}" alt="chat" title="Chat"></li>
-                <li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/notifications_button_icon.png' %}" alt="notifications" title="Notifications"></li>
+                <a href="{% url 'news_posts:notification' user.id %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/notifications_button_icon.png' %}" alt="notifications" title="Notifications"></li></a>
                 <a href="{% url 'news_posts:create_post' %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/create_post_button_icon.png' %}" alt="createpost" title="Create Post"></li></a>
             </ul>
             <div class="header-account-fix">

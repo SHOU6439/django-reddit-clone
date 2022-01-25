@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls.base import reverse_lazy
 from django.views import generic
 from communities.forms import CommunityForm
-from news_posts.models import NewsPosts
+from news_posts.models import NewsPosts, Notification
 from users.models import User
 from .models import Communities
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -38,13 +38,27 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
 @login_required
 def join(request, pk):
     community = Communities.objects.get(pk=pk)
+    notification = Notification
+    message = request.user.username + "が      " + community.name + "      に加入した!"
+    join_notification = notification.objects.filter(title="communityメンバー加入通知", message=message, destination=community.admin)
     community.member.add(request.user.id)
     community.save()
+    if join_notification:
+        join_notification.delete()
+    if not join_notification:
+        notification.objects.create(title="communityメンバー加入通知", message=message, destination=community.admin)
     return redirect('communities:detail', pk=pk)
 
 login_required
 def leave(request, pk):
     community = Communities.objects.get(pk=pk)
+    notification = Notification
+    message = request.user.username + "が      " + community.name + "      を離脱した..."
+    leave_notification = notification.objects.filter(title="communityメンバー離脱通知", message=message, destination=community.admin)
     community.member.remove(request.user.id)
     community.save()
+    if leave_notification:
+        leave_notification.delete()
+    if not leave_notification:
+        notification.objects.create(title="communityメンバー離脱通知", message=message, destination=community.admin)
     return redirect('communities:detail', pk=pk)

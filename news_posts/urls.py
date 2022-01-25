@@ -13,5 +13,6 @@ urlpatterns = [
     path('vote_down/<int:pk>', views.vote_down, name="vote_down"),
     path('delete-comment/<int:pk>', views.DeleteCommentView.as_view(), name="delete_comment"),
     path('edit/<int:pk>', views.NewsPostEditView.as_view(), name='edit'),
+    path('notification/<int:pk>', views.NotificationListView.as_view(), name="notification")
     # path('create-replay/<int:pk>', views.CreateReplayView.as_view(), name="create_replay")
 ]
