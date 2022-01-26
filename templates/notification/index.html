@@ -11,7 +11,12 @@
         <div class="notification-main-element-container">
             <div class="notification-title-element-container">
                 <li class="notification-element-title">{{ notifications.title }}</li>
-                <i class="far fa-trash-alt" style="height: 20px; width: 20px; position: absolute; right: 20px;"></i>
+                <form method="post" action="{% url 'news_posts:delete_notification' notifications.id %}">
+                    {% csrf_token %}
+                    <button type="submit" onclick='return confirm("Do you really want to delete this?");'>
+                        <i class="far fa-trash-alt" style="height: 20px; width: 20px; position: absolute; right: 20px; top: 2px;"></i>
+                    </button>
+                </form>
             </div>
             <div class="notification-message-element-container">
                 <li class="notification-element-message">{{ notifications.message|linebreaksbr|urlize }}</li>

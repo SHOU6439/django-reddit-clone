@@ -58,6 +58,11 @@ class DeleteLoginUserPostView(LoginRequiredMixin, generic.DeleteView):
     def get_success_url(self):
         return reverse('users:detail', kwargs={'pk': self.request.user.id})
 
+class DeleteNotificationView(LoginRequiredMixin, generic.DeleteView):
+    model = Notification
+    def get_success_url(self):
+        return reverse('news_posts:notification', kwargs={'pk': self.request.user.id})
+
 class DeleteCommentView(LoginRequiredMixin, generic.DeleteView):
     model = Comment
     success_url = reverse_lazy('news_posts:index')
@@ -188,7 +193,7 @@ def vote_down(request, pk):
 #         context['target_comment'] = get_object_or_404(Comment, pk=self.kwargs['pk'])
 #         return context
 
-class NotificationListView(generic.ListView):
+class NotificationListView(LoginRequiredMixin, generic.ListView):
     model = Notification
     template_name = 'notification/index.html'
 
