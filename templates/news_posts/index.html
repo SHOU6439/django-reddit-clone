@@ -22,7 +22,9 @@
                 <a href="{% url 'news_posts:post_detail' post.id %}"><li class="posted-title-string-list">{{ post.title }}</li></a>
                 <li class="posted-content-string-list">{{ post.content|linebreaksbr|urlize }}</li>
                 {% if post.post_photo %}
-                <img class="posted-news-uploaded-photo" src="{{ post.post_photo.url }}" alt="photo">
+                <div class="posted-news-uploaded-photo-wrapper">
+                    <img class="posted-news-uploaded-photo" src="{{ post.post_photo.url }}" alt="photo">
+                </div>
                 {% endif %}
                 <ul class="posted-post-control-button-list">
                     <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' post.pk %}">

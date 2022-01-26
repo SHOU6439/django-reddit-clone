@@ -151,6 +151,7 @@ input[type="sumbit"]:hover {
 }
 .posted-news-uploaded-photo{
     margin-bottom: 5px;
+    max-width: 580px;
 }
 
 .communities-detail-box-for-profile-detail-html {
@@ -180,4 +181,9 @@ input[type="sumbit"]:hover {
     font-weight: bold;
     background-color: #ff4600;
     font-family: cursive;
+}
+
+.posted-news-uploaded-photo-wrapper {
+    width: 600px;
+    text-align: center;
 }

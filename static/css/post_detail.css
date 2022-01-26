@@ -32,3 +32,8 @@
 .comment-background-container {
     margin-top: 20px;
 }
+
+.posted-news-uploaded-photo-wrapper-for-post-detail {
+    width: 670px;
+    text-align: center;
+}

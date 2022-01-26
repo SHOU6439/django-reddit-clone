@@ -20,7 +20,9 @@
             <li class="posted-title-string-list-expansion">{{ object.title }}</li>
             <li class="posted-content-string-list">{{ object.content|linebreaksbr|urlize }}</li>
             {% if object.post_photo %}
+            <div class="posted-news-uploaded-photo-wrapper-for-post-detail">
                 <img class="posted-news-uploaded-photo" src="{{ object.post_photo.url }}" alt="photo">
+            </div>
             {% endif %}
             <ul class="posted-post-control-button-list">
                 <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' object.pk %}">

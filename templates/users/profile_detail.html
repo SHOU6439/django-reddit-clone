@@ -22,7 +22,9 @@
             <a href="{% url 'news_posts:post_detail' userpost.id %}"><li class="posted-title-string-list">{{ userpost.title }}</li></a>
             <li class="posted-content-string-list">{{ userpost.content|linebreaksbr|urlize }}</li>
             {% if userpost.post_photo %}
+            <div class="posted-news-uploaded-photo-wrapper">
                 <img class="posted-news-uploaded-photo" src="{{ userpost.post_photo.url }}" alt="photo">
+            </div>
             {% endif %}
             <ul class="posted-post-control-button-list">
                 <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' userpost.pk %}">
@@ -78,8 +80,7 @@
             <div class="communities-detail-box-row-for-profile-detail-html">
                 <p class="communities-detail-box-joined-communities-heading">joined communities</p>
                 {% for communities in communities_list %}
-                    <li class="communities-detail-list-for-profile-detail-html">r/{{ communities }}</li>
-                {% endfor %}
+                <a href="{% url 'communities:detail' communities.pk %}"><li class="communities-detail-list-for-profile-detail-html">r/{{ communities }}</li></a>                {% endfor %}
             </div>
         </div>
     </div>
