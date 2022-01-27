@@ -75,3 +75,28 @@
 .profile-detail-user-name-box {
     width: 275px;
 }
+
+.profile-detail-community-name {
+    font-size: 14px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.profile-detail-community-name-box {
+    background-color: #0079d3;
+    border-radius: 5px 5px 0px 0px;
+    width: 100%;
+    height: 50px;
+    padding-top: 15px;
+}
+
+.profile-community-detail-container-for-profile-detail-html{
+    height: 175px;
+    width: 312px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    position: absolute;
+    top: 66px;
+    right: 250px;
+}

@@ -72,8 +72,11 @@ class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = 'news_posts/post_detail.html'
     def get_context_data(self, **kwargs):
         post_pk = self.kwargs['pk']
+        post = NewsPosts.objects.get(id=post_pk)
         context = super().get_context_data(**kwargs)
         context['comment_list'] = Comment.objects.filter(target=post_pk)
+        context['member_count'] = User.objects.filter(member=post.community).count()
+        context['community_post_count'] = NewsPosts.objects.filter(community_id=post.community).count()
         return context
 class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
     model = NewsPosts
