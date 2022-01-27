@@ -85,6 +85,14 @@ class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         post_pk = self.kwargs['pk']
         return reverse('news_posts:post_detail', kwargs={'pk': post_pk})
+
+    def get_context_data(self, **kwargs):
+        post_pk = self.kwargs['pk']
+        post = NewsPosts.objects.get(id=post_pk)
+        context = super().get_context_data(**kwargs)
+        context['member_count'] = User.objects.filter(member=post.community).count()
+        context['community_post_count'] = NewsPosts.objects.filter(community_id=post.community).count()
+        return context
 class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     template_name = 'news_posts/create_comment.html'
     form_class = CreateCommentForm

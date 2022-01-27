@@ -51,8 +51,8 @@ class ProfileDetailView(LoginRequiredMixin ,generic.DetailView):
     #     })
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['userpost_list'] = NewsPosts.objects.filter(user_id=self.request.user.id).order_by("-created_at")
-        context['communities_list'] = Communities.objects.filter(member=self.request.user)
+        context['userpost_list'] = NewsPosts.objects.filter(user_id=self.kwargs['pk']).order_by("-created_at")
+        context['communities_list'] = Communities.objects.filter(member=self.kwargs['pk'])
         return context
 
 class ProfileEditView(LoginRequiredMixin, generic.UpdateView):

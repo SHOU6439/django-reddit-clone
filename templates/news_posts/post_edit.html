@@ -83,16 +83,21 @@
             </div>
         </div>
         {% else %}
-        <div class="profile-detail-container-for-profile-detail-html">
-            <div class="profile-all-image-container">
-                <img class="profile-header-img" src="{% if object.community.header %}{{ object.community.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
-                <div class="profile-thumbnail-icon-wrapper">
-                    <img class="profile-thumbnail-icon-img" src="{% if object.community.thumbnail %}{{ object.community.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+        <div class="profile-community-detail-container-for-profile-detail-html">
+            <div class="profile-username-and-config-button-container">
+                <div class="profile-detail-community-name-box"><p class="profile-detail-community-name">{{ object.community }}</p></div>
+            </div>
+            <div class="community-detail-community-about-main-content-community-active-info">
+                <div class="community-detail-community-about-main-content-community-member-info-box">
+                    <p class="community-detail-community-about-main-content-community-info-count">{{ member_count }}</p>
+                    <p class="community-detail-community-about-main-content-community-name-of-info" title="{{ member_count }} Members">Members</p>
+                </div>
+                <div class="community-detail-community-about-main-content-community-post-info-box">
+                    <p class="community-detail-community-about-main-content-community-info-count">{{ community_post_count }}</p>
+                    <p class="community-detail-community-about-main-content-community-name-of-info" title="{{ community_post_count }} Posts">Posts</p>
                 </div>
             </div>
-            <div class="profile-username-and-config-button-container">
-                <div class="profile-detail-user-name-box"><p class="profile-detail-user-name">{{ object.community }}</p></div>
-            </div>
+            <p class="community-detail-community-about-main-content-created">created {{ object.created_at|date:"M d, Y" }}</p>
         </div>
         {% endif %}
 

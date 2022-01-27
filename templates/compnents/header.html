@@ -19,14 +19,14 @@
         <div class="header-menu-bar">
             <ul class="header-menu-bar-ul">
                 <li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/chat_button_icon.png' %}" alt="chat" title="Chat"></li>
-                <a href="{% url 'news_posts:notification' user.id %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/notifications_button_icon.png' %}" alt="notifications" title="Notifications"></li></a>
+                <a href="{% url 'news_posts:notification' request.user.id %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/notifications_button_icon.png' %}" alt="notifications" title="Notifications"></li></a>
                 <a href="{% url 'news_posts:create_post' %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/create_post_button_icon.png' %}" alt="createpost" title="Create Post"></li></a>
             </ul>
             <div class="header-account-fix">
                 <button class="header-account-config-fix" type="button" id="account-drop-down-button">
-                    <img class="user-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon">
+                    <img class="user-icon-img" src="{% if request.user.thumbnail %}{{ request.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon">
                     <div class="user-info-container">
-                        <div class="user-name-container">{{ user.username }}</div>
+                        <div class="user-name-container">{{ request.user.username }}</div>
                         <i class="fas fa-angle-down" style="margin-top: 5px;"></i>
                     </div>
                 </button>
@@ -52,7 +52,7 @@
 <div class="drop-down-menu-container" id="drop-down-id">
     <ul class="drop-down-menu-ul">
         <li class="drop-down-menu-li">
-            <a class="user-menu-button" href="{% url 'users:detail' user.id %}">
+            <a class="user-menu-button" href="{% url 'users:detail' request.user.id %}">
                 <i class="far fa-user-circle" style="height: 18px; margin-right:5px;"></i>
                 <p class="drop-down-menu-li-p">Profile</p>
             </a>
