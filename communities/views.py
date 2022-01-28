@@ -20,6 +20,9 @@ class CreateCommunityView(LoginRequiredMixin, generic.CreateView):
         get_user_id = form.save(commit=False)
         get_user_id.admin = get_user_model().objects.get(id=request.user.id)
         get_user_id.save()
+        community = Communities.objects.get(name=get_user_id.name)
+        community.member.add(request.user.id)
+        community.save()
         return redirect('news_posts:index')
 
 class CommunityDetailView(LoginRequiredMixin, generic.DetailView):

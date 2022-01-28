@@ -17,7 +17,15 @@
             <div class="news-posts-news-detail-box-center-menu">
                 <div class="posted-by-user-of-info-container">
                     <img class="posted-of-user-thumbnail" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
-                    <li class="posted-by-community-name-list">{% if post.community is None %}{{ post.user }} <span class="posted-by-user-name-span">{{ post.created_at|timesince }}</span>{% else %}r/{{ post.community }} <span class="posted-by-user-name-span">Posted By {{ post.user }} {{ post.created_at|date:'n/j H:i' }}</span> {% endif %}</li>
+                    <li class="posted-by-community-name-list">
+                        {% if post.community is None %}
+                        <a href="{% url 'users:detail' post.user.id %}">{{ post.user }}</a>
+                        <span class="posted-by-user-name-span">{{ post.created_at|timesince }}</span>
+                        {% else %}
+                        r/{{ post.community }}
+                        <a href="{% url 'users:detail' post.user.id %}"><span class="posted-by-user-name-span">Posted By {{ post.user }} {{ post.created_at|date:'n/j H:i' }}</span></a>
+                        {% endif %}
+                    </li>
                 </div>
                 <a href="{% url 'news_posts:post_detail' post.id %}"><li class="posted-title-string-list">{{ post.title }}</li></a>
                 <li class="posted-content-string-list">{{ post.content|linebreaksbr|urlize }}</li>
