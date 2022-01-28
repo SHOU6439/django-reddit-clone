@@ -25,7 +25,7 @@
                     <input type="file" class="profile-edit-input-new-image" name="photo" id="profile-edit-input-new-thumbnial-image-id" accept='image/*'>
                 </label>
                 <label class="profile-edit-profile-image-upload-field" for="profile-edit-input-new-header-image-id">
-                    <img class="profile-edit-profile-before-image" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="header" id="preview_new_header">
+                    <img class="profile-edit-profile-before-image" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" id="preview_new_header">
                     <input type="file" class="profile-edit-input-new-image" name="header_photo" id="profile-edit-input-new-header-image-id" accept='image/*'>
                 </label>
             </div>

@@ -32,7 +32,7 @@ class LoginForm(AuthenticationForm):
 
 class ProfileEditForm(forms.ModelForm):
     username = forms.CharField(max_length=20, widget=forms.widgets.TextInput(attrs={'class': "profile-edit-new-name-input-textarea", 'placeholder': "Display name(optional)"}))
-    about = forms.CharField(max_length=200, widget=forms.widgets.Textarea(attrs={'class': "profile-edit-new-user-about-input-textarea", 'placeholder': "About(optional)"}))
+    about = forms.CharField(max_length=200, widget=forms.widgets.Textarea(attrs={'class': "profile-edit-new-user-about-input-textarea", 'placeholder': "About(optional)"}), required=False)
 
     class Meta:
         model = User
