@@ -77,7 +77,7 @@
                 <div class="comment-detail-box">
                     <div class="posted-by-user-of-info-container">
                         <img class="posted-of-user-thumbnail" src="{% if comment.user.thumbnail %}{{ comment.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
-                        <li class="posted-by-community-name-list">{{ comment.user }} <span class="posted-by-user-name-span">{{ comment.created_at|date:'n/j H:i' }}</span></li>
+                        <li class="posted-by-community-name-list"><a href="{% url 'users:detail' comment.user.id %}">{{ comment.user }}</a> <span class="posted-by-user-name-span">{{ comment.created_at|date:'n/j H:i' }}</span></li>
                     </div>
                     <ul class="comment-list-parent">
                         <li class="comment-list-child">{{ comment.content|linebreaksbr|urlize }}</li>

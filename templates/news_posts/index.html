@@ -27,7 +27,7 @@
                         {% endif %}
                     </li>
                 </div>
-                <a href="{% url 'news_posts:post_detail' post.id %}"><li class="posted-title-string-list">{{ post.title }}</li></a>
+                <a href="{% url 'news_posts:post_detail' post.id %}"><li class="posted-title-string-list">{{ post.title|linebreaksbr }}</li></a>
                 <li class="posted-content-string-list">{{ post.content|linebreaksbr|urlize }}</li>
                 {% if post.post_photo %}
                 <div class="posted-news-uploaded-photo-wrapper">
@@ -61,10 +61,12 @@
                         <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Share</label>
                     </li>
-                    <li class="posted-post-control-button">
-                        <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
-                        <lable class="posted-post-control-button-label">Save</label>
-                    </li>
+                    <a href="{% url 'news_posts:save' post.id %}">
+                        <li class="posted-post-control-button">
+                            <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
+                            <lable class="posted-post-control-button-label">Save</label>
+                        </li>
+                    </a>
                     {% if post.user.id == user.id %}
                     <li class="posted-post-control-button">
                         <a class="posted-post-edit-button" href="{% url 'news_posts:edit' post.id %}">

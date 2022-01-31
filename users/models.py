@@ -20,6 +20,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True
     )
 
+    saved_post = models.ManyToManyField("news_posts.NewsPosts", related_name="saved_post")
+
 
     email = models.EmailField(blank=True)
 

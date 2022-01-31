@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 from django.contrib.auth import get_user_model
 from communities.models import Communities
@@ -33,6 +32,9 @@ class Comment(models.Model):
     content = models.CharField(max_length=512, null=True, blank=True)
     target = models. ForeignKey(NewsPosts, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content
 
 # class Replay(models.Model):
 #     user = models.ForeignKey(

@@ -14,6 +14,7 @@ urlpatterns = [
     path('delete-comment/<int:pk>', views.DeleteCommentView.as_view(), name="delete_comment"),
     path('edit/<int:pk>', views.NewsPostEditView.as_view(), name='edit'),
     path('notification/<int:pk>', views.NotificationListView.as_view(), name="notification"),
-    path('delete-notification/<int:pk>', views.DeleteNotificationView.as_view(), name="delete_notification")
+    path('delete-notification/<int:pk>', views.DeleteNotificationView.as_view(), name="delete_notification"),
     # path('create-replay/<int:pk>', views.CreateReplayView.as_view(), name="create_replay")
+    # path('save/<int:pk>', views.SavePostView.as_view(), name="save") TODO:SavePostViewを実装する
 ]
