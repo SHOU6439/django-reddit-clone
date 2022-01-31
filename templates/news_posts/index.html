@@ -61,12 +61,12 @@
                         <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Share</label>
                     </li>
-                    <a href="{% url 'news_posts:save' post.id %}">
-                        <li class="posted-post-control-button">
-                            <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
-                            <lable class="posted-post-control-button-label">Save</label>
-                        </li>
-                    </a>
+                    <!-- <a href="{% comment %}{% url 'news_posts:save' post.id %}{% endcomment %}"> -->
+                    <li class="posted-post-control-button">
+                        <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Save</label>
+                    </li>
+                    <!-- </a> -->
                     {% if post.user.id == user.id %}
                     <li class="posted-post-control-button">
                         <a class="posted-post-edit-button" href="{% url 'news_posts:edit' post.id %}">
