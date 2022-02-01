@@ -24,6 +24,7 @@ class IndexView(generic.ListView):
         context['post_list'] = NewsPosts.objects.order_by('-created_at').annotate(vote_count=Sum('voted_post__flag'))
         context['vote_list'] = Vote.objects.filter(voted_user_id=self.request.user.id)
         context['communities_list'] = Communities.objects.order_by('-created_at')
+        context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
         return context
 
 class CreatePostView(LoginRequiredMixin, generic.View):
@@ -77,6 +78,7 @@ class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
         context['comment_list'] = Comment.objects.filter(target=post_pk)
         context['member_count'] = User.objects.filter(member=post.community).count()
         context['community_post_count'] = NewsPosts.objects.filter(community_id=post.community).count()
+        context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
         return context
 class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
     model = NewsPosts
@@ -92,6 +94,7 @@ class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
         context = super().get_context_data(**kwargs)
         context['member_count'] = User.objects.filter(member=post.community).count()
         context['community_post_count'] = NewsPosts.objects.filter(community_id=post.community).count()
+        context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
         return context
 class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     template_name = 'news_posts/create_comment.html'
@@ -212,3 +215,21 @@ class NotificationListView(LoginRequiredMixin, generic.ListView):
         context = super().get_context_data(**kwargs)
         context['notification_list'] = Notification.objects.filter(destination=self.request.user).order_by("-created_at")
         return context
+
+class SavePostView(LoginRequiredMixin, generic.View):
+    model = NewsPosts
+
+    def get(self, request, *args, **kwargs):
+        post = NewsPosts.objects.get(pk=self.kwargs['pk'])
+        user = User.objects.get(id=request.user.id)
+        user.saved_post.add(post)
+        return redirect('news_posts:index')
+
+class UnSavePostView(LoginRequiredMixin, generic.View):
+    model = NewsPosts
+
+    def get(self, request, *args, **kwargs):
+        post = NewsPosts.objects.get(pk=self.kwargs['pk'])
+        user = User.objects.get(id=request.user.id)
+        user.saved_post.remove(post)
+        return redirect('news_posts:index')

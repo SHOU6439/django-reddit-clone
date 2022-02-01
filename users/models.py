@@ -1,3 +1,4 @@
+from multiprocessing import AuthenticationError
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
@@ -20,7 +21,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True
     )
 
-    saved_post = models.ManyToManyField("news_posts.NewsPosts", related_name="saved_post")
+    # HACK:saved_postだとデフォルトの中間テーブルと名前がかぶってしまうためbookmarked_postsという統一性がない中間テーブル名をつけてしまっている
+    saved_post = models.ManyToManyField("news_posts.NewsPosts", related_name="saved_post", through='bookmarked_posts')
 
 
     email = models.EmailField(blank=True)
@@ -54,3 +56,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         db_table = 'users'
+
+
+class bookmarked_posts(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey("news_posts.NewsPosts", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.user.username) + "が" + str(self.post.title) + "を保存しました"

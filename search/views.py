@@ -18,4 +18,5 @@ class SearchView(generic.ListView):
         context = super().get_context_data(**kwargs)
         q = self.request.GET.get('q')
         context['communities_list'] = Communities.objects.filter(name__icontains=q).order_by('-created_at')
+        context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
         return context

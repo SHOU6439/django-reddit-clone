@@ -36,6 +36,7 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
         context['member_count'] = User.objects.filter(member=pk).count()
         context['is_joined'] = Communities.objects.filter(member=self.request.user)
         context['current_community'] = Communities.objects.get(id=pk)
+        context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
         return context
 
 @login_required
