@@ -16,7 +16,7 @@
     background-color: #ffffff;
     border-radius: 5px;
     position: absolute;
-    top: 66px;
+    top: 102px;
     right: 250px;
 }
 .profile-detail-user-name {
@@ -99,4 +99,43 @@
     position: absolute;
     top: 66px;
     right: 250px;
+}
+
+.profile-detail-top-menu {
+    background-color: #ffffff;
+    width: 100%;
+    height: 35px;
+    padding-top: 10.5px;
+    padding-bottom: 10.5px;
+    padding-left: 220px;
+}
+
+.profile-detail-top-menu-list-items{
+    display: flex;
+}
+
+.profile-detail-top-menu-displaying-item {
+    font-size: 14px;
+    color: #0079d3;
+    display: block;
+    width: 100%;
+    border-bottom: #0079d3 2px solid;
+}
+
+.profile-detail-top-menu-list-item-url {
+    margin-right: 30px;
+}
+
+
+.profile-detail-top-menu-item{
+    font-size: 14px;
+    display: block;
+}
+
+.profile-detail-top-menu-item:hover{
+    font-size: 14px;
+    color: #0079d3;
+    display: block;
+    width: 100%;
+    border-bottom: #0079d3 2px solid;
 }

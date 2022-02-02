@@ -223,7 +223,7 @@ class SavePostView(LoginRequiredMixin, generic.View):
         post = NewsPosts.objects.get(pk=self.kwargs['pk'])
         user = User.objects.get(id=request.user.id)
         user.saved_post.add(post)
-        return redirect('news_posts:index')
+        return redirect('users:saved_posts', pk=self.request.user.id)
 
 class UnSavePostView(LoginRequiredMixin, generic.View):
     model = NewsPosts
@@ -232,4 +232,4 @@ class UnSavePostView(LoginRequiredMixin, generic.View):
         post = NewsPosts.objects.get(pk=self.kwargs['pk'])
         user = User.objects.get(id=request.user.id)
         user.saved_post.remove(post)
-        return redirect('news_posts:index')
+        return redirect('users:saved_posts', pk=self.request.user.id)
