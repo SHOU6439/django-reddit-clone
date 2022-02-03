@@ -11,6 +11,7 @@ from django.contrib.auth import views
 from django.contrib.auth import authenticate, login, get_user_model
 from django.views import generic
 from communities.views import Communities
+from news_posts.models import Comment
 # Create your views here.
 
 User = get_user_model()
@@ -74,4 +75,14 @@ class SavedPostDetailView(LoginRequiredMixin, generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['communities_list'] = Communities.objects.filter(member=self.kwargs['pk']).order_by("-created_at")
         context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.kwargs['pk']).order_by("-created_at")
+        return context
+
+class UsersCommentsView(LoginRequiredMixin, generic.DetailView):
+    model = User
+    template_name = 'users/comments.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments_list'] = Comment.objects.filter(user=self.kwargs['pk']).order_by("-created_at")
+        context['communities_list'] = Communities.objects.filter(member=self.kwargs['pk']).order_by("-created_at")
         return context
