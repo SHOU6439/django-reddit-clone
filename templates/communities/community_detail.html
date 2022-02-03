@@ -34,7 +34,7 @@
                             <a href="{% url 'users:detail' post.user.id %}">{{ post.user }}</a>
                             <span class="posted-by-user-name-span">{{ post.created_at|timesince }}</span>
                             {% else %}
-                            r/{{ post.community }}
+                            <a href="{% url 'communities:detail' post.community.id %}">r/{{ post.community }}</a>
                             <a href="{% url 'users:detail' post.user.id %}"><span class="posted-by-user-name-span">Posted By {{ post.user }} {{ post.created_at|date:'n/j H:i' }}</span></a>
                             {% endif %}
                         </li>
