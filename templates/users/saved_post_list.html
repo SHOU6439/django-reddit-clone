@@ -7,7 +7,7 @@
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:comments' user.id %}"><li class="profile-detail-top-menu-item">COMMENTS</li></a>
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:saved_posts' user.id %}"><li class="profile-detail-top-menu-displaying-item">SAVED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:up_voted_posts' user.id %}"><li class="profile-detail-top-menu-item">UPVOTED</li></a>
-        <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">DOWNVOTED</li></a>
+        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:down_voted_posts' user.id %}"><li class="profile-detail-top-menu-item">DOWNVOTED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS RECEIVED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS GIVEN</li></a>
     </ul>
