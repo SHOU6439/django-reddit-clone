@@ -30,7 +30,7 @@
                 <li class="posted-by-community-name-list">{% if down.voted_post.community is None %}{{ down.voted_post.user }} <span class="posted-by-user-name-span">{{ down.voted_post.created_at|date:'n/j H:i' }}</span>{% else %}r/{{ down.voted_post.community }} <span class="posted-by-user-name-span">Posted By {{ down.voted_post.user }} {{ down.voted_post.created_at|timesince }}</span> {% endif %}</li>
             </div>
             <a href="{% url 'news_posts:post_detail' down.voted_post.id %}"><li class="posted-title-string-list">{{ down.voted_post.title }}</li></a>
-            <li class="posted-content-string-list">{{ .voted_post.content|linebreaksbr|urlize }}</li>
+            <li class="posted-content-string-list">{{ down.voted_post.content|linebreaksbr|urlize }}</li>
             {% if down.voted_post.post_photo %}
             <div class="posted-news-uploaded-photo-wrapper">
                 <img class="posted-news-uploaded-photo" src="{{ down.voted_post.post_photo.url }}" alt="photo">
