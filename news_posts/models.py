@@ -31,7 +31,7 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
     )
     content = models.CharField(max_length=512, null=True, blank=True)
-    target = models. ForeignKey(NewsPosts, on_delete=models.CASCADE)
+    target = models.ForeignKey(NewsPosts, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

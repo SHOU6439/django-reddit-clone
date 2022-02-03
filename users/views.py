@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.http.response import HttpResponseRedirect
 from django.urls.base import reverse_lazy
 from django.views.generic.base import TemplateView
-from news_posts.models import NewsPosts
+from news_posts.models import NewsPosts, Vote
 from users.forms import LoginForm, ProfileEditForm, UserForm
 from django.contrib.auth import views
 from django.contrib.auth import authenticate, login, get_user_model
@@ -84,5 +84,15 @@ class UsersCommentsView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comments_list'] = Comment.objects.filter(user=self.kwargs['pk']).order_by("-created_at")
+        context['communities_list'] = Communities.objects.filter(member=self.kwargs['pk']).order_by("-created_at")
+        return context
+
+class UserUpVotedPostsView(LoginRequiredMixin, generic.DetailView):
+    model = User
+    template_name = 'users/up_voted_posts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['up_voted_posts'] = Vote.objects.filter(voted_user=self.kwargs['pk'], flag=1).order_by("-created_at")
         context['communities_list'] = Communities.objects.filter(member=self.kwargs['pk']).order_by("-created_at")
         return context

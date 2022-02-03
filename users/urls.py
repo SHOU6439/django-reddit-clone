@@ -12,5 +12,6 @@ urlpatterns = [
     path('detail/<int:pk>', views.ProfileDetailView.as_view(), name='detail'),
     path('edit/', views.ProfileEditView.as_view(), name="edit"),
     path('saved-posts/<int:pk>', views.SavedPostDetailView.as_view(), name="saved_posts"),
-    path('comments/<int:pk>', views.UsersCommentsView.as_view(), name="comments")
+    path('comments/<int:pk>', views.UsersCommentsView.as_view(), name="comments"),
+    path('up-voted-posts/<int:pk>', views.UserUpVotedPostsView.as_view(), name="up_voted_posts")
 ]

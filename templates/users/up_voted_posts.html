@@ -5,46 +5,46 @@
     <ul class="profile-detail-top-menu-list-items">
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:detail' user.id %}"><li class="profile-detail-top-menu-item">POSTS</li></a>
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:comments' user.id %}"><li class="profile-detail-top-menu-item">COMMENTS</li></a>
-        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:saved_posts' user.id %}"><li class="profile-detail-top-menu-displaying-item">SAVED</li></a>
-        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:up_voted_posts' user.id %}"><li class="profile-detail-top-menu-item">UPVOTED</li></a>
+        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:saved_posts' user.id %}"><li class="profile-detail-top-menu-item">SAVED</li></a>
+        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:up_voted_posts' user.id %}"><li class="profile-detail-top-menu-displaying-item">UPVOTED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">DOWNVOTED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS RECEIVED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS GIVEN</li></a>
     </ul>
 </div>
 <div class="profile-detail-background-container">
-    {% for post in saved_posts %}
+    {% for up in up_voted_posts %}
     <div class="news-posts-news-detail-box">
         <div class="news-posts-news-detail-box-left-menu">
-            <a href="{% url 'news_posts:vote_up' post.id %}" onclick='return confirm("You can only vote once");'>
+            <a href="{% url 'news_posts:vote_up' up.voted_post.id %}" onclick='return confirm("You can only vote once");'>
                 <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
             </a>
-            <p class="vote-count">{{ post.vote }}</p>
-            <a href="{% url 'news_posts:vote_down' post.id %}" onclick='return confirm("You can only vote once");'>
+            <p class="vote-count">{{ up.voted_post.vote }}</p>
+            <a href="{% url 'news_posts:vote_down' up.voted_post.id %}" onclick='return confirm("You can only vote once");'>
                 <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
             </a>
         </div>
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">
-                <img class="posted-of-user-thumbnail" src="{% if post.user.thumbnail %}{{ post.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
-                <li class="posted-by-community-name-list">{% if post.community is None %}{{ post.user }} <span class="posted-by-user-name-span">{{ post.created_at|date:'n/j H:i' }}</span>{% else %}r/{{ post.community }} <span class="posted-by-user-name-span">Posted By {{ post.user }} {{ post.created_at|timesince }}</span> {% endif %}</li>
+                <img class="posted-of-user-thumbnail" src="{% if up.voted_post.user.thumbnail %}{{ up.voted_post.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                <li class="posted-by-community-name-list">{% if up.voted_post.community is None %}{{ up.voted_post.user }} <span class="posted-by-user-name-span">{{ up.voted_post.created_at|date:'n/j H:i' }}</span>{% else %}r/{{ up.voted_post.community }} <span class="posted-by-user-name-span">Posted By {{ up.voted_post.user }} {{ up.voted_post.created_at|timesince }}</span> {% endif %}</li>
             </div>
-            <a href="{% url 'news_posts:post_detail' post.id %}"><li class="posted-title-string-list">{{ post.title }}</li></a>
-            <li class="posted-content-string-list">{{ post.content|linebreaksbr|urlize }}</li>
-            {% if post.post_photo %}
+            <a href="{% url 'news_posts:post_detail' up.voted_post.id %}"><li class="posted-title-string-list">{{ up.voted_post.title }}</li></a>
+            <li class="posted-content-string-list">{{ up.voted_post.content|linebreaksbr|urlize }}</li>
+            {% if up.voted_post.post_photo %}
             <div class="posted-news-uploaded-photo-wrapper">
-                <img class="posted-news-uploaded-photo" src="{{ post.post_photo.url }}" alt="photo">
+                <img class="posted-news-uploaded-photo" src="{{ up.voted_post.post_photo.url }}" alt="photo">
             </div>
             {% endif %}
             <ul class="posted-post-control-button-list">
-                <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' post.pk %}">
+                <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' up.voted_post.pk %}">
                     <li class="posted-post-control-button">
                         <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Comments</label>
                     </li>
                 </a>
-                {% if post.user.id == request.user.id %}
-                <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_user_post' post.id %}">
+                {% if up.voted_post.user.id == request.user.id %}
+                <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_user_post' up.voted_post.id %}">
                     {% csrf_token %}
                     <button class="posted-news-delete-button" type="submit" onclick='return confirm("Are you sure you want to delete your post? You cant undo this.");'>
                         <li class="posted-post-control-button">
@@ -65,24 +65,24 @@
                         <lable class="posted-post-control-button-label">Share</label>
                     </li>
                 </a>
-                {% if post in saved_posts %}
-                <a href="{% url 'news_posts:unsave' post.id %}">
+                {% if up.voted_post in saved_posts %}
+                <a href="{% url 'news_posts:unsave' up.voted_post.id %}">
                     <li class="posted-post-control-button">
                         <i class="fas fa-bookmark" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">UnSave</label>
                     </li>
                 </a>
                 {% else %}
-                <a href="{% url 'news_posts:save' post.id %}">
+                <a href="{% url 'news_posts:save' up.voted_post.id %}">
                     <li class="posted-post-control-button">
                         <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Save</label>
                     </li>
                 </a>
                 {% endif %}
-                {% if post.user.id == request.user.id %}
+                {% if up.voted_post.user.id == request.user.id %}
                 <li class="posted-post-control-button">
-                    <a href="{% url 'news_posts:edit' post.id %}">
+                    <a href="{% url 'news_posts:edit' up.voted_post.id %}">
                         <i class="fas fa-pen" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Edit Post</label>
                     </a>

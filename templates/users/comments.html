@@ -6,7 +6,7 @@
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:detail' user.id %}"><li class="profile-detail-top-menu-item">POSTS</li></a>
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:comments' user.id %}"><li class="profile-detail-top-menu-displaying-item">COMMENTS</li></a>
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:saved_posts' user.id %}"><li class="profile-detail-top-menu-item">SAVED</li></a>
-        <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">UPVOTED</li></a>
+        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:up_voted_posts' user.id %}"><li class="profile-detail-top-menu-item">UPVOTED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">DOWNVOTED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS RECEIVED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS GIVEN</li></a>
@@ -18,7 +18,7 @@
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">
                 <img class="posted-of-user-thumbnail" src="{% if comment.user.thumbnail %}{{ comment.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
-                <li class="posted-by-community-name-list">{% if comment.community is None %}{{ comment.user }} <span class="posted-by-user-name-span">{{ userpost.created_at|date:'n/j H:i' }}</span>{% else %}r/{{ userpost.community }} <span class="posted-by-user-name-span">Posted By {{ userpost.user }} {{ userpost.created_at|timesince }}</span> {% endif %}</li>
+                <li class="posted-by-community-name-list">{{ comment.user }} <span class="posted-by-user-name-span">{{ comment.created_at|timesince }}</span></li>
             </div>
             <a href=""><li class="posted-title-string-list">commented on {{ comment.target.title }}</li></a>
             <li class="posted-content-string-list">{{ comment.content|linebreaksbr|urlize }}</li>
@@ -30,7 +30,7 @@
                     </li>
                 </a>
                 {% if comment.user.id == request.user.id %}
-                <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_user_post' comment.id %}">
+                <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_comment' comment.id %}">
                     {% csrf_token %}
                     <button class="posted-news-delete-button" type="submit" onclick='return confirm("Are you sure you want to delete your post? You cant undo this.");'>
                         <li class="posted-post-control-button">
