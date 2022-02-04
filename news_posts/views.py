@@ -80,6 +80,8 @@ class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
         context['community_post_count'] = NewsPosts.objects.filter(community_id=post.community).count()
         context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
         return context
+
+
 class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
     model = NewsPosts
     form_class = NewsPostEditForm
@@ -96,6 +98,8 @@ class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
         context['community_post_count'] = NewsPosts.objects.filter(community_id=post.community).count()
         context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
         return context
+
+
 class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     template_name = 'news_posts/create_comment.html'
     form_class = CreateCommentForm
@@ -134,6 +138,7 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
         context = super().get_context_data(**kwargs)
         context['target_post'] = get_object_or_404(NewsPosts, pk=self.kwargs['pk'])
         return context
+
 
 @login_required
 @transaction.atomic
