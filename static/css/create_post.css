@@ -96,8 +96,8 @@
     top: 100px;
 }
 #preview {
-    width: 100px;
-    height: 100px;
+    max-width: 400px;
+    max-height: 200px;
     position: absolute;
     transform: translate(-50%, -50%);
     left: 50%;
