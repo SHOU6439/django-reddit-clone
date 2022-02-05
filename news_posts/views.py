@@ -9,8 +9,8 @@ from django.db.models import Sum, Count,Prefetch
 from django.views import generic
 from communities.models import Communities
 from users.models import User
-from .models import NewsPosts, Comment, Notification, Vote
-from .forms import CreateCommentForm, CreatePostForm, NewsPostEditForm
+from .models import NewsPosts, Comment, Notification, Vote, Replay
+from .forms import CreateCommentForm, CreatePostForm, NewsPostEditForm, CreateReplayForm
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 # Create your views here.
@@ -193,24 +193,26 @@ def vote_down(request, pk):
     post.save()
     return redirect('news_posts:index')
 
-# class CreateReplayView(LoginRequiredMixin, generic.CreateView):
-#     model = Replay
-#     form_class = CreateReplayForm
-#     template_name = "news_posts/create_replay.html"
+class CreateReplayView(LoginRequiredMixin, generic.CreateView):
+    model = Replay
+    form_class = CreateReplayForm
+    template_name = "news_posts/create_replay.html"
 
-#     def form_valid(self, form):
-#         comment_pk = self.kwargs['pk']
-#         comment = get_object_or_404(Comment, pk=comment_pk)
-#         replay = form.save(commit=False)
-#         replay.target = comment
-#         replay.user = get_user_model().objects.get(id=self.request.user.id)
-#         replay.save()
-#         return redirect('news_posts:post_detail', pk=comment_pk)
+    def form_valid(self, form):
+        comment_pk = self.kwargs['pk']
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        post_pk = comment.target.id
+        replay = form.save(commit=False)
+        replay.target = comment
+        replay.user = get_user_model().objects.get(id=self.request.user.id)
+        replay.save()
+        comment.replay.add(replay)
+        return redirect('news_posts:post_detail', pk=post_pk)
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['target_comment'] = get_object_or_404(Comment, pk=self.kwargs['pk'])
-#         return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['target_comment'] = get_object_or_404(Comment, pk=self.kwargs['pk'])
+        return context
 
 class NotificationListView(LoginRequiredMixin, generic.ListView):
     model = Notification
