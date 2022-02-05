@@ -1,3 +1,4 @@
+from operator import ge
 from re import template
 from sys import flags
 from django.contrib.auth import get_user_model
@@ -66,7 +67,11 @@ class DeleteNotificationView(LoginRequiredMixin, generic.DeleteView):
 
 class DeleteCommentView(LoginRequiredMixin, generic.DeleteView):
     model = Comment
-    success_url = reverse_lazy('news_posts:index')
+    def get_success_url(self):
+        comment_pk = self.kwargs['pk']
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        post_pk = comment.target.id
+        return reverse('news_posts:post_detail', kwargs={'pk': post_pk})
 
 class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
     model = NewsPosts
@@ -240,3 +245,14 @@ class UnSavePostView(LoginRequiredMixin, generic.View):
         user = User.objects.get(id=request.user.id)
         user.saved_post.remove(post)
         return redirect('users:saved_posts', pk=self.request.user.id)
+
+class DeleteReplayView(LoginRequiredMixin, generic.DeleteView):
+    model = Replay
+    success_url = reverse_lazy('news_posts:index')
+    def get_success_url(self):
+        replay_pk = self.kwargs['pk']
+        replay = get_object_or_404(Replay, pk=replay_pk)
+        comment_pk = replay.target.id
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        post_pk = comment.target.id
+        return reverse('news_posts:post_detail', kwargs={'pk': post_pk})
