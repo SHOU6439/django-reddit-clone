@@ -35,6 +35,18 @@ input[type="sumbit"]:hover {
     background-color: #fff;
 }
 
+/* 現在のユーザーが vote up OR down を選択している場合のスタイル */
+/* up を選択したいる場合 */
+.news-posts-news-detail-box[data-vote='1'] > 
+.news-posts-news-detail-box-left-menu a:first-child {
+  color: blue;
+}
+/* down を選択したいる場合 */
+.news-posts-news-detail-box[data-vote='-1'] > 
+.news-posts-news-detail-box-left-menu a:last-child {
+  color: blue;
+}
+
 .news-posts-news-detail-box:hover {
     border: solid #898989 1px;
     margin-top: 20px;

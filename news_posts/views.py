@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from django.urls.base import reverse, reverse_lazy
 from django.shortcuts import render, redirect
-from django.db.models import Sum, Count,Prefetch
+from django.db.models import Sum, Count,Prefetch, Q
 from django.views import generic
 from communities.models import Communities
 from users.models import User
@@ -22,7 +22,24 @@ class IndexView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['post_list'] = NewsPosts.objects.order_by('-created_at').annotate(vote_count=Sum('voted_post__flag'))
+        # ログインユーザーのidを取得
+        current_user = self.request.user.id 
+        queryset = NewsPosts.objects.order_by('-created_at')
+        if current_user is None:
+            # 未ログイン時の処理
+            context['post_list'] = queryset.annotate(
+                vote_count=Sum('voted_post__flag')
+            )
+        else:
+            # ログイン時の処理
+            # vote_stateにはログインユーザーの投票状態が入る
+            context['post_list'] = queryset.annotate(
+                vote_count=Sum('voted_post__flag'),
+                vote_state=Sum('voted_post__flag',
+                    filter=Q(voted_post__voted_user_id=current_user)
+                )
+            )
+
         context['vote_list'] = Vote.objects.filter(voted_user_id=self.request.user.id)
         context['communities_list'] = Communities.objects.order_by('-created_at')
         context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
