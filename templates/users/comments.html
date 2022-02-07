@@ -23,7 +23,9 @@
                     <span class="posted-by-user-name-span">{{ comment.created_at|timesince }}</span>
                 </li>
             </div>
-            <a href=""><li class="posted-title-string-list">commented on {{ comment.target.title }}</li></a>
+            <li class="posted-title-string-list">
+                commented on <a href="{% url 'news_posts:post_detail' comment.target.pk %}">{{ comment.target.title }}</a>
+            </li>
             <li class="posted-content-string-list">{{ comment.content|linebreaksbr|urlize }}</li>
             <ul class="posted-post-control-button-list">
                 <a class="posted-post-comment-button" href="{% url 'news_posts:create_replay' comment.pk %}">
