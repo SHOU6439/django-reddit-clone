@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from communities.models import Communities
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
+from users.models import bookmarked_posts
 
 class NewsPosts(models.Model):
     user = models.ForeignKey(
@@ -10,6 +11,7 @@ class NewsPosts(models.Model):
         on_delete=models.CASCADE,
     )
     saved_user = models.ManyToManyField(get_user_model(),  related_name="saved_user", through='users.bookmarked_posts')
+    saved_at = models.ForeignKey(bookmarked_posts, on_delete=models.CASCADE, blank=True, null=True, related_name="saved_at")
     title = models.CharField(max_length=64, unique=False)
     content = models.TextField(max_length=512, null=True, blank=True)
     photo = models.ImageField(verbose_name='写真', blank=True, null=True, upload_to='images/')
