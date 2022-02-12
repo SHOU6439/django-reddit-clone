@@ -134,7 +134,7 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     #     return redirect('news_posts:index')
 
     def form_valid(self, form):
-        # このメソッドの中にあるコメントは対象のコメントを削除した時に通知も削除されるようにするための試みであったが、できなかったので今後実装するかもしれない
+        # TODO:このメソッドの中にあるコメントは対象のコメントを削除した時に通知も削除されるようにするための試みであったが、できなかったので今後実装するかもしれない
         post_pk = self.kwargs['pk']
         post = get_object_or_404(NewsPosts, pk=post_pk)
         comment = form.save(commit=False)
