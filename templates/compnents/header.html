@@ -4,7 +4,7 @@
     <div class="header-content">
         <div class="header-site-logo">
             <a class="header-top-icon" href="{% url 'news_posts:index' %}">
-                <img class="reddit_logo" src="{% static 'img/reddit_logo.png' %}" alt="reddit_logo">
+                <img class="reddit_logo" src="{% static 'img/reddit_logo.jpeg' %}" alt="reddit_logo">
             </a>
         </div>
         <div class="header-search-area">
@@ -18,13 +18,13 @@
         {% if user.is_authenticated %}
         <div class="header-menu-bar">
             <ul class="header-menu-bar-ul">
-                <li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/chat_button_icon.png' %}" alt="chat" title="Chat"></li>
-                <a href="{% url 'news_posts:notification' request.user.id %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/notifications_button_icon.png' %}" alt="notifications" title="Notifications"></li></a>
-                <a href="{% url 'news_posts:create_post' %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/create_post_button_icon.png' %}" alt="createpost" title="Create Post"></li></a>
+                <li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/chat_button_icon.jpeg' %}" alt="chat" title="Chat"></li>
+                <a href="{% url 'news_posts:notification' request.user.id %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/notifications_button_icon.jpeg' %}" alt="notifications" title="Notifications"></li></a>
+                <a href="{% url 'news_posts:create_post' %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/create_post_button_icon.jpeg' %}" alt="createpost" title="Create Post"></li></a>
             </ul>
             <div class="header-account-fix">
                 <button class="header-account-config-fix" type="button" id="account-drop-down-button">
-                    <img class="user-icon-img" src="{% if request.user.thumbnail %}{{ request.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon">
+                    <img class="user-icon-img" src="{% if request.user.thumbnail %}{{ request.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
                     <div class="user-info-container">
                         <div class="user-name-container">{{ request.user.username }}</div>
                         <i class="fas fa-angle-down" style="margin-top: 5px;"></i>

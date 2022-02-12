@@ -6,7 +6,7 @@ from users.models import User
 
 class CreatePostForm(forms.ModelForm):
     # CHOICES = Communities.objects.filter(member=current_user)
-    title = forms.CharField(max_length=300, widget=forms.widgets.TextInput(attrs={'class': "post-title-input-textarea", 'placeholder': "Title"}))
+    title = forms.CharField(max_length=64, widget=forms.widgets.TextInput(attrs={'class': "post-title-input-textarea", 'placeholder': "Title"}))
     content = forms.CharField(max_length=512, widget=forms.widgets.Textarea(attrs={'class': "post-content-input-textarea", 'placeholder': "Text(Optional)"}))
     community = forms.ModelChoiceField(queryset=Communities.objects.filter(member=0), required=False)
 

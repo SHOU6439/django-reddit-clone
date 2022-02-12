@@ -26,7 +26,7 @@
         </div>
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">
-                <img class="posted-of-user-thumbnail" src="{% if down.voted_post.user.thumbnail %}{{ down.voted_post.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                <img class="posted-of-user-thumbnail" src="{% if down.voted_post.user.thumbnail %}{{ down.voted_post.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
                 <li class="posted-by-community-name-list">
                     {% if down.voted_post.community is None %}
                     <a href="{% url 'users:detail' down.voted_post.user.id %}">{{ down.voted_post.user }}</a>
@@ -66,7 +66,7 @@
                     <lable class="posted-post-control-button-label">Award</label>
                 </li>
                 {% endif %}
-                <a href="">
+                <a href="{% url 'news_posts:share' down.voted_post.id %}">
                     <li class="posted-post-control-button">
                         <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Share</label>
@@ -102,9 +102,9 @@
     <div class="profile-detail-right-background-container">
         <div class="profile-detail-container-for-profile-detail-html">
             <div class="profile-all-image-container">
-                <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
+                <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.jpeg' %}{% endif %}" alt="header" />
                 <div class="profile-thumbnail-icon-wrapper">
-                    <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                    <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
                 </div>
             </div>
             <div class="profile-username-and-config-button-container">

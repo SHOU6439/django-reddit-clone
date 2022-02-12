@@ -34,9 +34,9 @@
         <div class="create-post-right-side-element-container">
             <div class="profile-detail-container-for-create-post-html">
                 <div class="profile-all-image-container">
-                    <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
+                    <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.jpeg' %}{% endif %}" alt="header" />
                     <div class="profile-thumbnail-icon-wrapper">
-                        <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                        <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
                     </div>
                 </div>
                 <div class="profile-username-and-config-button-container">

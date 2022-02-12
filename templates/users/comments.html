@@ -17,7 +17,7 @@
     <div class="news-posts-news-detail-box">
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">
-                <img class="posted-of-user-thumbnail" src="{% if comment.user.thumbnail %}{{ comment.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                <img class="posted-of-user-thumbnail" src="{% if comment.user.thumbnail %}{{ comment.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
                 <li class="posted-by-community-name-list">
                     <a href="{% url 'users:detail' comment.user.id %}">{{ comment.user }}</a>
                     <span class="posted-by-user-name-span">{{ comment.created_at|timesince }}</span>
@@ -78,9 +78,9 @@
     <div class="profile-detail-right-background-container">
         <div class="profile-detail-container-for-profile-detail-html">
             <div class="profile-all-image-container">
-                <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.png' %}{% endif %}" alt="header" />
+                <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.jpeg' %}{% endif %}" alt="header" />
                 <div class="profile-thumbnail-icon-wrapper">
-                    <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.png' %}{% endif %}" alt="icon" />
+                    <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
                 </div>
             </div>
             <div class="profile-username-and-config-button-container">

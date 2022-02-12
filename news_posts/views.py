@@ -1,6 +1,4 @@
-from operator import ge
-from re import template
-from sys import flags
+import pyperclip
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
@@ -23,7 +21,7 @@ class IndexView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # ログインユーザーのidを取得
-        current_user = self.request.user.id 
+        current_user = self.request.user.id
         queryset = NewsPosts.objects.order_by('-created_at')
         if current_user is None:
             # 未ログイン時の処理
@@ -171,6 +169,8 @@ def vote_up(request, pk):
     notification = Notification
     message = request.user.username + "が      " + post.title + "      を賛成した。"
     vote_notification = notification.objects.filter(title="vote通知", message=message, destination=post.user)
+    if vote:
+        Vote.objects.filter(voted_user=request.user, voted_post=post).delete()
     if not vote:
         vote = Vote()
         # print('up, none')
@@ -197,6 +197,8 @@ def vote_down(request, pk):
     # print('down')
     post = NewsPosts.objects.get(pk=pk)
     vote = Vote.objects.filter(voted_user=request.user, voted_post=post).first()
+    if vote:
+        Vote.objects.filter(voted_user=request.user, voted_post=post).delete()
     if not vote:
         # print('down, none')
         vote = Vote()
@@ -223,12 +225,14 @@ class CreateReplayView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         comment_pk = self.kwargs['pk']
         comment = get_object_or_404(Comment, pk=comment_pk)
+        notification = Notification
         post_pk = comment.target.id
         replay = form.save(commit=False)
         replay.target = comment
         replay.user = get_user_model().objects.get(id=self.request.user.id)
         replay.save()
         comment.replay.add(replay)
+        notification.objects.create(destination=comment.user, title=self.request.user.username + "からのコメントの返信", message=replay.content)
         return redirect('news_posts:post_detail', pk=post_pk)
 
     def get_context_data(self, **kwargs):
@@ -273,3 +277,12 @@ class DeleteReplayView(LoginRequiredMixin, generic.DeleteView):
         comment = get_object_or_404(Comment, pk=comment_pk)
         post_pk = comment.target.id
         return reverse('news_posts:post_detail', kwargs={'pk': post_pk})
+
+class SharePostView(generic.View):
+    model = NewsPosts
+
+    def get(self, request, *args, **kwargs):
+        post_pk = self.kwargs['pk']
+        path = request.get_host() + "/post-detail/" + str(post_pk)
+        pyperclip.copy(path)
+        return redirect('news_posts:index')
