@@ -163,28 +163,28 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
 @login_required
 @transaction.atomic
 def vote_up(request, pk):
-    # print('up')
     post = NewsPosts.objects.get(pk=pk)
     vote = Vote.objects.filter(voted_user=request.user, voted_post=post).first()
     notification = Notification
     message = request.user.username + "が      " + post.title + "      を賛成した。"
     vote_notification = notification.objects.filter(title="vote通知", message=message, destination=post.user)
     if vote:
+        # もうすでに何度かvoteをしてるとき
         Vote.objects.filter(voted_user=request.user, voted_post=post).delete()
     if not vote:
+        # まだvoteをしたことがない、もしくは一度voteを取り消したとき
         vote = Vote()
-        # print('up, none')
         vote.voted_user = request.user
         vote.voted_post = post
         vote.flag = 0
     if vote.flag <= 0:
-        # print('up, -1 or 0')
+        # downをしてる、もしくは何もvoteしてないとき
         vote.flag += 1
         post.vote += 1
         if not vote_notification:
             notification.objects.create(title="vote通知", message=message, destination=post.user)
     else:
-        # print('up, 1')
+        # voteしたことを取り消すとき
         vote.flag -= 1
         post.vote -= 1
     vote.save()
@@ -194,23 +194,23 @@ def vote_up(request, pk):
 @login_required
 @transaction.atomic
 def vote_down(request, pk):
-    # print('down')
     post = NewsPosts.objects.get(pk=pk)
     vote = Vote.objects.filter(voted_user=request.user, voted_post=post).first()
     if vote:
+        # もうすでに何度かvoteをしてるとき
         Vote.objects.filter(voted_user=request.user, voted_post=post).delete()
     if not vote:
-        # print('down, none')
+        # まだvoteをしたことがない、もしくは一度voteを取り消したとき
         vote = Vote()
         vote.voted_user = request.user
         vote.voted_post = post
         vote.flag = 0
     if vote.flag >= 0:
-        # print('down, 0 or 1')
+        # upをしてる、もしくは何もvoteしてないとき
         vote.flag -= 1
         post.vote -= 1
     else:
-        # print('down, -1')
+        # voteしたことを取り消すとき
         vote.flag += 1
         post.vote += 1
     vote.save()
