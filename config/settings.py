@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'news_posts.apps.NewsPostsConfig', # 投稿ポスト機能
     'communities.apps.CommunitiesConfig', # コミュニティ機能
     'search.apps.SearchConfig',
-
+    'chat.apps.ChatConfig'
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,6 @@ AUTH_USER_MODEL = 'users.user' # 追記
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
 LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/'
+
+
+ASGI_APPLICATION = 'config.asgi.application'
