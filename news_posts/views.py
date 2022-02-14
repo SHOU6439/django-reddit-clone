@@ -50,6 +50,7 @@ class CreatePostView(LoginRequiredMixin, generic.View):
     success_url = reverse_lazy('news_posts:index')
 
     def get(self, request, *args, **kwargs):
+        # formにリクエストリクエストユーザー情報を渡す
         form = self.form_class(user=request.user)
         return render(request, self.template_name, {'form': form})
 
@@ -128,9 +129,9 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     # def post(self, request):
     #     form = CreateCommentForm(request.POST)
 
-    #     get_user_id = form.save(commit=False)
-    #     get_user_id.user = get_user_model().objects.get(id=request.user.id)
-    #     get_user_id.save()
+    #     post_data = form.save(commit=False)
+    #     post_data.user = get_user_model().objects.get(id=request.user.id)
+    #     post_data.save()
     #     return redirect('news_posts:index')
 
     def form_valid(self, form):
@@ -228,6 +229,7 @@ class CreateReplayView(LoginRequiredMixin, generic.CreateView):
         notification = Notification
         post_pk = comment.target.id
         replay = form.save(commit=False)
+        # replayの対象をこのメソッド内のcomment変数に設定
         replay.target = comment
         replay.user = get_user_model().objects.get(id=self.request.user.id)
         replay.save()
@@ -271,6 +273,7 @@ class DeleteReplayView(LoginRequiredMixin, generic.DeleteView):
     model = Replay
     success_url = reverse_lazy('news_posts:index')
     def get_success_url(self):
+        # replayの対象であるコメントの対象であるポストのpkを取得する
         replay_pk = self.kwargs['pk']
         replay = get_object_or_404(Replay, pk=replay_pk)
         comment_pk = replay.target.id

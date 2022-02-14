@@ -17,10 +17,11 @@ class CreateCommunityView(LoginRequiredMixin, generic.CreateView):
     def post(self, request):
         form = CommunityForm(request.POST)
 
-        get_user_id = form.save(commit=False)
-        get_user_id.admin = get_user_model().objects.get(id=request.user.id)
-        get_user_id.save()
-        community = Communities.objects.get(name=get_user_id.name)
+        post_data = form.save(commit=False)
+        post_data.admin = get_user_model().objects.get(id=request.user.id)
+        post_data.save()
+        community = Communities.objects.get(name=post_data.name)
+        # adminがコミュニティを作ったら自動的にadminはmemberに追加する
         community.member.add(request.user.id)
         community.save()
         return redirect('news_posts:index')
@@ -47,6 +48,7 @@ def join(request, pk):
     join_notification = notification.objects.filter(title="communityメンバー加入通知", message=message, destination=community.admin)
     community.member.add(request.user.id)
     community.save()
+    # 直近にcommunityをleaveした場合にjoin_notificationを作り直す
     if join_notification:
         join_notification.delete()
     if not join_notification:
@@ -61,6 +63,7 @@ def leave(request, pk):
     leave_notification = notification.objects.filter(title="communityメンバー離脱通知", message=message, destination=community.admin)
     community.member.remove(request.user.id)
     community.save()
+    # 直近にcommunityをjoinした場合にleave_notificationを作り直す
     if leave_notification:
         leave_notification.delete()
     if not leave_notification:

@@ -11,6 +11,7 @@ class CreatePostForm(forms.ModelForm):
     community = forms.ModelChoiceField(queryset=Communities.objects.filter(member=0), required=False)
 
     def __init__(self, user, *args, **kwargs):
+        # viewから渡されたuser情報をもとにリクエストしてるユーザーの入ってるコミュニティだけを表示させる
         super(CreatePostForm, self).__init__(*args, **kwargs)
         self.fields['community'].queryset = Communities.objects.filter(member=user)
 
