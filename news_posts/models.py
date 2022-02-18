@@ -13,7 +13,7 @@ class NewsPosts(models.Model):
     saved_user = models.ManyToManyField(get_user_model(),  related_name="saved_user", through='users.bookmarked_posts')
     saved_at = models.ForeignKey(bookmarked_posts, on_delete=models.CASCADE, blank=True, null=True, related_name="saved_at")
     title = models.CharField(max_length=64, unique=False)
-    content = models.TextField(max_length=512, null=True, blank=True)
+    content = models.CharField(max_length=512, null=True, blank=True)
     photo = models.ImageField(verbose_name='写真', blank=True, null=True, upload_to='images/')
     post_photo = ImageSpecField(source='photo', format='JPEG', options={'quality':60})
     vote = models.IntegerField(default=0)
@@ -64,8 +64,8 @@ class Vote(models.Model):
         return str(self.voted_user) + "が" + str(self.voted_post) + "を投票した"
 
 class Notification(models.Model):
-    title = models.CharField(max_length=64, unique=False)
-    message = models.CharField(max_length=512, null=True, blank=True)
+    title = models.CharField(max_length=128, unique=False)
+    message = models.CharField(max_length=624, null=True, blank=True)
     destination = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="destination")
     created_at = models.DateTimeField(auto_now_add=True)
 

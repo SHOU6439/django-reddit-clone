@@ -56,12 +56,13 @@ class CreatePostView(LoginRequiredMixin, generic.View):
 
     def post(self, request):
         form = CreatePostForm(user=request.user, data=request.POST)
-
-        post_data = form.save(commit=False)
-        post_data.user = get_user_model().objects.get(id=request.user.id)
-        post_data.photo = request.FILES.get('photo')
-        post_data.save()
-        return redirect('news_posts:index')
+        if form.is_valid():
+            post_data = form.save(commit=False)
+            post_data.user = get_user_model().objects.get(id=request.user.id)
+            post_data.photo = request.FILES.get('photo')
+            post_data.save()
+            return redirect('news_posts:index')
+        return redirect('news_posts:create_post')
 
     def get_queryset(self):
         return Communities.objects.all()

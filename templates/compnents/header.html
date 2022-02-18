@@ -10,7 +10,7 @@
         <div class="header-search-area">
             <form action="{% url 'search:index' %}" class="header-search-form" method="get">
                 <label class="header-search-laber" for="header_search_bar">
-                    <div><i class="fas fa-search" style="height: 20px; width: 20px; opacity: 0.3;"></i></div>
+                    <div><i class="fas fa-search" style="height: 16px; width: 16px; opacity: 0.3;"></i></div>
                 </label>
                 <input class="header-search-content" type="text" id="header_search_bar" name="q" placeholder="Search Reddit"/>
             </form>
@@ -18,7 +18,7 @@
         {% if user.is_authenticated %}
         <div class="header-menu-bar">
             <ul class="header-menu-bar-ul">
-                <li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/chat_button_icon.jpeg' %}" alt="chat" title="Chat"></li>
+                <a href="{% url 'chat:home' %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/chat_button_icon.jpeg' %}" alt="chat" title="Chat"></li></a>
                 <a href="{% url 'news_posts:notification' request.user.id %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/notifications_button_icon.jpeg' %}" alt="notifications" title="Notifications"></li></a>
                 <a href="{% url 'news_posts:create_post' %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/create_post_button_icon.jpeg' %}" alt="createpost" title="Create Post"></li></a>
             </ul>

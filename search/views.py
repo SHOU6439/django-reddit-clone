@@ -4,7 +4,7 @@ from communities.models import Communities
 from news_posts.models import NewsPosts
 from django.db.models import Q
 # Create your views here.
-class SearchView(generic.ListView):
+class SearchPostsView(generic.ListView):
     template_name = 'search/index.html'
 
     def get_queryset(self):

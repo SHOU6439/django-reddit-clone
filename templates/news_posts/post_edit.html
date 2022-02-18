@@ -29,7 +29,9 @@
                 </div>
                 <li class="posted-title-string-list-expansion">{{ object.title }}</li>
                 {{ form.content }} <!-- post-content-input-textarea-edit -->
-                <div class="for-news-posts-edited-data-save-button-container"><button class="news-posts-edited-data-save-button" type="submit">Save</button></div>
+                <div class="news-posts-edited-data-save-button-container">
+                    <button class="news-posts-edited-data-save-button" type="submit">Save</button>
+                </div>
                 <ul class="posted-post-control-button-list">
                     <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' object.pk %}">
                         <li class="posted-post-control-button">

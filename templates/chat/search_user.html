@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
+<div class="chat-home-background-container">
+    <div class="chat-home-left-menu">
+        <div class="chat-home-left-menu-heading-container">
+            <h2 class="chat-home-left-menu-heading">Chat</h2>
+            <div class="add-dm-room-button-wrapper">
+                <a href="{% url 'chat:home' %}"><i class="fas fa-comment-medical" style="width: 25px; height: 25px;"></i></a>
+            </div>
+        </div>
+        <div class="chat-select-chat-type-row">
+            <ul class="chat-type-list">
+                <a href="{% url 'chat:home' %}"><li class="chat-type-list-displaying-element">All</li></a>
+                <a href="{% url 'chat:dm_home' %}"><li class="chat-type-list-element">DMs</li></a>
+                <a href=""><li class="chat-type-list-element">Group</li></a>
+            </ul>
+        </div>
+        {% for dm_room in dm_rooms %}
+        <div class="chat-dm-addressee-list">
+            <div class="chat-dm-addressee-detail-box">
+                <img class="chat-dm-addressee-thumbnail" src="{% if dm_room.addressee.thumbnail %}{{ dm_room.addressee.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
+                <p class="chat-dm-addressee-username">{{ dm_room.addressee }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="chat-home-main-container">
+        <form class="chat-home-main-container-search-user-form" action="{% url 'chat:search_user' %}" method="GET">
+            <h2 class="chat-home-main-container-heading">New Chat</h2>
+            <h3 class="chat-home-main-container-sub-heading">SEARCH</h3>
+            <div class="chat-home-search-user-container">
+                <div class="chat-home-search-user-input-box">
+                    <label class="chat-home-search-user-laber" for="search_user_bar">
+                        <i class="fas fa-search" style="margin-left: 8px; height: 16px; width: 16px; opacity: 0.3;"></i>
+                    </label>
+                    <input class="chat-home-search-user-input-username-row" id="search_user_bar" name="q" type="text" placeholder="Type usernames">
+                </div>
+                {% for result in object_list %}
+                <div class="chat-home-search-user-result-container">
+                    <div class="chat-home-search-user-result-content">
+                        <img class="chat-home-search-user-result-thumbnail" src="{% if result.thumbnail %}{{ result.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
+                        <li class="chat-home-search-user-result-username">{{ result.username }}</li>
+                        {% if result.id != request.user.id %}
+                        <a href="{% url 'chat:create_dm_room' result.id %}" class="chat-home-create-dm-room-button">Chat</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

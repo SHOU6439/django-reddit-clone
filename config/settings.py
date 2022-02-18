@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig', # カスタムユーザー機能
     'news_posts.apps.NewsPostsConfig', # 投稿ポスト機能
     'communities.apps.CommunitiesConfig', # コミュニティ機能
-    'search.apps.SearchConfig',
-    'chat.apps.ChatConfig'
+    'search.apps.SearchConfig', # 検索機能
+    'chat.apps.ChatConfig' #チャット機能
 ]
 
 MIDDLEWARE = [
@@ -150,3 +150,13 @@ LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/'
 
 
 ASGI_APPLICATION = 'config.asgi.application'
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}
