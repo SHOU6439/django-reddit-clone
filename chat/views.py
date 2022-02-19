@@ -56,12 +56,24 @@ class CreateDMRoomView(LoginRequiredMixin, generic.View):
         addressee_pk = self.kwargs['pk']
         author = User.objects.get(id=request.user.id)
         addressee = User.objects.get(id=addressee_pk)
-        if DMRoom.objects.filter(author=author, addressee=addressee).count() == 0:
+        author_room = DMRoom.objects.filter(author=author, addressee=addressee)
+        addressee_room = DMRoom.objects.filter(author=addressee, addressee=author)
+        if not author_room:
+            # author側でDMルームを作成
             DMRoom.objects.create(author=author, addressee=addressee)
         # else:
         #     TODO:DMのdetail画面が作成されたらdetail画面に飛ぶようにする
 
-        # dm_invite = Notification.objects.filter(title=author.username + "からのDM招待", message="承認する場合は相手にDMを送ってみてください!", destination=addressee)
-        # if not dm_invite:
-        #     Notification.objects.create(title=author.username + "からのDM招待", message="承認する場合は相手にDMを送ってみてください!", destination=addressee)
+        dm_invite = DMInvite.objects.filter(invited_user=author, received_user=addressee)
+        dm_receive = DMInvite.objects.filter(invited_user=addressee, received_user=author)
+        if not dm_invite:
+            # DM招待を作成
+            DMInvite.objects.create(invited_user=author, received_user=addressee)
+            if author_room and addressee_room:
+                # DMルームが既に双方に存在する場合既にDM招待は承認されてるので削除。
+                dm_invite.delete()
+        if dm_receive:
+            # 受信する側からもDM招待を送られた場合は双方のDM招待を削除し、そのまま双方にDMルームを作成。実質DM招待の承認と同じ動きをします。
+            dm_invite.delete()
+            dm_receive.delete()
         return redirect('chat:home')

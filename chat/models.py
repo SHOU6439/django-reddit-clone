@@ -20,6 +20,9 @@ class DMInvite(models.Model):
     ignore = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return str(self.invited_user) + "が" + str(self.received_user) + "をDMに招待しました"
+
 class DirectMessage(models.Model):
     room = models.ForeignKey(DMRoom, on_delete=models.CASCADE, related_name="dm_room")
     sender = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="dm_sender")

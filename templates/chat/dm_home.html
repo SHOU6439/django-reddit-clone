@@ -16,10 +16,24 @@
                 <a href=""><li class="chat-type-list-element">Group</li></a>
             </ul>
         </div>
+        {% if dm_invites %}
+        <h3 class="chat-home-chat-status-heading">Invites</h3>
+        {% for dm_invite in dm_invites %}
+        <div class="chat-dm-addressee-list">
+            <div class="chat-dm-addressee-detail-box">
+                <img class="chat-dm-addressee-thumbnail" src="{% if dm_invite.invited_user.thumbnail %}{{ dm_invite.invited_user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
+                <p class="chat-dm-addressee-username">{{ dm_invite.invited_user }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if dm_invites and dm_rooms %}
+        <h3 class="chat-home-chat-status-heading">Chats</h3>
+        {% endif %}
         {% for dm_room in dm_rooms %}
         <div class="chat-dm-addressee-list">
             <div class="chat-dm-addressee-detail-box">
-                <img class="chat-dm-addressee-thumbnail" src="{% if dm_room.addressee.thumbnail %}{{ dm_room.addressee.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="">
+                <img class="chat-dm-addressee-thumbnail" src="{% if dm_room.addressee.thumbnail %}{{ dm_room.addressee.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
                 <p class="chat-dm-addressee-username">{{ dm_room.addressee }}</p>
             </div>
         </div>

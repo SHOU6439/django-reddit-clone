@@ -1,14 +1,17 @@
 .chat-home-background-container {
     display: flex;
     background-color: white;
-    min-height: 715px;
+    /* min-height: 715px; */
     width: 100%;
+    position: absolute;
+    top: 46px;
+    bottom: 0;
 }
 
 .chat-home-left-menu{
     border-right: 2px solid #edeff1;
     overflow: scroll;
-    height: 715px;
+    height: 100%;
     width: 21.5%;
 }
 
@@ -187,4 +190,11 @@
     border: #0079D3 solid 2px;
     font-size: 10px;
     margin-top: 2px;
+}
+
+.chat-home-chat-status-heading {
+    font-size: 14px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    color: #808080;
 }
