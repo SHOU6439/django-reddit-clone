@@ -16,7 +16,16 @@
     background-color: #ffffff;
     border-radius: 5px;
     position: absolute;
-    top: 102px;
+    top: 101px;
+    right: 250px;
+}
+.profile-detail-container-for-post-detail-html {
+    height: 332px;
+    width: 312px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    position: absolute;
+    top: 66px;
     right: 250px;
 }
 .profile-detail-user-name {
@@ -91,7 +100,7 @@
     padding-top: 15px;
 }
 
-.profile-community-detail-container-for-profile-detail-html{
+.profile-community-detail-container-for-post-detail-html{
     height: 175px;
     width: 312px;
     background-color: #ffffff;

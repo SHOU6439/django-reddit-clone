@@ -1,7 +1,6 @@
 .chat-home-background-container {
     display: flex;
     background-color: white;
-    /* min-height: 715px; */
     width: 100%;
     position: absolute;
     top: 46px;

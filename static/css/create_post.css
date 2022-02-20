@@ -44,7 +44,10 @@
 .create-post-big-container{
     padding: 50px 10% 0 6%;
     background-color: #dae0e6;
-    min-height: 720px;
+    position: absolute;
+    bottom: 0px;
+    top: 46px;
+    width: 100%;
 }
 .create-post-display-control-container {
     display: flex;
@@ -93,7 +96,7 @@
     position: absolute;
     z-index: 10;
     left: 875px;
-    top: 100px;
+    top: 54px;
 }
 #preview {
     max-width: 400px;
