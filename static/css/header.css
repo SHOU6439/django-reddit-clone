@@ -25,7 +25,7 @@
 }
 .header-account-fix{
     display: flex;
-    width: 30%;
+    width: 0px;
     margin-top: 5px;
 }
 .reddit_logo{
