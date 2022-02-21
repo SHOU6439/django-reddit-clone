@@ -91,6 +91,7 @@
 }
 .header-account-config {
     display: block;
+    margin-left: 50px;
 }
 .header-account-config-fix{
     display: flex;
