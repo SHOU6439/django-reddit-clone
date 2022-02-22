@@ -34,7 +34,7 @@ class ChatDMHomeView(LoginRequiredMixin, generic.ListView):
 
 
 class SearchUserView(LoginRequiredMixin, generic.ListView):
-    template_name = 'chat/search_user.html'
+    template_name = 'chat/search_user_result.html'
 
     def get_queryset(self):
         q = self.request.GET.get('q')
