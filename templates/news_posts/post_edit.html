@@ -88,7 +88,7 @@
             </div>
         </div>
         {% if object.community is None %}
-        <div class="profile-detail-container-for-profile-detail-html">
+        <div class="profile-detail-container-for-post-detail-html">
             <div class="profile-all-image-container">
                 <img class="profile-header-img" src="{% if object.user.header %}{{ object.user.header.url }}{% else %}{% static 'img/default_user_header.jpeg' %}{% endif %}" alt="header" />
                 <div class="profile-thumbnail-icon-wrapper">
@@ -106,7 +106,7 @@
             </div>
         </div>
         {% else %}
-        <div class="profile-community-detail-container-for-profile-detail-html">
+        <div class="profile-community-detail-container-for-post-detail-html">
             <div class="profile-username-and-config-button-container">
                 <div class="profile-detail-community-name-box"><p class="profile-detail-community-name">{{ object.community }}</p></div>
             </div>
