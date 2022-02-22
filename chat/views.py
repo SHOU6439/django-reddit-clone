@@ -68,7 +68,8 @@ class CreateDMRoomView(LoginRequiredMixin, generic.View):
         dm_receive = DMInvite.objects.filter(invited_user=addressee, received_user=author)
         if not dm_invite:
             # DM招待を作成
-            DMInvite.objects.create(invited_user=author, received_user=addressee)
+            get_author_room = DMRoom.objects.filter(author=author, addressee=addressee).first()
+            DMInvite.objects.create(room=get_author_room, invited_user=author, received_user=addressee)
             if author_room and addressee_room:
                 # DMルームが既に双方に存在する場合既にDM招待は承認されてるので削除。
                 dm_invite.delete()
@@ -77,3 +78,15 @@ class CreateDMRoomView(LoginRequiredMixin, generic.View):
             dm_invite.delete()
             dm_receive.delete()
         return redirect('chat:home')
+
+class DMRoomDetailView(LoginRequiredMixin, generic.DetailView):
+    model = DMRoom
+    template_name = 'chat/dm_room_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_room'] = DMRoom.objects.get(id=self.kwargs['pk'])
+        context['dm_list'] = DirectMessage.objects.filter(room=self.kwargs['pk'])
+        context['dm_invites'] = DMInvite.objects.filter(received_user=self.request.user.id).order_by("-created_at")
+        context['dm_rooms'] = DMRoom.objects.filter(author=self.request.user.id).order_by("-created_at")
+        return context

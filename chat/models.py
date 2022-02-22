@@ -14,6 +14,7 @@ class DMRoom(models.Model):
         return str(self.addressee)
 
 class DMInvite(models.Model):
+    room = models.ForeignKey(DMRoom, on_delete=models.CASCADE, related_name="invitation_room")
     invited_user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="users_dm_invite")
     received_user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="users_dm_receive")
     accept = models.BooleanField(default=False)
