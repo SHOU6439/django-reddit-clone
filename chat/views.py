@@ -61,8 +61,6 @@ class CreateDMRoomView(LoginRequiredMixin, generic.View):
         if not author_room:
             # author側でDMルームを作成
             DMRoom.objects.create(author=author, addressee=addressee)
-        # else:
-        #     TODO:DMのdetail画面が作成されたらdetail画面に飛ぶようにする
 
         dm_invite = DMInvite.objects.filter(invited_user=author, received_user=addressee)
         dm_receive = DMInvite.objects.filter(invited_user=addressee, received_user=author)
@@ -77,7 +75,8 @@ class CreateDMRoomView(LoginRequiredMixin, generic.View):
             # 受信する側からもDM招待を送られた場合は双方のDM招待を削除し、そのまま双方にDMルームを作成。実質DM招待の承認と同じ動きをします。
             dm_invite.delete()
             dm_receive.delete()
-        return redirect('chat:home')
+        author_room_pk = DMRoom.objects.filter(author=author, addressee=addressee).first().id
+        return redirect('chat:dm_room_detail', pk=author_room_pk)
 
 class DMRoomDetailView(LoginRequiredMixin, generic.DetailView):
     model = DMRoom
