@@ -99,10 +99,12 @@
     padding-left: 17.2%;
     font-weight: bold;
     color: #0079D3;
+    padding-top: 2px;
 }
 
 .create-community-Decision-button {
     margin-right: 20px;
+    border: 1px solid #0079D3;
     background-color: #0079D3;
     border-radius: 9999px;
     display: block;
