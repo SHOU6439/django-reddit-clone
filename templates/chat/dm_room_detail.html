@@ -53,6 +53,15 @@
                 </div>
             </a>
         </div>
+        {% elif current_room.author.id == dm_room.addressee.id and current_room.addressee.id == dm_room.author.id %}
+        <div class="chat-dm-addressee-list">
+            <a href="{% url 'chat:dm_room_detail' dm_room.id %}">
+                <div class="chat-dm-displaying-addressee-detail-box">
+                    <img class="chat-dm-addressee-thumbnail" src="{% if dm_room.addressee.thumbnail %}{{ dm_room.addressee.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
+                    <p class="chat-dm-addressee-username">{{ dm_room.addressee }}</p>
+                </div>
+            </a>
+        </div>
         {% else %}
         <div class="chat-dm-addressee-list">
             <a href="{% url 'chat:dm_room_detail' dm_room.id %}">
