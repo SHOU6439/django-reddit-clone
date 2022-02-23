@@ -53,6 +53,7 @@
     padding-left: 8.5%;
     font-weight: bold;
     color: #0079D3;
+    padding-top: 2px;
 }
 .header-signup-button{
     margin-right: 20px;
@@ -64,6 +65,7 @@
     padding-left: 7%;
     font-weight: bold;
     color: #FFFFFF;
+    padding-top: 2px;
 }
 .header-login-button:hover{
     opacity: 0.7;
