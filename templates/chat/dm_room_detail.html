@@ -67,7 +67,13 @@
     </div>
     <div class="chat-home-main-container">
         <div class="dm-room-detail-background-container">
-
+            {% if current_invite %}
+            <div class="dm-room-detail-footer-container">
+                <p class="dm-room-detail-footer-text">Do you want to accept the invitation?</p>
+                <a class="dm-room-invite-ignore-button" href="{% url 'chat:ignore_dm_invite' current_room.author.id %}">Ignore</a>
+                <a class="dm-room-invite-accept-button" href="{% url 'chat:accept_dm_invite' current_room.author.id %}">Accept</a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

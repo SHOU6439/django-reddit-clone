@@ -75,7 +75,9 @@ class CreateDMRoomView(LoginRequiredMixin, generic.View):
             # 受信する側からもDM招待を送られた場合は双方のDM招待を削除し、そのまま双方にDMルームを作成。実質DM招待の承認と同じ動きをします。
             dm_invite.delete()
             dm_receive.delete()
-        author_room_pk = DMRoom.objects.filter(author=author, addressee=addressee).first().id
+        author_room_pk = DMRoom.objects.filter(
+            author=author, addressee=addressee
+        ).first().id
         return redirect('chat:dm_room_detail', pk=author_room_pk)
 
 class DMRoomDetailView(LoginRequiredMixin, generic.DetailView):
@@ -84,8 +86,44 @@ class DMRoomDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        addressee_pk = DMRoom.objects.get(id=self.kwargs['pk']).author.id
+        author = User.objects.get(id=self.request.user.id)
+        addresee = User.objects.get(id=addressee_pk)
+        context['current_invite'] = DMInvite.objects.filter(invited_user=addresee, received_user=author)
         context['current_room'] = DMRoom.objects.get(id=self.kwargs['pk'])
         context['dm_list'] = DirectMessage.objects.filter(room=self.kwargs['pk'])
         context['dm_invites'] = DMInvite.objects.filter(received_user=self.request.user.id).order_by("-created_at")
         context['dm_rooms'] = DMRoom.objects.filter(author=self.request.user.id).order_by("-created_at")
         return context
+
+class AcceptDMInviteView(LoginRequiredMixin, generic.View):
+    model = DMInvite
+
+    def get(self, request, *args, **kwargs):
+        addressee_pk = self.kwargs['pk']
+        author = User.objects.get(id=request.user.id)
+        addressee = User.objects.get(id=addressee_pk)
+        dm_invite = DMInvite.objects.filter(invited_user=addressee, received_user=author)
+        dm_invite.accept = True
+        dm_invite.delete()
+        DMRoom.objects.create(author=author, addressee=addressee)
+        author_room_pk = DMRoom.objects.filter(
+            author=author, addressee=addressee
+        ).first().id
+        return redirect('chat:dm_room_detail', pk=author_room_pk)
+
+class IgnoreDMInviteView(LoginRequiredMixin, generic.View):
+    model = DMInvite
+
+    def get(self, request, *args, **kwargs):
+        addressee_pk = self.kwargs['pk']
+        author = User.objects.get(id=request.user.id)
+        addressee = User.objects.get(id=addressee_pk)
+        dm_invite = DMInvite.objects.filter(invited_user=addressee, received_user=author)
+        dm_invite.ignore = True
+        dm_invite.delete()
+        DMRoom.objects.filter(
+            author=addressee, addressee=author
+        ).delete()
+        return redirect('chat:home')
+
