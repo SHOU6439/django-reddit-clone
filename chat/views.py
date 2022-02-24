@@ -85,8 +85,8 @@ class DMRoomDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = 'chat/dm_room_detail.html'
 
     def get(self, request, *args, **kwargs):
-        is_author = DMRoom.objects.filter(id=self.kwargs['pk']).first().author.id
-        is_addressee = DMRoom.objects.filter(id=self.kwargs['pk']).first().addressee.id
+        is_author = DMRoom.objects.get(id=self.kwargs['pk']).author.id
+        is_addressee = DMRoom.objects.get(id=self.kwargs['pk']).addressee.id
         if is_author == self.request.user.id or is_addressee == self.request.user.id:
             self.object = self.get_object()
             context = self.get_context_data(object=self.object)
@@ -113,13 +113,18 @@ class AcceptDMInviteView(LoginRequiredMixin, generic.View):
         addressee_pk = self.kwargs['pk']
         author = User.objects.get(id=request.user.id)
         addressee = User.objects.get(id=addressee_pk)
-        dm_invite = DMInvite.objects.filter(invited_user=addressee, received_user=author)
+        dm_invite = DMInvite.objects.filter(
+            invited_user=addressee,
+            received_user=author
+        )
         dm_invite.accept = True
         dm_invite.delete()
-        DMRoom.objects.create(author=author, addressee=addressee)
-        author_room_pk = DMRoom.objects.filter(
-            author=author, addressee=addressee
-        ).first().id
+        if not DMRoom.objects.filter(author=author, addressee=addressee):
+            DMRoom.objects.create(author=author, addressee=addressee)
+        author_room_pk = DMRoom.objects.get(
+            author=author,
+            addressee=addressee
+        ).id
         return redirect('chat:dm_room_detail', pk=author_room_pk)
 
 class IgnoreDMInviteView(LoginRequiredMixin, generic.View):
@@ -129,11 +134,16 @@ class IgnoreDMInviteView(LoginRequiredMixin, generic.View):
         addressee_pk = self.kwargs['pk']
         author = User.objects.get(id=request.user.id)
         addressee = User.objects.get(id=addressee_pk)
-        dm_invite = DMInvite.objects.filter(invited_user=addressee, received_user=author)
+        dm_invite = DMInvite.objects.filter(
+            invited_user=addressee,
+            received_user=author
+        )
         dm_invite.ignore = True
-        dm_invite.delete()
-        DMRoom.objects.filter(
-            author=addressee, addressee=author
-        ).delete()
+        if not DMRoom.objects.filter(author=author, addressee=addressee):
+            dm_invite.delete()
+            DMRoom.objects.filter(
+                author=addressee,
+                addressee=author
+            ).delete()
         return redirect('chat:home')
 
