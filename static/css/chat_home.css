@@ -211,7 +211,7 @@
 
 .dm-room-detail-footer-container {
     width: 100%;
-    height: 50px;
+    height: 7%;
     position: fixed;
     bottom: 0px;
     border-top: #edeff1 solid 2px;
@@ -256,4 +256,70 @@
 
 .dm-room-invite-accept-button:hover {
     opacity: 0.7;
+}
+
+.dm-list-container {
+    width: 100%;
+    height: 93%;
+    overflow: scroll;
+    padding: 25px;
+}
+
+.dm-detail-row {
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.dm-message-sender-thumbnail {
+    height: 32px;
+    width: 32px;
+    border-radius: 50px;
+    margin-left: 4px;
+}
+.dm-message-addressee-thumbnail {
+    height: 32px;
+    width: 32px;
+    border-radius: 50px;
+    margin-right: 4px;
+}
+.dm-detail-box-sender {
+    display: flex;
+    margin-left: 80%;
+}
+
+.dm-message-content-box {
+    word-break: break-all;
+    border: solid #edeff1 1px;
+    border-radius: 20px;
+    padding: 10px 12px;
+    margin-bottom: 4px;
+}
+
+.dm-detail-box-addressee {
+    display: flex;
+    margin-right: 80%;
+}
+
+.addressee {
+    background-color: #edeff1;
+}
+
+.dm-send-message-form-container {
+    height: 7%;
+    align-items: center;
+    display: flex;
+}
+
+.dm-send-message-text-input {
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    height: 40px;
+    padding: 16px 12px;
+    width: 90%;
+    font-size: 14px;
+}
+
+.fa-paper-plane:hover {
+    cursor: pointer;
+    color: #0079d3;
 }

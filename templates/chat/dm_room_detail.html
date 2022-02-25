@@ -76,14 +76,74 @@
     </div>
     <div class="chat-home-main-container">
         <div class="dm-room-detail-background-container">
+            <div class="dm-list-container" id="chat_list">
+                {% for message in dm_list %}
+                {% if message.sender.id == request.user.id %}
+                <div class="dm-detail-row">
+                    <div class="dm-detail-box-sender" id="chat_template">
+                        <div class="dm-message-content-box" title="{{ message.created_at|timesince }}">{{ message.content|linebreaksbr|urlize }}</div>
+                        <img class="dm-message-sender-thumbnail" src="{% if message.sender.thumbnail %}{{ message.sender.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
+                    </div>
+                </div>
+                {% elif message.sender.id == current_room.addressee.id or message.sender.id == current_invite.invited_user.id %}
+                <div class="dm-detail-row">
+                    <div class="dm-detail-box-addressee">
+                        <img class="dm-message-addressee-thumbnail" src="{% if message.sender.thumbnail %}{{ message.sender.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
+                        <div class="dm-message-content-box addressee" title="{{ message.created_at|timesince }}">{{ message.content|linebreaksbr|urlize }}</div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
             {% if current_invite %}
             <div class="dm-room-detail-footer-container">
                 <p class="dm-room-detail-footer-text">Do you want to accept the invitation?</p>
                 <a class="dm-room-invite-ignore-button" href="{% url 'chat:ignore_dm_invite' current_room.author.id %}">Ignore</a>
                 <a class="dm-room-invite-accept-button" href="{% url 'chat:accept_dm_invite' current_room.author.id %}">Accept</a>
             </div>
+            {% else %}
+            <div class="dm-send-message-form-container">
+                <i class="fas fa-camera" style="height: 25px; width: 25px; margin-left: 10px; margin-right: 10px;"></i>
+                <input type="text" class="dm-send-message-text-input" id="msg" placeholder="Message">
+                <button id="send"><i class="fas fa-paper-plane" style="height: 25px; width: 25px; margin-left: 25px; margin-right: 10px; color: #0079d3;"></i></button>
+            </div>
             {% endif %}
         </div>
     </div>
 </div>
+<script>
+    const url = 'ws://' + window.location.host + '/ws/{{room.id}}';
+    const ws = new WebSocket(url);
+
+    document.getElementById('msg').onkeydown = (e) => {
+        if (((e.ctrlKey && !e.metaKey) || (!e.ctrlKey && e.metaKey)) && e.keyCode == 13) {
+            document.getElementById('send').click();
+            return false
+        };
+    }
+
+    document.getElementById("send").onclick = function sendMessage() {
+        const sendData = {
+            message: document.getElementById('msg').value,
+        }
+        ws.send(JSON.stringify(sendData));
+        document.getElementById('msg').value = '';
+    }
+
+    ws.onerror = e => {
+        console.log(e);
+    }
+
+    ws.onmessage = e => {
+        const receiveData = JSON.parse(e.data);
+
+        const template = document.getElementById('chat_template');
+        const clone = template.content.cloneNode(true);
+
+        // clone.querySelector('.card-title').textContent = receiveData.user;
+        clone.querySelector('.dm-message-content-box').textContent = receiveData.message;
+        document.getElementById('chat_list').appendChild(clone);
+    }
+</script>
 {% endblock %}
+
