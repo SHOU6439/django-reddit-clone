@@ -1,3 +1,4 @@
+from email import message
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -123,6 +124,21 @@ class AcceptDMInviteView(LoginRequiredMixin, generic.View):
         dm_invite.delete()
         if not DMRoom.objects.filter(author=author, addressee=addressee):
             DMRoom.objects.create(author=author, addressee=addressee)
+            addressee_room_messages = DirectMessage.objects.filter(
+                room=DMRoom.objects.get(author=addressee, addressee=author),
+            )
+            if addressee_room_messages:
+                message_storage = []
+                for message in addressee_room_messages:
+                    message_storage.append(DirectMessage(
+                        room=DMRoom.objects.get(author=author, addressee=addressee),
+                        sender=message.sender,
+                        content=message.content,
+                        created_at=message.created_at,
+                    ))
+                DirectMessage.objects.bulk_create(
+                    message_storage
+                )
         author_room_pk = DMRoom.objects.get(
             author=author,
             addressee=addressee
