@@ -1,4 +1,3 @@
-from email import message
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
