@@ -284,7 +284,7 @@
 }
 .dm-detail-box-sender {
     display: flex;
-    margin-left: 80%;
+    justify-content: end;
 }
 
 .dm-message-content-box {
@@ -295,9 +295,13 @@
     margin-bottom: 4px;
 }
 
+.dm-message-content-box a {
+    color: #0079d3;
+    text-decoration: underline;
+}
 .dm-detail-box-addressee {
     display: flex;
-    margin-right: 80%;
+    justify-content: left;
 }
 
 .addressee {

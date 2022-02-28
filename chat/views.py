@@ -4,6 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from chat.models import DMInvite, DMRoom, DirectMessage
 from news_posts.models import Notification
 from users.models import User
+from .forms import CreateDirectMessageForm
+from django.contrib.auth import get_user_model
 # Create your views here.
 
 # class CreateDMChatRoomView(LoginRequiredMixin, generic.View):
@@ -146,4 +148,57 @@ class IgnoreDMInviteView(LoginRequiredMixin, generic.View):
                 addressee=author
             ).delete()
         return redirect('chat:home')
+
+
+
+class CreateDirectMessageView(LoginRequiredMixin, generic.CreateView):
+    model = DirectMessage
+    template_name = 'chat/dm_room_detail.html'
+    form_class = CreateDirectMessageForm
+
+    def get(self, request, *args, **kwargs):
+        # formにリクエストリクエストユーザー情報を渡す
+        form = self.form_class(user=request.user)
+        addressee_pk = self.kwargs['pk']
+        author = User.objects.get(id=self.request.user.id)
+        addressee = User.objects.get(id=addressee_pk)
+        author_room_pk = DMRoom.objects.get(
+            author=author,
+            addressee=addressee
+        ).id
+        return render(request, self.template_name, {'form': form, 'pk': author_room_pk})
+
+    # def post(self, request):
+    #     form = CreateDirectMessageForm(data=request.POST)
+    #     addressee_pk = self.kwargs['pk']
+    #     author = User.objects.get(id=self.request.user.id)
+    #     addressee = User.objects.get(id=addressee_pk)
+    #     if form.is_valid():
+    #         post_data = form.save(commit=False)
+    #         post_data.save()
+    #         author_room_pk = DMRoom.objects.get(
+    #             author=author,
+    #             addressee=addressee
+    #         ).id
+    #     return redirect('chat:dm_room_detail', pk=author_room_pk)
+
+    def form_valid(self, form):
+        addressee_pk = self.kwargs['pk']
+        author = User.objects.get(id=self.request.user.id)
+        addressee = User.objects.get(id=addressee_pk)
+        author_room = DMRoom.objects.get(author=author, addressee=addressee)
+        addressee_room = DMRoom.objects.filter(author=addressee, addressee=author)
+        post_data = form.save(commit=False)
+        post_data.sender = get_user_model().objects.get(id=self.request.user.id)
+        post_data.room = author_room
+        post_data.save()
+        if addressee_room:
+            get_addressee_room = DMRoom.objects.get(author=addressee, addressee=author)
+            DirectMessage.objects.create(room=get_addressee_room, sender=author, content=post_data.content)
+        author_room_pk = DMRoom.objects.get(
+            author=author,
+            addressee=addressee
+        ).id
+        return redirect('chat:dm_room_detail', pk=author_room_pk)
+
 
