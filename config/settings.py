@@ -152,8 +152,8 @@ AUTH_USER_MODEL = 'users.user' # 追記
 
 
 LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
-LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/'
+LOGIN_REDIRECT_URL = 'https://django-reddit-clone289583958.herokuapp.com/'
+LOGOUT_REDIRECT_URL = 'https://django-reddit-clone289583958.herokuapp.com/'
 
 
 ASGI_APPLICATION = 'config.asgi.application'
