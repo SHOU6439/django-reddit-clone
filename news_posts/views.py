@@ -1,4 +1,3 @@
-import pyperclip
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
@@ -281,12 +280,3 @@ class DeleteReplayView(LoginRequiredMixin, generic.DeleteView):
         comment = get_object_or_404(Comment, pk=comment_pk)
         post_pk = comment.target.id
         return reverse('news_posts:post_detail', kwargs={'pk': post_pk})
-
-class SharePostView(generic.View):
-    model = NewsPosts
-
-    def get(self, request, *args, **kwargs):
-        post_pk = self.kwargs['pk']
-        path = request.get_host() + "/post-detail/" + str(post_pk)
-        pyperclip.copy(path)
-        return redirect('news_posts:index')
