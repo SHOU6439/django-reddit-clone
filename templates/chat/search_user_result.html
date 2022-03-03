@@ -58,7 +58,7 @@
                 <div class="chat-home-search-user-result-container">
                     <div class="chat-home-search-user-result-content">
                         <img class="chat-home-search-user-result-thumbnail" src="{% if result.thumbnail %}{{ result.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
-                        <li class="chat-home-search-user-result-username">{{ result.username }}</li>
+                        <a href="{% url 'users:detail' result.id %}"><li class="chat-home-search-user-result-username">{{ result.username }}</li></a>
                         {% if result.id != request.user.id %}
                         <a href="{% url 'chat:create_dm_room' result.id %}" class="chat-home-create-dm-room-button">Chat</a>
                         {% endif %}
