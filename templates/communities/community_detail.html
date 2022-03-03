@@ -79,7 +79,7 @@
                             <lable class="posted-post-control-button-label">Award</label>
                         </li>
                         {% endif %}
-                        <a href="">
+                        <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'news_posts:post_detail' post.id %}" target="_blank" rel="nofollow"">
                             <li class="posted-post-control-button">
                                 <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
                                 <lable class="posted-post-control-button-label">Share</label>
