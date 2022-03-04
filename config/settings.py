@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 
@@ -179,11 +179,11 @@ try:
 except ImportError:
     pass
 
-# if not DEBUG:
-SECRET_KEY = os.environ['SECRET_KEY']
-import django_heroku #追加
-django_heroku.settings(locals()) #追加
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if not DEBUG:
+    SECRET_KEY = os.environ['SECRET_KEY']
+    import django_heroku #追加
+    django_heroku.settings(locals()) #追加
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
