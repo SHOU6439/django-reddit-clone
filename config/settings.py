@@ -27,7 +27,7 @@ DEBUG = False
 
 
 
-ALLOWED_HOSTS = ['django-reddit-clone28374652.herokuapp.com' 'www.django-reddit-clone28374652.com', 'django_sendgrid', '127.0.0.1',]
+ALLOWED_HOSTS = ['django-reddit-clone28374652.herokuapp.com' 'www.django-reddit-clone28374652.com', 'django_sendgrid', '127.0.0.1']
 
 
 # Application definition
