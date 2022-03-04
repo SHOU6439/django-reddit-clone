@@ -81,7 +81,10 @@
 }
 .login-button {
     font-weight: bold;
-    padding: 15px 42.5% 15px 42.5%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    width: 385px;
     border: 1px solid #0079d3;
     border-radius: 50px;
     color: white;

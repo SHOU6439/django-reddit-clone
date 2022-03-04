@@ -81,7 +81,10 @@
 }
 .signup-Continue-button {
     font-weight: bold;
-    padding: 15px 40% 15px 40%;
+    width: 385px;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border: 1px solid #0079d3;
     border-radius: 50px;
     color: white;

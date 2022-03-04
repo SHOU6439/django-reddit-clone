@@ -96,7 +96,7 @@
     display: block;
     height: 30px;
     width: 50%;
-    padding-left: 17.2%;
+    text-align: center;
     font-weight: bold;
     color: #0079D3;
     padding-top: 2px;
@@ -110,7 +110,7 @@
     display: block;
     height: 30px;
     width: 50%;
-    padding-left: 7%;
+    text-align: center;
     font-weight: bold;
     color: #FFFFFF;
 }

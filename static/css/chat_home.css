@@ -163,8 +163,7 @@
     display: block;
     height: 20px;
     width: 40px;
-    padding-left: 5px;
-    padding-right: 5px;
+    text-align: center;
     font-weight: bold;
     color: #FFFFFF;
     position: absolute;
@@ -180,8 +179,7 @@
     display: block;
     height: 20px;
     width: 40px;
-    padding-left: 5px;
-    padding-right: 5px;
+    text-align: center;
     font-weight: bold;
     color: #0079D3;
     position: absolute;

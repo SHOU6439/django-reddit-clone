@@ -68,8 +68,7 @@
     display: block;
     height: 30px;
     width: 80px;
-    padding-left: 20px;
-    padding-right: 20px;
+    text-align: center;
     font-weight: bold;
     color: #FFFFFF;
     position: absolute;
@@ -84,8 +83,7 @@
     display: block;
     height: 30px;
     width: 80px;
-    padding-left: 20px;
-    padding-right: 20px;
+    text-align: center;
     font-weight: bold;
     color: #0079D3;
     position: absolute;
@@ -100,8 +98,7 @@
     display: block;
     height: 30px;
     width: 100px;
-    padding-left: 24px;
-    padding-right: 24px;
+    text-align: center;
     font-weight: bold;
     color: #FFFFFF;
     position: absolute;
@@ -115,8 +112,7 @@
     display: block;
     height: 30px;
     width: 100px;
-    padding-left: 24px;
-    padding-right: 24px;
+    text-align: center;
     font-weight: bold;
     color: #0079D3;
     position: absolute;
