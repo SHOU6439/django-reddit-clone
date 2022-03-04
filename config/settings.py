@@ -27,7 +27,7 @@ DEBUG = False
 
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['django-reddit-clone28374652.herokuapp.com']
 
 
 # Application definition
