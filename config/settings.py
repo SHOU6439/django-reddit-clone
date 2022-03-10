@@ -27,7 +27,7 @@ DEBUG = False
 
 
 
-ALLOWED_HOSTS = ['django-reddit-clone-2022.herokuapp.com', 'www.django-reddit-clone-2022.com', 'django_sendgrid', '127.0.0.1']
+ALLOWED_HOSTS = ['django-reddit-clone-2022.herokuapp.com', 'www.django-reddit-clone-2022.com', 'django_sendgrid', '127.0.0.1', '163.44.183.138']
 
 
 # Application definition
@@ -155,12 +155,8 @@ AUTH_USER_MODEL = 'users.user' # 追記
 
 
 LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'https://django-reddit-clone-2022.herokuapp.com/'
-LOGOUT_REDIRECT_URL = 'https://django-reddit-clone-2022.herokuapp.com/'
-
-# 開発用
-# LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
-# LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/'
+LOGIN_REDIRECT_URL = 'news_posts:index'
+LOGOUT_REDIRECT_URL = 'news_posts:index'
 
 ASGI_APPLICATION = 'config.asgi.application'
 
