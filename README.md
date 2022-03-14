@@ -83,7 +83,7 @@ djangoを学習する際にdjangoで作られてるサービスを調べ、そ�
 * HTML
 * CSS
 * JavaScript
-* 
+* Font Awesome
 
 
 ### 【バックエンド】
