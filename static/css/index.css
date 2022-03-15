@@ -30,7 +30,6 @@ input[type="sumbit"]:hover {
     margin-top: 20px;
     min-height: 100px;
     border-radius: 4px;
-    padding: 5px 5px 5px 0;
     display: flex;
     background-color: #fff;
 }
@@ -62,7 +61,6 @@ input[type="sumbit"]:hover {
     margin-top: 20px;
     min-height: 100px;
     border-radius: 4px;
-    padding: 5px 5px 5px 0;
     display: flex;
     background-color: #fff;
 
@@ -151,7 +149,7 @@ input[type="sumbit"]:hover {
 
 }
 .news-posts-news-detail-box-center-menu {
-    padding: 5px;
+    padding: 8px 5px 5px 5px;
 }
 
 .communities-detail-box {
