@@ -6,6 +6,7 @@ from news_posts.models import Notification
 from users.models import User
 from .forms import CreateDirectMessageForm
 from django.contrib.auth import get_user_model
+from django.http import Http404
 # Create your views here.
 
 # class CreateDMChatRoomView(LoginRequiredMixin, generic.View):
@@ -87,8 +88,11 @@ class DMRoomDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = 'chat/dm_room_detail.html'
 
     def get(self, request, *args, **kwargs):
-        is_author = DMRoom.objects.get(id=self.kwargs['pk']).author.id
-        is_addressee = DMRoom.objects.get(id=self.kwargs['pk']).addressee.id
+        try:
+            is_author = DMRoom.objects.get(id=self.kwargs['pk']).author.id
+            is_addressee = DMRoom.objects.get(id=self.kwargs['pk']).addressee.id
+        except DMRoom.DoesNotExist:
+            raise Http404
         if is_author == self.request.user.id or is_addressee == self.request.user.id:
             self.object = self.get_object()
             context = self.get_context_data(object=self.object)
