@@ -77,12 +77,12 @@
                 </a>
                 {% endif %}
                 {% if object.user.id == user.id %}
-                <li class="posted-post-control-button">
-                    <a href="{% url 'news_posts:edit' object.id %}">
+                <a href="{% url 'news_posts:edit' object.id %}">
+                    <li class="posted-post-control-button">
                         <i class="fas fa-pen" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Edit Post</label>
-                    </a>
-                </li>
+                    </li>
+                </a>
                 {% endif %}
             </ul>
             <div class="comment-background-container">
