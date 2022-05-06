@@ -201,7 +201,8 @@ class CreateDirectMessageView(LoginRequiredMixin, generic.CreateView):
     #         ).id
     #     return redirect('chat:dm_room_detail', pk=author_room_pk)
 
-    def form_valid(self, form):
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         addressee_pk = self.kwargs['pk']
         author = User.objects.get(id=self.request.user.id)
         addressee = User.objects.get(id=addressee_pk)

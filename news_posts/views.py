@@ -134,8 +134,9 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     #     post_data.save()
     #     return redirect('news_posts:index')
 
-    def form_valid(self, form):
+    def post(self, request, *args, **kwargs):
         # TODO:このメソッドの中にあるコメントは対象のコメントを削除した時に通知も削除されるようにするための試みであったが、できなかったので今後実装するかもしれない
+        form = CreateCommentForm(request.POST)
         post_pk = self.kwargs['pk']
         post = get_object_or_404(NewsPosts, pk=post_pk)
         comment = form.save(commit=False)
@@ -223,7 +224,8 @@ class CreateReplayView(LoginRequiredMixin, generic.CreateView):
     form_class = CreateReplayForm
     template_name = "news_posts/create_replay.html"
 
-    def form_valid(self, form):
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         comment_pk = self.kwargs['pk']
         comment = get_object_or_404(Comment, pk=comment_pk)
         notification = Notification
