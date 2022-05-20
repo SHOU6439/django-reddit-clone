@@ -15,6 +15,101 @@
     </div>
     <div class="community-detail-main-content">
         <div class="news-posts-all-list">
+            <div class="news-access-post-detail">
+                <h2 class="new-access-post-detail__heading">New Access</h2>
+                <div class="news-posts-news-detail-box">
+                    <div class="news-posts-news-detail-box-left-menu">
+                        <a href="{% url 'news_posts:vote_up' new_access_post.id %}" onclick='return confirm("You can only vote once");'>
+                            <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+                        </a>
+                        <p class="vote-count">{{ new_access_post.vote }}</p>
+                        <a href="{% url 'news_posts:vote_down' new_access_post.id %}" onclick='return confirm("You can only vote once");'>
+                            <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+                        </a>
+                    </div>
+                    <div class="news-posts-news-detail-box-center-menu">
+                        <div class="posted-by-user-of-info-container">
+                            <img class="posted-of-user-thumbnail" src="{% if new_access_post.user.thumbnail %}{{ new_access_post.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
+                            <li class="posted-by-community-name-list">
+                                {% if new_access_post.community is None %}
+                                <a href="{% url 'users:detail' new_access_post.user.id %}">{{ new_access_post.user }}</a>
+                                <span class="posted-by-user-name-span">{{ new_access_post.created_at|timesince }}</span>
+                                {% else %}
+                                <a href="{% url 'communities:detail' new_access_post.community.id %}">r/{{ new_access_post.community }}</a>
+                                <a href="{% url 'users:detail' new_access_post.user.id %}"><span class="posted-by-user-name-span">Posted By {{ new_access_post.user }} {{ new_access_post.created_at|date:'n/j H:i' }}</span></a>
+                                {% endif %}
+                            </li>
+                        </div>
+                        <a href="{% url 'news_posts:post_detail' new_access_post.id %}"><li class="posted-title-string-list">{{ new_access_post.title }}</li></a>
+                        <li class="posted-content-string-list">{{ new_access_post.content|linebreaksbr|urlize }}</li>
+                        {% if new_access_post.post_photo %}
+                        <div class="posted-news-uploaded-photo-wrapper">
+                            <img class="posted-news-uploaded-photo" src="{{ new_access_post.post_photo.url }}" alt="photo">
+                        </div>
+                        {% endif %}
+                        <ul class="posted-post-control-button-list">
+                            <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' new_access_post.pk %}">
+                                <li class="posted-post-control-button">
+                                    <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
+                                    <lable class="posted-post-control-button-label">Comments</label>
+                                </li>
+                            </a>
+                            {% if new_access_post.user.id == user.id or current_community.admin.id == request.user.id %}
+                            <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_post' new_access_post.pk %}">
+                                {% csrf_token %}
+                                <button class="posted-news-delete-button" type="submit" onclick='return confirm("Are you sure you want to delete your post? You cant undo this.");'>
+                                    <li class="posted-post-control-button">
+                                        <i class="far fa-trash-alt" style="height: 20px; width: 20px;"></i>
+                                        <lable class="posted-post-control-button-label">Delete</label>
+                                    </li>
+                                </button>
+                            </form>
+                            {% else %}
+                            <li class="posted-post-control-button">
+                                <i class="fas fa-gift" style="height: 20px; width: 20px;"></i>
+                                <lable class="posted-post-control-button-label">Award</label>
+                            </li>
+                            {% endif %}
+                            <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'news_posts:post_detail' new_access_post.id %}" target="_blank" rel="nofollow"">
+                                <li class="posted-post-control-button">
+                                    <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
+                                    <lable class="posted-post-control-button-label">Share</label>
+                                </li>
+                            </a>
+                            {% if post in saved_posts %}
+                            <a href="{% url 'news_posts:unsave' new_access_post.id %}">
+                                <li class="posted-post-control-button">
+                                    <i class="fas fa-bookmark" style="height: 20px; width: 20px;"></i>
+                                    <lable class="posted-post-control-button-label">UnSave</label>
+                                </li>
+                            </a>
+                            {% else %}
+                            <a href="{% url 'news_posts:save' new_access_post.id %}">
+                                <li class="posted-post-control-button">
+                                    <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
+                                    <lable class="posted-post-control-button-label">Save</label>
+                                </li>
+                            </a>
+                            {% endif %}
+                            {% if post.user.id == user.id %}
+                            <a href="{% url 'news_posts:edit' new_access_post.id %}">
+                                <li class="posted-post-control-button">
+                                    <i class="fas fa-pen" style="height: 20px; width: 20px;"></i>
+                                    <lable class="posted-post-control-button-label">Edit Post</label>
+                                </li>
+                            </a>
+                            {% elif current_community.admin.id == request.user.id %}
+                            <a href="{% url 'news_posts:edit' new_access_post.id %}">
+                                <li class="posted-post-control-button">
+                                    <i class="fas fa-pen" style="height: 20px; width: 20px;"></i>
+                                    <lable class="posted-post-control-button-label">Edit Post</label>
+                                </li>
+                            </a>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
             {% for post in communitypost_list %}
             <div class="news-posts-news-detail-box">
                 <div class="news-posts-news-detail-box-left-menu">

@@ -5,6 +5,7 @@ from communities.forms import CommunityForm
 from news_posts.models import NewsPosts, Notification
 from users.models import User
 from .models import Communities
+from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -33,7 +34,9 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
-        context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-created_at")
+        new_access_post = NewsPosts.objects.filter(community_id=pk).order_by("comments__created_at").reverse().first()
+        context['new_access_post'] = new_access_post
+        context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-created_at").exclude(id=new_access_post.id)
         context['member_count'] = User.objects.filter(member=pk).count()
         context['is_joined'] = Communities.objects.filter(member=self.request.user)
         context['current_community'] = Communities.objects.get(id=pk)

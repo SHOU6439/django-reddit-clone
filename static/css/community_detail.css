@@ -147,3 +147,17 @@
     font-family: serif;
     font-weight: 500;
 }
+
+.new-access-post-detail__heading {
+    color: #7c7c7c;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.news-access-post-detail {
+    border: solid  1px #cccccc;
+    border-radius: 4px;
+    margin-top: 12px;
+}
