@@ -15,6 +15,7 @@
     </div>
     <div class="community-detail-main-content">
         <div class="news-posts-all-list">
+            {% if new_access_post %}
             <div class="news-access-post-detail">
                 <h2 class="new-access-post-detail__heading">New Access</h2>
                 <div class="news-posts-news-detail-box">
@@ -110,6 +111,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% for post in communitypost_list %}
             <div class="news-posts-news-detail-box">
                 <div class="news-posts-news-detail-box-left-menu">
