@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
@@ -152,6 +153,9 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
         #     content=comment.content
         # )
         notification.objects.create(title=title, message=comment.content, destination=post.user)
+        post.latest_commented_at = timezone.now()
+        post.save()
+
         # if not comment_query:
         #     comment_notification.delete()
         return redirect('news_posts:post_detail', pk=post_pk)

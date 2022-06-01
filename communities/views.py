@@ -34,12 +34,7 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
-        new_access_post = NewsPosts.objects.filter(community_id=pk).order_by("comments__created_at").reverse().first()
-        if new_access_post:
-            context['new_access_post'] = new_access_post
-            context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-created_at").exclude(id=new_access_post.id)
-        else:
-            context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-created_at")
+        context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-latest_commented_at", "-created_at")
         context['member_count'] = User.objects.filter(member=pk).count()
         context['is_joined'] = Communities.objects.filter(member=self.request.user)
         context['current_community'] = Communities.objects.get(id=pk)
