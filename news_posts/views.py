@@ -97,7 +97,7 @@ class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
         post_pk = self.kwargs['pk']
         post = NewsPosts.objects.get(id=post_pk)
         context = super().get_context_data(**kwargs)
-        context['comment_list'] = Comment.objects.filter(target=post_pk).order_by("-created_at")
+        context['comment_list'] = Comment.objects.filter(target=post_pk).order_by("-latest_replayed_at", "-created_at")
         context['member_count'] = User.objects.filter(member=post.community).count()
         context['community_post_count'] = NewsPosts.objects.filter(community_id=post.community).count()
         context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
@@ -241,6 +241,8 @@ class CreateReplayView(LoginRequiredMixin, generic.CreateView):
         replay.save()
         comment.replay.add(replay)
         notification.objects.create(destination=comment.user, title=self.request.user.username + "からのコメントの返信", message=replay.content)
+        comment.latest_replayed_at = timezone.now()
+        comment.save()
         return redirect('news_posts:post_detail', pk=post_pk)
 
     def get_context_data(self, **kwargs):

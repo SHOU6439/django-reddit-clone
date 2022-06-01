@@ -48,6 +48,7 @@ class Comment(models.Model):
     content = models.CharField(max_length=512, null=True, blank=True)
     target = models.ForeignKey(NewsPosts, on_delete=models.CASCADE, related_name="comments")
     replay = models.ManyToManyField(Replay, related_name="replay")
+    latest_replayed_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
