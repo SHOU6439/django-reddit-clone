@@ -131,7 +131,7 @@
                             </li>
                         </a>
                     </ul>
-                    {% for replay in comment.replay.all %}
+                    {% for replay in comment.replay.all reversed %}
                     <div class="comment-detail-box">
                         <div class="posted-by-user-of-info-container">
                             <img class="posted-of-user-thumbnail" src="{% if replay.user.thumbnail %}{{ replay.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
