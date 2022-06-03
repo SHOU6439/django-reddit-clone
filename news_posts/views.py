@@ -16,7 +16,7 @@ from django.db import transaction
 
 class IndexView(generic.ListView):
     model = NewsPosts
-    template_name = 'news_posts/index.html'
+    template_name = 'news_posts/index/index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
