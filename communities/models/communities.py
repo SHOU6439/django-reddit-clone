@@ -1,13 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from imagekit.models import ImageSpecField, ProcessedImageField
+from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
-from django.db.models.fields import related
-from django.db.models.fields.related import ForeignKey
-from users.models import User
-from config import settings
 
-# Create your models here.
 class Communities(models.Model):
     name = models.CharField(max_length=21, unique=True)
     admin = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='admin')
