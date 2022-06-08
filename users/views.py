@@ -10,7 +10,7 @@ from users.forms import LoginForm, ProfileEditForm, UserForm
 from django.contrib.auth import views
 from django.contrib.auth import authenticate, login, get_user_model
 from django.views import generic
-from communities.views import Communities
+from communities.models import Communities
 from news_posts.models import Comment
 from users.models import bookmarked_posts
 # Create your views here.
