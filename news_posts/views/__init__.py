@@ -14,3 +14,4 @@ from .notification_list_view import NotificationListView
 from .save_post_view import SavePostView
 from .unsave_post_view import UnSavePostView
 from .delete_replay_view import DeleteReplayView
+from .hot_index_view import HotIndexView

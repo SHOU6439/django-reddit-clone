@@ -25,7 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     saved_post = models.ManyToManyField("news_posts.NewsPosts", related_name="saved_post", through='bookmarked_posts')
 
 
-    email = models.EmailField(blank=True)
+    email = models.EmailField(blank=True, unique=True)
 
 
     photo = models.ImageField(verbose_name='写真', blank=True, null=True, upload_to='images/')

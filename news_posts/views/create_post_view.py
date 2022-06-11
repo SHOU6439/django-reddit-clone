@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls.base import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views import generic
+from django.utils import timezone
 from communities.models import Communities
 from news_posts.models import NewsPosts
 from news_posts.forms import CreatePostForm
@@ -28,6 +29,10 @@ class CreatePostView(LoginRequiredMixin, generic.View):
             post_data.user = get_user_model().objects.get(id=request.user.id)
             post_data.photo = request.FILES.get('photo')
             post_data.save()
+            if post_data.community:
+                post_community_at = Communities.objects.get(id=post_data.community.id)
+                post_community_at.latest_posted_at = timezone.now()
+                post_community_at.save()
             return redirect('news_posts:index')
         return redirect('news_posts:create_post')
 

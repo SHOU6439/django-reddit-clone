@@ -21,6 +21,9 @@ class Communities(models.Model):
     thumbnail = ImageSpecField(source='photo', processors=[ResizeToFill(80, 80)], format='JPEG', options={'quality': 60})
 
     is_nsfw = models.BooleanField(null=True, blank=True)
+
+    latest_posted_at = models.DateTimeField(blank=True, null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

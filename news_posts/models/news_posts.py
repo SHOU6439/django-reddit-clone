@@ -17,7 +17,7 @@ class NewsPosts(models.Model):
     photo = models.ImageField(verbose_name='写真', blank=True, null=True, upload_to='images/')
     post_photo = ImageSpecField(source='photo', format='JPEG', options={'quality':60})
     vote = models.IntegerField(default=0)
-    community = models.ForeignKey(Communities, on_delete=models.CASCADE, blank=True, null=True, related_name='community')
+    community = models.ForeignKey(Communities, on_delete=models.CASCADE, blank=True, null=True, related_name='communities_post')
     latest_commented_at = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

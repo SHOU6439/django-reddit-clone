@@ -223,3 +223,12 @@ input[type="sumbit"]:hover {
     color: #0079d3;
     text-decoration: underline;
 }
+
+.news-posts-sort-menu {
+    background-color: #fff;
+    height: 60px;
+    margin-top: 20px;
+    border: solid #cccccc 1px;
+    border-radius: 4px;
+
+}
