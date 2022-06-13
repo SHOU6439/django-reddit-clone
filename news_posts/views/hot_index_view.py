@@ -3,10 +3,10 @@ from django.db.models import Sum, Q
 from django.views import generic
 from communities.models import Communities
 from news_posts.models import NewsPosts, Vote
-from .index_view import IndexView
+from .new_index_view import NewIndexView
 
 
-class HotIndexView(IndexView):
+class HotIndexView(NewIndexView):
     template_name = 'news_posts/index/hot_index.html'
 
     def get_context_data(self, **kwargs):

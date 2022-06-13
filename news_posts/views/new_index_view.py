@@ -4,9 +4,9 @@ from communities.models import Communities
 from news_posts.models import NewsPosts, Vote
 
 
-class IndexView(generic.ListView):
+class NewIndexView(generic.ListView):
     model = NewsPosts
-    template_name = 'news_posts/index/index.html'
+    template_name = 'news_posts/index/new_index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

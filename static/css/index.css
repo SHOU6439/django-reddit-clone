@@ -239,8 +239,18 @@ input[type="sumbit"]:hover {
     color: #878a8c;
     margin-left: 24px;
     font-weight: bold;
-
+    padding: 10px;
 }
+
+.news-posts-sort-index-button:hover {
+    color: #878a8c;
+    margin-left: 24px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f6f7f8;
+    border-radius: 50%;
+}
+
 
 .news-posts-displaying-index-button {
     color: #0179d2;

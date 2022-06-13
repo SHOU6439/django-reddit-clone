@@ -1,4 +1,4 @@
-from .index_view import IndexView
+from .new_index_view import NewIndexView
 from .create_post_view import CreatePostView
 from .delete_post_view import DeletePostView
 from .delete_login_user_post_view import DeleteLoginUserPostView
