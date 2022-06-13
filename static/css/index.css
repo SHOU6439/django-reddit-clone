@@ -230,5 +230,23 @@ input[type="sumbit"]:hover {
     margin-top: 20px;
     border: solid #cccccc 1px;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
 
+}
+
+.news-posts-sort-index-button {
+    color: #878a8c;
+    margin-left: 24px;
+    font-weight: bold;
+
+}
+
+.news-posts-displaying-index-button {
+    color: #0179d2;
+    margin-left: 24px;
+    font-weight: bold;
+    background-color: #f6f7f8;
+    border-radius: 50%;
+    padding: 10px;
 }

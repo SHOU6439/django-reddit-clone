@@ -3,6 +3,24 @@
 {% block main-content %}
 <div class="news-posts-home-index">
     <div class="news-posts-all-list">
+        <div class="news-posts-sort-menu">
+            <a class="news-posts-displaying-index-button" href="{% url 'news_posts:hot_index' %}">
+                <i class="fas fa-fire-alt"></i>
+                Hot
+            </a>
+            <a class="news-posts-sort-index-button" href="{% url 'news_posts:index' %}">
+                <i class="fas fa-certificate"></i>
+                New
+            </a>
+            <a class="news-posts-sort-index-button" href="">
+                <i class="fas fa-smile-beam"></i>
+                Funny
+            </a>
+            <a class="news-posts-sort-index-button" href="">
+                <i class="fas fa-thumbs-up"></i>
+                Good
+            </a>
+        </div>
         {% for post in post_list %}
         <!-- data-voteにはログインユーザーが記事を投票した状態が入る -->
         <!-- upの場合 1, downの場合 -1,どちらでもない場合は空文字 -->
