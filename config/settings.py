@@ -158,8 +158,8 @@ AUTH_USER_MODEL = 'users.user' # 追記
 
 
 LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'news_posts:index'
-LOGOUT_REDIRECT_URL = 'news_posts:index'
+LOGIN_REDIRECT_URL = 'news_posts:hot_index'
+LOGOUT_REDIRECT_URL = 'news_posts:hot_index'
 
 ASGI_APPLICATION = 'config.asgi.application'
 

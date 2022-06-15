@@ -25,7 +25,7 @@ def vote_up(request, pk):
         # downをしてる、もしくは何もvoteしてないとき
         vote.flag += 1
         post.vote += 1
-        if not vote_notification:
+        if not vote_notification and vote.voted_post.user.id == request.user:
             notification.objects.create(title="vote通知", message=message, destination=post.user)
     else:
         # voteしたことを取り消すとき
@@ -33,4 +33,4 @@ def vote_up(request, pk):
         post.vote -= 1
     vote.save()
     post.save()
-    return redirect('news_posts:index')
+    return redirect('users:up_voted_posts', pk=request.user.id)

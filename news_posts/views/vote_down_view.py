@@ -27,4 +27,4 @@ def vote_down(request, pk):
         post.vote += 1
     vote.save()
     post.save()
-    return redirect('news_posts:index')
+    return redirect('users:down_voted_posts', pk=request.user.id)

@@ -6,4 +6,4 @@ from news_posts.models import NewsPosts
 
 class DeletePostView(LoginRequiredMixin, generic.DeleteView):
     model = NewsPosts
-    success_url = reverse_lazy('news_posts:index')
+    success_url = reverse_lazy('news_posts:hot_index')

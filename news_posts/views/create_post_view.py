@@ -15,7 +15,7 @@ class CreatePostView(LoginRequiredMixin, generic.View):
     model = NewsPosts
     form_class = CreatePostForm
     template_name = 'news_posts/create_post.html'
-    success_url = reverse_lazy('news_posts:index')
+    success_url = reverse_lazy('news_posts:hot_index')
 
     def get(self, request, *args, **kwargs):
         # formにリクエストリクエストユーザー情報を渡す
@@ -33,7 +33,7 @@ class CreatePostView(LoginRequiredMixin, generic.View):
                 post_community_at = Communities.objects.get(id=post_data.community.id)
                 post_community_at.latest_posted_at = timezone.now()
                 post_community_at.save()
-            return redirect('news_posts:index')
+            return redirect('news_posts:hot_index')
         return redirect('news_posts:create_post')
 
     def get_queryset(self):

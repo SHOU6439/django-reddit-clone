@@ -6,7 +6,7 @@ from news_posts.models import Comment, Replay
 
 class DeleteReplayView(LoginRequiredMixin, generic.DeleteView):
     model = Replay
-    success_url = reverse_lazy('news_posts:index')
+    success_url = reverse_lazy('news_posts:hot_index')
     def get_success_url(self):
         # replayの対象であるコメントの対象であるポストのpkを取得する
         replay_pk = self.kwargs['pk']

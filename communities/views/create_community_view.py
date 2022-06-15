@@ -10,7 +10,7 @@ class CreateCommunityView(LoginRequiredMixin, generic.CreateView):
     template_name = 'communities/create_community.html'
     model = Communities
     form_class = CommunityForm
-    success_url = reverse_lazy('news_posts:index')
+    success_url = reverse_lazy('news_posts:hot_index')
     def post(self, request):
         form = CommunityForm(request.POST)
 
@@ -21,4 +21,4 @@ class CreateCommunityView(LoginRequiredMixin, generic.CreateView):
         # adminがコミュニティを作ったら自動的にadminはmemberに追加する
         community.member.add(request.user.id)
         community.save()
-        return redirect('news_posts:index')
+        return redirect('news_posts:hot_index')

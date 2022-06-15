@@ -17,7 +17,7 @@ def signup(request):
             user.save()
             auth_user = authenticate(request, username=username, password=password)
             login(request, auth_user)
-            return HttpResponseRedirect(reverse('news_posts:index'))
+            return HttpResponseRedirect(reverse('news_posts:hot_index'))
     else:
         form = UserForm()
 

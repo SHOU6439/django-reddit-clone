@@ -19,7 +19,7 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     #     post_data = form.save(commit=False)
     #     post_data.user = get_user_model().objects.get(id=request.user.id)
     #     post_data.save()
-    #     return redirect('news_posts:index')
+    #     return redirect('news_posts:hot_index')
 
     def post(self, request, *args, **kwargs):
         # TODO:このメソッドの中にあるコメントは対象のコメントを削除した時に通知も削除されるようにするための試みであったが、できなかったので今後実装するかもしれない
