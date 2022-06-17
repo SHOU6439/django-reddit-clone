@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, Q
 
 
 class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
@@ -17,7 +18,23 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
-        context['communitypost_list'] = NewsPosts.objects.filter(community_id=pk).order_by("-latest_commented_at", "-created_at")
+        # ログインユーザーのidを取得
+        current_user = self.request.user.id
+        queryset = NewsPosts.objects.filter(community_id=pk).order_by("-latest_commented_at", "-created_at")
+        if current_user is None:
+            # 未ログイン時の処理
+            context['communitypost_list'] = queryset.annotate(
+                vote_count=Sum('voted_post__flag')
+            )
+        else:
+            # ログイン時の処理
+            # vote_stateにはログインユーザーの投票状態が入る
+            context['communitypost_list'] = queryset.annotate(
+                vote_count=Sum('voted_post__flag'),
+                vote_state=Sum('voted_post__flag',
+                    filter=Q(voted_post__voted_user_id=current_user)
+                )
+            )
         context['member_count'] = User.objects.filter(member=pk).count()
         context['is_joined'] = Communities.objects.filter(member=self.request.user)
         context['current_community'] = Communities.objects.get(id=pk)

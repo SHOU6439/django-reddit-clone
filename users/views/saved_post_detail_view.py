@@ -13,9 +13,9 @@ class SavedPostDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-          # ログインユーザーのidを取得
+        # ログインユーザーのidを取得
         current_user = self.request.user.id
-        queryset = NewsPosts.objects.filter(saved_user=self.kwargs['pk']).order_by("saved_at__created_at").reverse()
+        queryset = NewsPosts.objects.filter(saved_user=self.kwargs['pk']).order_by("saved_at__created_at")
         if current_user is None:
             # 未ログイン時の処理
             context['saved_posts'] = queryset.annotate(
@@ -30,6 +30,5 @@ class SavedPostDetailView(LoginRequiredMixin, generic.DetailView):
                     filter=Q(voted_post__voted_user_id=current_user)
                 )
             )
-
         context['communities_list'] = Communities.objects.filter(member=self.kwargs['pk']).order_by("-created_at")
         return context
