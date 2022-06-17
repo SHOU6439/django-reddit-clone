@@ -15,7 +15,8 @@ class SavedPostDetailView(LoginRequiredMixin, generic.DetailView):
         context = super().get_context_data(**kwargs)
         # ログインユーザーのidを取得
         current_user = self.request.user.id
-        queryset = NewsPosts.objects.filter(saved_user=self.kwargs['pk']).order_by("saved_at__created_at")
+        #　ソートしなくても保存した順になっているのでorder_byを使用していない
+        queryset = NewsPosts.objects.filter(saved_user=self.kwargs['pk'])
         if current_user is None:
             # 未ログイン時の処理
             context['saved_posts'] = queryset.annotate(
