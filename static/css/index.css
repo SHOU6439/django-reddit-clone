@@ -34,17 +34,22 @@ input[type="sumbit"]:hover {
     background-color: #fff;
 }
 
+.news-posts-news-detail-box[data-like='True'] >
+.news-posts-news-detail-box-left-menu a:first-child {
+  color: #f9197e;
+}
+
 /* 現在のユーザーが vote up OR down を選択している場合のスタイル */
 /* up を選択したいる場合 */
-.news-posts-news-detail-box[data-vote='1'] >
+/* .news-posts-news-detail-box[data-vote='1'] >
 .news-posts-news-detail-box-left-menu a:first-child {
   color: #ff4600;
-}
+} */
 /* down を選択したいる場合 */
-.news-posts-news-detail-box[data-vote='-1'] >
+/* .news-posts-news-detail-box[data-vote='-1'] >
 .news-posts-news-detail-box-left-menu a:last-child {
   color: #7193fe;
-}
+} */
 
 /* .news-posts-news-detail-expansion-box[data-vote='1'] >
 .news-posts-news-detail-box-left-menu a:first-child {

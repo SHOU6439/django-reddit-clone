@@ -24,15 +24,12 @@
         {% for post in post_list %}
         <!-- data-voteにはログインユーザーが記事を投票した状態が入る -->
         <!-- upの場合 1, downの場合 -1,どちらでもない場合は空文字 -->
-        <div class="news-posts-news-detail-box" data-vote="{{ post.vote_state|default:'' }}">
+        <div class="news-posts-news-detail-box" data-like="{{ post.like_state|default:'' }}">
             <div class="news-posts-news-detail-box-left-menu">
-                <a href="{% url 'news_posts:vote_up' post.id %}" onclick='return confirm("You can only vote once");'>
-                    <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+                <a href="{% url 'news_posts:like' post.id %}">
+                    <i class="fa fa-heart" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
                 </a>
-                <p class="vote-count">{{ post.vote }}</p>
-                <a href="{% url 'news_posts:vote_down' post.id %}" onclick='return confirm("You can only vote once");'>
-                    <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
-                </a>
+                <p class="vote-count">{{ post.like }}</p>
             </div>
             <div class="news-posts-news-detail-box-center-menu">
                 <div class="posted-by-user-of-info-container">

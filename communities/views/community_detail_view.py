@@ -24,15 +24,15 @@ class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
         if current_user is None:
             # 未ログイン時の処理
             context['communitypost_list'] = queryset.annotate(
-                vote_count=Sum('voted_post__flag')
+                like_count=Sum('liked_post__is_liked')
             )
         else:
             # ログイン時の処理
             # vote_stateにはログインユーザーの投票状態が入る
             context['communitypost_list'] = queryset.annotate(
-                vote_count=Sum('voted_post__flag'),
-                vote_state=Sum('voted_post__flag',
-                    filter=Q(voted_post__voted_user_id=current_user)
+                like_count=Sum('liked_post__is_liked'),
+                like_state=Sum('liked_post__is_liked',
+                    filter=Q(liked_post__liked_user_id=current_user)
                 )
             )
         context['member_count'] = User.objects.filter(member=pk).count()

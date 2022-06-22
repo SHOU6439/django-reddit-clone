@@ -17,15 +17,15 @@ class SearchPostsView(generic.ListView):
         if current_user is None:
             # 未ログイン時の処理
             object_list = object_list.annotate(
-                vote_count=Sum('voted_post__flag')
+                like_count=Sum('liked_post__is_liked')
             ).distinct
         else:
             # ログイン時の処理
             # vote_stateにはログインユーザーの投票状態が入る
             object_list = object_list.annotate(
-                vote_count=Sum('voted_post__flag'),
-                vote_state=Sum('voted_post__flag',
-                    filter=Q(voted_post__voted_user_id=current_user)
+                like_count=Sum('liked_post__is_liked'),
+                like_state=Sum('liked_post__is_liked',
+                    filter=Q(liked_post__liked_user_id=current_user)
                 )
             ).distinct
         return object_list

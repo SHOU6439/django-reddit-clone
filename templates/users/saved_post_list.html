@@ -6,23 +6,19 @@
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:detail' user.id %}"><li class="profile-detail-top-menu-item">POSTS</li></a>
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:comments' user.id %}"><li class="profile-detail-top-menu-item">COMMENTS</li></a>
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:saved_posts' user.id %}"><li class="profile-detail-top-menu-displaying-item">SAVED</li></a>
-        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:up_voted_posts' user.id %}"><li class="profile-detail-top-menu-item">UPVOTED</li></a>
-        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:down_voted_posts' user.id %}"><li class="profile-detail-top-menu-item">DOWNVOTED</li></a>
+        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:liked_posts' user.id %}"><li class="profile-detail-top-menu-item">LIKED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS RECEIVED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS GIVEN</li></a>
     </ul>
 </div>
 <div class="profile-detail-background-container">
     {% for post in saved_posts reversed %}
-    <div class="news-posts-news-detail-box" data-vote="{{ post.vote_state|default:'' }}">
+    <div class="news-posts-news-detail-box" data-like="{{ post.like_state|default:'' }}">
         <div class="news-posts-news-detail-box-left-menu">
-            <a href="{% url 'news_posts:vote_up' post.id %}" onclick='return confirm("You can only vote once");'>
-                <i class="fas fa-arrow-up" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+            <a href="{% url 'news_posts:like' post.id %}">
+                <i class="fas fa-heart" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
             </a>
-            <p class="vote-count">{{ post.vote }}</p>
-            <a href="{% url 'news_posts:vote_down' post.id %}" onclick='return confirm("You can only vote once");'>
-                <i class="fas fa-arrow-down" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
-            </a>
+            <p class="vote-count">{{ post.like }}</p>
         </div>
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">

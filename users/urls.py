@@ -13,6 +13,7 @@ urlpatterns = [
     path('edit/', views.ProfileEditView.as_view(), name="edit"),
     path('saved-posts/<int:pk>', views.SavedPostDetailView.as_view(), name="saved_posts"),
     path('comments/<int:pk>', views.UsersCommentsView.as_view(), name="comments"),
-    path('up-voted-posts/<int:pk>', views.UserUpVotedPostsView.as_view(), name="up_voted_posts"),
-    path('down-voted-posts/<int:pk>', views.UserDownVotedPostsView.as_view(), name="down_voted_posts"),
+    # path('up-voted-posts/<int:pk>', views.UserUpVotedPostsView.as_view(), name="up_voted_posts"),
+    # path('down-voted-posts/<int:pk>', views.UserDownVotedPostsView.as_view(), name="down_voted_posts"),
+    path('liked-posts/<int:pk>', views.UserLikedPostsView.as_view(), name="liked_posts")
 ]

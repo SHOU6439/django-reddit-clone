@@ -4,37 +4,51 @@
 <div class="profile-detail-top-menu">
     <ul class="profile-detail-top-menu-list-items">
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:detail' user.id %}"><li class="profile-detail-top-menu-item">POSTS</li></a>
-        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:comments' user.id %}"><li class="profile-detail-top-menu-displaying-item">COMMENTS</li></a>
+        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:comments' user.id %}"><li class="profile-detail-top-menu-item">COMMENTS</li></a>
         <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:saved_posts' user.id %}"><li class="profile-detail-top-menu-item">SAVED</li></a>
-        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:liked_posts' user.id %}"><li class="profile-detail-top-menu-item">LIKED</li></a>
+        <a class="profile-detail-top-menu-list-item-url" href="{% url 'users:liked_posts' user.id %}"><li class="profile-detail-top-menu-displaying-item">LIKED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS RECEIVED</li></a>
         <a class="profile-detail-top-menu-list-item-url" href=""><li class="profile-detail-top-menu-item">AWARDS GIVEN</li></a>
     </ul>
 </div>
 <div class="profile-detail-background-container">
-    {% for comment in comments_list %}
-    <div class="news-posts-news-detail-box">
+    {% for like in liked_posts %}
+    <div class="news-posts-news-detail-box" data-like="{{ like.like_state|default:'' }}">
+        <div class="news-posts-news-detail-box-left-menu">
+            <a href="{% url 'news_posts:like' like.liked_post.id %}">
+                <i class="fas fa-heart" style="width: 20px; height: 20px; margin-top: 2px; display: block; margin: auto;"></i>
+            </a>
+            <p class="vote-count">{{ like.liked_post.like }}</p>
+        </div>
         <div class="news-posts-news-detail-box-center-menu">
             <div class="posted-by-user-of-info-container">
-                <img class="posted-of-user-thumbnail" src="{% if comment.user.thumbnail %}{{ comment.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
+                <img class="posted-of-user-thumbnail" src="{% if like.liked_post.user.thumbnail %}{{ like.liked_post.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
                 <li class="posted-by-community-name-list">
-                    <a href="{% url 'users:detail' comment.user.id %}">{{ comment.user }}</a>
-                    <span class="posted-by-user-name-span">{{ comment.created_at|timesince }}</span>
+                    {% if like.liked_post.community is None %}
+                    <a href="{% url 'users:detail' like.liked_post.user.id %}">{{ like.liked_post.user }}</a>
+                    <span class="posted-by-user-name-span">{{ like.liked_post.created_at|date:'n/j H:i' }}</span>
+                    {% else %}
+                    <a href="{% url 'communities:detail' like.liked_post.community.id %}">r/{{ like.liked_post.community }}</a>
+                    <span class="posted-by-user-name-span">Posted By <a href="{% url 'users:detail' like.liked_post.user.id %}">{{ like.liked_post.user }}</a> {{ like.liked_post.created_at|timesince }}</span>
+                    {% endif %}
                 </li>
             </div>
-            <li class="posted-title-string-list">
-                commented on <a href="{% url 'news_posts:post_detail' comment.target.pk %}">{{ comment.target.title }}</a>
-            </li>
-            <li class="posted-content-string-list">{{ comment.content|linebreaksbr|urlize }}</li>
+            <a href="{% url 'news_posts:post_detail' like.liked_post.id %}"><li class="posted-title-string-list">{{ like.liked_post.title }}</li></a>
+            <li class="posted-content-string-list">{{ like.liked_post.content|linebreaksbr|urlize }}</li>
+            {% if like.liked_post.post_photo %}
+            <div class="posted-news-uploaded-photo-wrapper">
+                <img class="posted-news-uploaded-photo" src="{{ like.liked_post.post_photo.url }}" alt="photo">
+            </div>
+            {% endif %}
             <ul class="posted-post-control-button-list">
-                <a class="posted-post-comment-button" href="{% url 'news_posts:create_replay' comment.pk %}">
+                <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' like.liked_post.pk %}">
                     <li class="posted-post-control-button">
                         <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
-                        <lable class="posted-post-control-button-label">Replay</label>
+                        <lable class="posted-post-control-button-label">Comments</label>
                     </li>
                 </a>
-                {% if comment.user.id == request.user.id %}
-                <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_comment' comment.id %}">
+                {% if like.liked_post.user.id == request.user.id %}
+                <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_user_post' like.liked_post.id %}">
                     {% csrf_token %}
                     <button class="posted-news-delete-button" type="submit" onclick='return confirm("Are you sure you want to delete your post? You cant undo this.");'>
                         <li class="posted-post-control-button">
@@ -49,27 +63,35 @@
                     <lable class="posted-post-control-button-label">Award</label>
                 </li>
                 {% endif %}
-                <a href="">
+                <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'news_posts:post_detail' like.liked_post.id %}" target="_blank" rel="nofollow">
                     <li class="posted-post-control-button">
                         <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Share</label>
                     </li>
                 </a>
-                <!-- {% comment %}{% if userpost in saved_posts %}{% endcomment %}
-                <a href="{% comment %}{% url 'news_posts:unsave' userpost.id %}{% endcomment %}">
+                {% if like.liked_post in saved_posts %}
+                <a href="{% url 'news_posts:unsave' like.liked_post.id %}">
                     <li class="posted-post-control-button">
                         <i class="fas fa-bookmark" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">UnSave</label>
                     </li>
-                </a> -->
-                {% comment %}{% else %}{% endcomment %}
-                <a href="{% comment %}{% url 'news_posts:save' userpost.id %}{% endcomment %}">
+                </a>
+                {% else %}
+                <a href="{% url 'news_posts:save' like.liked_post.id %}">
                     <li class="posted-post-control-button">
                         <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
                         <lable class="posted-post-control-button-label">Save</label>
                     </li>
                 </a>
-                {% comment %}{% endif %}{% endcomment %}
+                {% endif %}
+                {% if like.liked_post.user.id == request.user.id %}
+                <a href="{% url 'news_posts:edit' like.liked_post.id %}">
+                    <li class="posted-post-control-button">
+                        <i class="fas fa-pen" style="height: 20px; width: 20px;"></i>
+                        <lable class="posted-post-control-button-label">Edit Post</label>
+                    </li>
+                </a>
+                {% endif %}
             </ul>
         </div>
     </div>
