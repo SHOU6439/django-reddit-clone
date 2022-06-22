@@ -66,14 +66,14 @@
                     <a href="{% url 'news_posts:unsave' object.id %}">
                         <li class="posted-post-control-button">
                             <i class="fas fa-bookmark" style="height: 20px; width: 20px;"></i>
-                            <lable class="posted-post-control-button-label">UnSave</label>
+                            <lable class="posted-post-control-button-label">UnSave({{ object.save_counter }})</label>
                         </li>
                     </a>
                     {% else %}
                     <a href="{% url 'news_posts:save' object.id %}">
                         <li class="posted-post-control-button">
                             <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
-                            <lable class="posted-post-control-button-label">Save</label>
+                            <lable class="posted-post-control-button-label">Save({{ object.save_counter }})</label>
                         </li>
                     </a>
                     {% endif %}
