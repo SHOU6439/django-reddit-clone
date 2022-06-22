@@ -5,6 +5,7 @@ app_name = 'news_posts'
 urlpatterns = [
     path('', HotIndexView.as_view(), name='hot_index'),
     path('new/', NewIndexView.as_view(), name='new_index'),
+    path('liked/', LikedIndexView.as_view(), name='liked_index'),
     path('create-post/', CreatePostView.as_view(), name='create_post'),
     path('delete/<int:pk>/', DeletePostView.as_view(), name="delete_post"),
     path('user-post-delete/<int:pk>/', DeleteLoginUserPostView.as_view(), name="delete_user_post"),
