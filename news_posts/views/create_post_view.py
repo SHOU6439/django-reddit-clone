@@ -33,7 +33,7 @@ class CreatePostView(LoginRequiredMixin, generic.View):
                 post_community_at = Communities.objects.get(id=post_data.community.id)
                 post_community_at.latest_posted_at = timezone.now()
                 post_community_at.save()
-            return redirect('news_posts:hot_index')
+            return redirect('users:detail', pk=request.user.id)
         return redirect('news_posts:create_post')
 
     def get_queryset(self):

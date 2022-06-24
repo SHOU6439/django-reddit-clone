@@ -21,4 +21,4 @@ class CreateCommunityView(LoginRequiredMixin, generic.CreateView):
         # adminがコミュニティを作ったら自動的にadminはmemberに追加する
         community.member.add(request.user.id)
         community.save()
-        return redirect('news_posts:hot_index')
+        return redirect('communities:detail', pk=community.id)
