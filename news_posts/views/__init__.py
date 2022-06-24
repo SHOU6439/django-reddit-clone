@@ -17,3 +17,4 @@ from .unsave_post_view import UnSavePostView
 from .delete_replay_view import DeleteReplayView
 from .hot_index_view import HotIndexView
 from .liked_index_view import LikedIndexView
+from .good_index_view import GoodIndexView
