@@ -21,6 +21,13 @@
         <link rel="stylesheet" href="{% static 'css/create_replay.css' %}">
         <link rel="stylesheet" href="{% static 'css/chat_home.css' %}">
         <link rel="icon" type="image/jpeg" href="{% static 'img/android-icon-192x192.jpeg' %}">
+        {% block opg_tags %}
+        <meta property="og:title" content="Reddit" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+        <meta property="og:image" content="{% static 'img/reddit_logo.jpeg' %}" />
+        <meta property="og:description" content="インターネット掲示板" />
+        {% endblock %}
         {% block extra-begin-css %}
         {% endblock %}
         {% block extra-begin-script %}
