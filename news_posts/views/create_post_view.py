@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls.base import reverse_lazy
 from django.shortcuts import render, redirect
@@ -17,7 +18,7 @@ class CreatePostView(LoginRequiredMixin, generic.View):
     template_name = 'news_posts/create_post.html'
     success_url = reverse_lazy('news_posts:hot_index')
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpResponseRedirect:
         # formにリクエストリクエストユーザー情報を渡す
         form = self.form_class(user=request.user)
         return render(request, self.template_name, {'form': form})

@@ -2,11 +2,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from users.models import User
 from news_posts.models import NewsPosts, Comment, Like
+from django.db.models import Model
 
 class NewsPostDetailView(LoginRequiredMixin, generic.DetailView):
-    model = NewsPosts
-    template_name = 'news_posts/post_detail.html'
-    def get_context_data(self, **kwargs):
+    model: Model = NewsPosts
+    template_name: str = 'news_posts/post_detail.html'
+    def get_context_data(self, **kwargs: dict) -> dict:
         post_pk = self.kwargs['pk']
         post = NewsPosts.objects.get(id=post_pk)
         like_status = Like.objects.filter(liked_post=post_pk, liked_user=self.request.user)

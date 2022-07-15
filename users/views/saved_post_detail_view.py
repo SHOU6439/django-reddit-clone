@@ -3,15 +3,15 @@ from news_posts.models import NewsPosts
 from django.contrib.auth import get_user_model
 from django.views import generic
 from communities.models import Communities
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, Model
 
 
 class SavedPostDetailView(LoginRequiredMixin, generic.DetailView):
-    User = get_user_model()
+    User: Model = get_user_model()
     model = User
-    template_name = 'users/saved_post_list.html'
+    template_name: str = 'users/saved_post_list.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         # ログインユーザーのidを取得
         current_user = self.request.user.id

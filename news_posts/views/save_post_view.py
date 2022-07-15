@@ -1,13 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views import generic
 from users.models import User, bookmarked_posts
 from news_posts.models import NewsPosts
+from django.db.models import Model
 
 class SavePostView(LoginRequiredMixin, generic.View):
-    model = NewsPosts
+    model: Model = NewsPosts
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpResponseRedirect:
         post = NewsPosts.objects.get(pk=self.kwargs['pk'])
         user = User.objects.get(id=request.user.id)
         user.saved_post.add(post)

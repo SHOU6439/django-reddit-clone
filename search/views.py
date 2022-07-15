@@ -3,11 +3,12 @@ from django.views import generic
 from communities.models import Communities
 from news_posts.models import NewsPosts
 from django.db.models import Sum, Q
+from django.db.models import QuerySet
 # Create your views here.
 class SearchPostsView(generic.ListView):
-    template_name = 'search/index.html'
+    template_name: str = 'search/index.html'
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         q = self.request.GET.get('q')
         # ログインユーザーのidを取得
         current_user = self.request.user.id
@@ -30,7 +31,7 @@ class SearchPostsView(generic.ListView):
             ).distinct
         return object_list
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         q = self.request.GET.get('q')
         context['communities_list'] = Communities.objects.filter(name__icontains=q).order_by('-created_at')

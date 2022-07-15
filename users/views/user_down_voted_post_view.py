@@ -1,3 +1,4 @@
+#こちらのファイルは現在使われておりません
 from django.contrib.auth.mixins import LoginRequiredMixin
 from news_posts.models import Vote
 from django.contrib.auth import get_user_model

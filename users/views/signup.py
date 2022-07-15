@@ -1,10 +1,11 @@
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.http.response import HttpResponseRedirect
 from users.forms import UserForm
 from django.contrib.auth import authenticate, login, get_user_model
 
-def signup(request):
+def signup(request: HttpRequest) -> HttpResponse:
     User = get_user_model()
     if request.method == 'POST':
         form = UserForm(request.POST)

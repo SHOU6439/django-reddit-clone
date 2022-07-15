@@ -1,3 +1,5 @@
+from django.forms import ModelForm
+from django.http import HttpRequest, HttpResponseRedirect
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,12 +8,12 @@ from django.shortcuts import redirect
 from django.views import generic
 from news_posts.models import NewsPosts, Comment, Notification
 from news_posts.forms import CreateCommentForm
-
+from django.db.models import Model
 
 class CreateCommentView(LoginRequiredMixin, generic.CreateView):
-    template_name = 'news_posts/create_comment.html'
-    form_class = CreateCommentForm
-    model = Comment
+    template_name: str = 'news_posts/create_comment.html'
+    form_class: ModelForm = CreateCommentForm
+    model: Model = Comment
 
     # def post(self, request):
     #     form = CreateCommentForm(request.POST)
@@ -21,7 +23,7 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
     #     post_data.save()
     #     return redirect('news_posts:hot_index')
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: tuple, **kwargs: dict) ->  HttpResponseRedirect:
         # TODO:このメソッドの中にあるコメントは対象のコメントを削除した時に通知も削除されるようにするための試みであったが、できなかったので今後実装するかもしれない
         form = CreateCommentForm(request.POST)
         post_pk = self.kwargs['pk']

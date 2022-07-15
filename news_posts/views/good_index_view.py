@@ -5,9 +5,9 @@ from .new_index_view import NewIndexView
 
 
 class GoodIndexView(NewIndexView):
-    template_name = 'news_posts/index/good_index.html'
+    template_name: str = 'news_posts/index/good_index.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         current_user = self.request.user.id
         queryset = NewsPosts.objects.order_by("-save_counter")

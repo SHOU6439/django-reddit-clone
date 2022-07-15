@@ -8,14 +8,14 @@ from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, Model
 
 
 class CommunityDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Communities
-    template_name = 'communities/community_detail.html'
+    model: Model = Communities
+    template_name: str = 'communities/community_detail.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict:
         pk = self.kwargs.get('pk')
         context = super().get_context_data(**kwargs)
         # ログインユーザーのidを取得

@@ -3,13 +3,13 @@ from django.views import generic
 from communities.models import Communities
 from news_posts.models import NewsPosts
 from users.models import User
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, Model
 
 class ProfileDetailView(LoginRequiredMixin ,generic.DetailView):
-    model = User
-    template_name = 'users/profile_detail.html'
+    model: Model = User
+    template_name: str = 'users/profile_detail.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         # ログインユーザーのidを取得
         current_user = self.request.user.id

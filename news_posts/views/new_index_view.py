@@ -2,13 +2,14 @@ from django.db.models import Sum, Q
 from django.views import generic
 from communities.models import Communities
 from news_posts.models import NewsPosts
+from django.db.models import Model
 
 
 class NewIndexView(generic.ListView):
-    model = NewsPosts
-    template_name = 'news_posts/index/new_index.html'
+    model: Model = NewsPosts
+    template_name: str = 'news_posts/index/new_index.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         # ログインユーザーのidを取得
         current_user = self.request.user.id

@@ -1,3 +1,5 @@
+from django.forms import ModelForm
+from django.http import HttpRequest, HttpResponseRedirect
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,14 +8,15 @@ from django.shortcuts import redirect
 from django.views import generic
 from news_posts.models import Comment, Notification, Replay
 from news_posts.forms import CreateReplayForm
+from django.db.models import Model
 
 
 class CreateReplayView(LoginRequiredMixin, generic.CreateView):
-    model = Replay
-    form_class = CreateReplayForm
-    template_name = "news_posts/create_replay.html"
+    model: Model = Replay
+    form_class: ModelForm = CreateReplayForm
+    template_name: str = "news_posts/create_replay.html"
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpResponseRedirect:
         form = self.form_class(request.POST)
         comment_pk = self.kwargs['pk']
         comment = get_object_or_404(Comment, pk=comment_pk)

@@ -1,3 +1,4 @@
+from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import redirect
 from news_posts.models import Notification
 from communities.models import Communities
@@ -6,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def leave(request, pk):
+def leave(request: HttpRequest, pk: int) -> HttpResponseRedirect:
     community = Communities.objects.get(pk=pk)
     notification = Notification
     message = request.user.username + "が      " + community.name + "      を離脱した..."

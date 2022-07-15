@@ -1,3 +1,4 @@
+#こちらのファイルは現在使われておりません
 from django.shortcuts import redirect
 from news_posts.models import NewsPosts, Vote
 from django.contrib.auth.decorators import login_required

@@ -1,15 +1,16 @@
+from xmlrpc.client import boolean
+from django.http import HttpRequest, HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from chat.models import DMRoom, DMInvite, DirectMessage
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
-
-
+from django.db.models import Model
 
 class AcceptDMInviteView(LoginRequiredMixin, generic.View):
-    model = DMInvite
+    model: Model = DMInvite
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpResponseRedirect:
         addressee_pk = self.kwargs['pk']
         User = get_user_model()
         author = User.objects.get(id=request.user.id)

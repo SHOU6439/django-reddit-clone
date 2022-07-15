@@ -1,14 +1,16 @@
+from django.http import HttpRequest, HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from chat.models import DMRoom, DMInvite
+from django.db.models import Model
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 
 
 class CreateDMRoomView(LoginRequiredMixin, generic.View):
-    model = DMRoom
+    model: Model = DMRoom
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpResponseRedirect:
         User = get_user_model()
         addressee_pk = self.kwargs['pk']
         author = User.objects.get(id=request.user.id)

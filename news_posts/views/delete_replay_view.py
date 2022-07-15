@@ -3,9 +3,10 @@ from django.shortcuts import get_object_or_404
 from django.urls.base import reverse, reverse_lazy
 from django.views import generic
 from news_posts.models import Comment, Replay
+from django.db.models import Model
 
 class DeleteReplayView(LoginRequiredMixin, generic.DeleteView):
-    model = Replay
+    model: Model = Replay
     success_url = reverse_lazy('news_posts:hot_index')
     def get_success_url(self):
         # replayの対象であるコメントの対象であるポストのpkを取得する

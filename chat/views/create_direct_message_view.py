@@ -1,3 +1,6 @@
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.db.models import Model
+from django.forms import ModelForm
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from chat.models import DMRoom, DirectMessage
@@ -10,11 +13,11 @@ from chat.forms import CreateDirectMessageForm
 
 
 class CreateDirectMessageView(LoginRequiredMixin, generic.CreateView):
-    model = DirectMessage
-    template_name = 'chat/dm_room_detail.html'
-    form_class = CreateDirectMessageForm
+    model: Model = DirectMessage
+    template_name: str = 'chat/dm_room_detail.html'
+    form_class: ModelForm = CreateDirectMessageForm
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpResponse:
         # formにリクエストリクエストユーザー情報を渡す
         form = self.form_class(user=request.user)
         User = get_user_model()
@@ -41,7 +44,7 @@ class CreateDirectMessageView(LoginRequiredMixin, generic.CreateView):
     #         ).id
     #     return redirect('chat:dm_room_detail', pk=author_room_pk)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpResponseRedirect:
         form = self.form_class(request.POST)
         addressee_pk = self.kwargs['pk']
         User = get_user_model()
