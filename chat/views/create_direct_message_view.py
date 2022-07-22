@@ -7,12 +7,13 @@ from chat.models import DMRoom, DirectMessage
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 from chat.forms import CreateDirectMessageForm
+from chat.usecases.post_direct_message_action import post_direct_message_action
 
 
 
 
 
-class CreateDirectMessageView(LoginRequiredMixin, generic.CreateView):
+class CreateDirectMessageView(LoginRequiredMixin, generic.View):
     model: Model = DirectMessage
     template_name: str = 'chat/dm_room_detail.html'
     form_class: ModelForm = CreateDirectMessageForm
@@ -52,15 +53,9 @@ class CreateDirectMessageView(LoginRequiredMixin, generic.CreateView):
         addressee = User.objects.get(id=addressee_pk)
         author_room = DMRoom.objects.get(author=author, addressee=addressee)
         addressee_room = DMRoom.objects.filter(author=addressee, addressee=author)
-        post_data = form.save(commit=False)
-        post_data.sender = get_user_model().objects.get(id=self.request.user.id)
-        post_data.room = author_room
-        post_data.save()
-        if addressee_room:
-            get_addressee_room = DMRoom.objects.get(author=addressee, addressee=author)
-            DirectMessage.objects.create(room=get_addressee_room, sender=author, content=post_data.content)
         author_room_pk = DMRoom.objects.get(
             author=author,
             addressee=addressee
         ).id
+        post_direct_message_action(request, form, author_room, addressee_room, addressee_pk)
         return redirect('chat:dm_room_detail', pk=author_room_pk)
