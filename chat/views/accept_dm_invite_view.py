@@ -1,11 +1,11 @@
-from xmlrpc.client import boolean
 from django.http import HttpRequest, HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from chat.models import DMRoom, DMInvite, DirectMessage
+from chat.models import DMRoom, DMInvite
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from django.db.models import Model
+from chat.usecases.accept_dm_invite_action import accept_dm_invite_action
 
 class AcceptDMInviteView(LoginRequiredMixin, generic.View):
     model: Model = DMInvite
@@ -19,25 +19,7 @@ class AcceptDMInviteView(LoginRequiredMixin, generic.View):
             invited_user=addressee,
             received_user=author
         )
-        dm_invite.accept = True
-        dm_invite.delete()
-        if not DMRoom.objects.filter(author=author, addressee=addressee):
-            DMRoom.objects.create(author=author, addressee=addressee)
-            addressee_room_messages = DirectMessage.objects.filter(
-                room=DMRoom.objects.get(author=addressee, addressee=author),
-            )
-            if addressee_room_messages:
-                message_storage = []
-                for message in addressee_room_messages:
-                    message_storage.append(DirectMessage(
-                        room=DMRoom.objects.get(author=author, addressee=addressee),
-                        sender=message.sender,
-                        content=message.content,
-                        created_at=message.created_at,
-                    ))
-                DirectMessage.objects.bulk_create(
-                    message_storage
-                )
+        accept_dm_invite_action(addressee_pk, author, dm_invite)
         author_room_pk = DMRoom.objects.get(
             author=author,
             addressee=addressee
