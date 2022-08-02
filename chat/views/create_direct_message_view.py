@@ -53,9 +53,9 @@ class CreateDirectMessageView(LoginRequiredMixin, generic.View):
         addressee = User.objects.get(id=addressee_pk)
         author_room = DMRoom.objects.get(author=author, addressee=addressee)
         addressee_room = DMRoom.objects.filter(author=addressee, addressee=author)
+        post_direct_message_action(request, form, author_room, addressee_room, addressee_pk)
         author_room_pk = DMRoom.objects.get(
             author=author,
             addressee=addressee
         ).id
-        post_direct_message_action(request, form, author_room, addressee_room, addressee_pk)
         return redirect('chat:dm_room_detail', pk=author_room_pk)
