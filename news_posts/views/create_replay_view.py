@@ -33,7 +33,7 @@ class CreateReplayView(LoginRequiredMixin, generic.CreateView):
         comment.save()
         return redirect('news_posts:post_detail', pk=post_pk)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         context['target_comment'] = get_object_or_404(Comment, pk=self.kwargs['pk'])
         return context

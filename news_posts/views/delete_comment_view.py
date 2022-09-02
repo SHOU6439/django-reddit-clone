@@ -8,7 +8,7 @@ from django.db.models import Model
 class DeleteCommentView(LoginRequiredMixin, generic.DeleteView):
     model: Model = Comment
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         comment_pk = self.kwargs['pk']
         comment = get_object_or_404(Comment, pk=comment_pk)
         post_pk = comment.target.id

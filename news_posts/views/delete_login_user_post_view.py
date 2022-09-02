@@ -6,5 +6,5 @@ from django.db.models import Model
 
 class DeleteLoginUserPostView(LoginRequiredMixin, generic.DeleteView):
     model: Model = NewsPosts
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse('users:detail', kwargs={'pk': self.request.user.id})

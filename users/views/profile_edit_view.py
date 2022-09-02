@@ -10,8 +10,8 @@ class ProfileEditView(LoginRequiredMixin, generic.UpdateView):
     model: Model = User
     form_class: ModelForm = ProfileEditForm
     template_name: str = 'users/profile_edit.html'
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse('users:detail', kwargs={'pk': self.request.user.id})
 
-    def get_object(self):
+    def get_object(self) -> User:
         return self.request.user

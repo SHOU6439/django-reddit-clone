@@ -48,7 +48,7 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
         #     comment_notification.delete()
         return redirect('news_posts:post_detail', pk=post_pk)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         context['target_post'] = get_object_or_404(NewsPosts, pk=self.kwargs['pk'])
         return context

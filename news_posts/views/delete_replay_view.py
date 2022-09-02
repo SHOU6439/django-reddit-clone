@@ -8,7 +8,7 @@ from django.db.models import Model
 class DeleteReplayView(LoginRequiredMixin, generic.DeleteView):
     model: Model = Replay
     success_url = reverse_lazy('news_posts:hot_index')
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         # replayの対象であるコメントの対象であるポストのpkを取得する
         replay_pk = self.kwargs['pk']
         replay = get_object_or_404(Replay, pk=replay_pk)

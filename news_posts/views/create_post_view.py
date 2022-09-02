@@ -18,12 +18,12 @@ class CreatePostView(LoginRequiredMixin, generic.View):
     template_name = 'news_posts/create_post.html'
     success_url = reverse_lazy('news_posts:hot_index')
 
-    def get(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpResponseRedirect:
+    def get(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpRequest:
         # formにリクエストリクエストユーザー情報を渡す
         form = self.form_class(user=request.user)
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
+    def post(self, request: HttpRequest) -> HttpResponseRedirect:
         form = CreatePostForm(user=request.user, data=request.POST)
         if form.is_valid():
             post_data = form.save(commit=False)

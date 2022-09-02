@@ -6,5 +6,5 @@ from django.db.models import Model
 
 class DeleteNotificationView(LoginRequiredMixin, generic.DeleteView):
     model: Model = Notification
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse('news_posts:notification', kwargs={'pk': self.request.user.id})

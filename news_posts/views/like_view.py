@@ -32,8 +32,6 @@ def like(request: HttpRequest, pk: int) -> HttpResponseRedirect:
         # いいねを解除する
         like.is_liked = False
         post.like -= 1
-    print(like.liked_post.user)
-    print(request.user)
     like.save()
     post.save()
     return redirect('users:liked_posts', pk=request.user.id)

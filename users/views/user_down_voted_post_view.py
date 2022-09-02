@@ -13,7 +13,7 @@ class UserDownVotedPostsView(LoginRequiredMixin, generic.DetailView):
     model = User
     template_name = 'users/down_voted_posts.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         # ログインユーザーのidを取得
         current_user = self.request.user.id
