@@ -6,3 +6,4 @@ from .dm_room_detail_view import DMRoomDetailView
 from .accept_dm_invite_view import AcceptDMInviteView
 from .ignore_dm_invite_view import IgnoreDMInviteView
 from .create_direct_message_view import CreateDirectMessageView
+from .delete_direct_message_view import DeleteDirectMessageView

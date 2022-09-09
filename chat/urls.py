@@ -13,5 +13,6 @@ urlpatterns = [
     path('dm/detail/<int:pk>', DMRoomDetailView.as_view(), name="dm_room_detail"),
     path('dm/invite/accept/<int:pk>', AcceptDMInviteView.as_view(), name="accept_dm_invite"),
     path('dm/invite/ignore/<int:pk>', IgnoreDMInviteView.as_view(), name="ignore_dm_invite"),
-    path('dm/create/<int:pk>', CreateDirectMessageView.as_view(), name="create_dm")
+    path('dm/create/<int:pk>', CreateDirectMessageView.as_view(), name="create_dm"),
+    path('dm/delete/<int:pk>', DeleteDirectMessageView.as_view(), name="delete_dm")
 ]
