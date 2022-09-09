@@ -9,7 +9,6 @@ from django.urls.base import reverse
 class DeleteDirectMessageView(LoginRequiredMixin, generic.DeleteView):
     model: Model = DirectMessage
     def get_success_url(self) -> str:
-        # replayの対象であるコメントの対象であるポストのpkを取得する
         direct_message_pk = self.kwargs['pk']
         direct_message = get_object_or_404(DMRoom, pk=direct_message_pk)
         dm_room_pk = direct_message.room.id
