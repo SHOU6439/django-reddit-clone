@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls.base import reverse_lazy
 from django.views import generic
 from chat.models import DirectMessage, DMRoom
 from django.db.models import Model
