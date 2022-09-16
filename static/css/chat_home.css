@@ -325,3 +325,12 @@
     cursor: pointer;
     color: #0079d3;
 }
+
+/* .dm-detail-row__delete-message-form {
+    display: none;
+}
+
+.dm-detail-row__delete-message-form--displayed {
+    display: block;
+}
+ */

@@ -81,7 +81,11 @@
                         {% for message in dm_list %}
                         {% if message.sender.id == request.user.id %}
                         <div class="dm-detail-row">
-                            <div class="dm-detail-box-sender" id="chat_template">
+                            <div class="dm-detail-box-sender" id="message_box_{{ message.id }}">
+                                <form class="dm-detail-row__delete-message-form" id="delete_message_form_{{ message.id }}" method="POST", action="{% url 'chat:delete_dm' message.id %}" onclick='return confirm("本当に削除しますか？メッセージの復元はできません。");'>
+                                    {% csrf_token %}
+                                    <button style="margin-top: 10px; margin-right: 2px;" class="delete-message-form__delete-message-button"><i class="far fa-trash-alt" style="height: 20px; width: 20px;"></i></button>
+                                </form>
                                 <div class="dm-message-content-box" title="{{ message.created_at|timesince }}">{{ message.content|linebreaksbr|urlize }}</div>
                                 <img class="dm-message-sender-thumbnail" src="{% if message.sender.thumbnail %}{{ message.sender.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
                             </div>
