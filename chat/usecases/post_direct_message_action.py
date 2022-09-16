@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.forms import ModelForm
 from django.http import HttpRequest
 from chat.models.dm_room import DMRoom
@@ -16,7 +17,7 @@ def post_direct_message_action(request: HttpRequest, form: ModelForm, author_roo
     if addressee_room:
         get_addressee_room = DMRoom.objects.get(author=addressee, addressee=author)
         DirectMessage.objects.create(room=get_addressee_room, sender=author, content=post_data.content)
-        sender_message = DirectMessage.objects.get(room=author_room, sender=post_data.sender, content=post_data.content)
+        sender_message = DirectMessage.objects.get(id=post_data.id)
         recipient_message = DirectMessage.objects.get(room=get_addressee_room, sender=author, content=post_data.content)
         sender_message.recipient_message = recipient_message
         sender_message.save()
