@@ -5,7 +5,6 @@ from django.contrib.auth import get_user_model
 class DMRoom(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="dm_author")
     addressee = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="dm_addressee")
-    latest_message_at = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
