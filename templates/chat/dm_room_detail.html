@@ -108,7 +108,7 @@
                 <a class="dm-room-invite-accept-button" href="{% url 'chat:accept_dm_invite' current_room.author.id %}">Accept</a>
             </div>
             {% else %}
-            <form class="dm-send-message-form-container" method="POST" action="{% url 'chat:create_dm' current_room.addressee.id %}"> <!-- 非同期の場合はdivタグを使っていた -->
+            <form class="dm-send-message-form-container" id="dmSendMessageFormId" method="POST" action="{% url 'chat:create_dm' current_room.addressee.id %}"> <!-- 非同期の場合はdivタグを使っていた -->
                 <!-- 同期の場合のhtml -->
                 {% csrf_token %}
                 <i class="fas fa-camera" style="height: 25px; width: 25px; margin-left: 10px; margin-right: 10px;"></i>
