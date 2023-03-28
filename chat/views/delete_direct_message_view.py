@@ -11,11 +11,15 @@ class DeleteDirectMessageView(LoginRequiredMixin, generic.DeleteView):
 
     def delete(self, request, *arts, **kwargs):
         sender_direct_message_pk = self.kwargs['pk']
-        sender_direct_message = DirectMessage.objects.get(id=sender_direct_message_pk)
-        addressee_direct_message = DirectMessage.objects.get(id=sender_direct_message.recipient_message.id)
         success_url = self.get_success_url()
-        sender_direct_message.delete()
-        addressee_direct_message.delete()
+        try:
+            sender_direct_message = DirectMessage.objects.get(id=sender_direct_message_pk)
+            addressee_direct_message = DirectMessage.objects.get(id=sender_direct_message.recipient_message.id)
+            sender_direct_message.delete()
+            addressee_direct_message.delete()
+        except Exception:
+            sender_direct_message = DirectMessage.objects.get(id=sender_direct_message_pk)
+            sender_direct_message.delete()
         return redirect(success_url)
 
     def post(self, request, *args, **kwargs):
