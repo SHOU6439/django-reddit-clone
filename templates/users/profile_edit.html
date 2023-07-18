@@ -3,22 +3,22 @@
 {% block main-content %}
 <div class="profile-edit-big-container">
     <div class="profile-edit-container">
-        <h3 class="profile-edit-user-settings-heading">User settings</h3>
-        <h2 class="profile-edit-customize-profile-heading">Customize profile</h2>
+        <h3 class="profile-edit-user-settings-heading">ユーザー設定</h3>
+        <h2 class="profile-edit-customize-profile-heading">プロフィールカスタマイズ</h2>
         <form class="profile-edit-customize-profile-form" method="POST" action="{% url 'users:edit' %}" enctype="multipart/form-data">
             {% csrf_token %}
-            <h3 class="profile-edit-smallest-heading">PROFILE INFORMATION</h3>
-            <h3 class="profile-edit-option-title">Display name(optional)</h3>
-            <p class="profile-edit-help-text">Set a display name. This does not change your username.</p>
+            <h3 class="profile-edit-smallest-heading">プロフィール情報</h3>
+            <h3 class="profile-edit-option-title">表示名</h3>
+            <p class="profile-edit-help-text">表示名を設定します。</p>
             {{ form.username }} <!-- class="profile-edit-new-name-input-textarea" -->
-            <p class="profile-edit-help-text">20 Characters remaining</p>
-            <h3 class="profile-edit-option-title">About (optional)</h3>
-            <p class="profile-edit-help-text">A brief description of yourself shown on your profile.</p>
+            <p class="profile-edit-help-text">20文字以内で設定してください。</p>
+            <h3 class="profile-edit-option-title">自己紹介(任意)</h3>
+            <p class="profile-edit-help-text">プロフィールに記載されている簡単な自己紹介。</p>
             {{ form.about }} <!-- profile-edit-new-user-about-input-textarea -->
-            <p class="profile-edit-help-text">200 Characters remaining</p>
-            <h3 class="profile-edit-smallest-heading">IMAGES</h3>
-            <h3 class="profile-edit-option-title">Avatar and banner image</h3>
-            <p class="profile-edit-help-text">Images must be .png or .jpg format</p>
+            <p class="profile-edit-help-text">200以内で設定してください。</p>
+            <h3 class="profile-edit-smallest-heading">画像</h3>
+            <h3 class="profile-edit-option-title">アイコンとヘッダー写真</h3>
+            <p class="profile-edit-help-text">画像のフォーマットはjpgまたはimgにしてください。</p>
             <div class="profile-edit-profile-image-upload-container">
                 <label class="profile-edit-profile-image-upload-field" for="profile-edit-input-new-thumbnial-image-id">
                     <img class="profile-edit-profile-before-image" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" id="preview_new_thumbnail">
@@ -29,7 +29,7 @@
                     <input type="file" class="profile-edit-input-new-image" name="header_photo" id="profile-edit-input-new-header-image-id" accept='image/*'>
                 </label>
             </div>
-            <button class="profile-edited-data-save-button" type="submit">Save</button>
+            <button class="profile-edited-data-save-button" type="submit">保存</button>
         </form>
     </div>
 </div>

@@ -2,7 +2,7 @@
 {% load static %}
 {% block main-content %}
 <div class="notification-list-background-container">
-    <h1 class="notification-list-heading">Notifications</h1>
+    <h1 class="notification-list-heading">通知一覧</h1>
     {% for notifications in notification_list %}
     <div class="norification-list-element-box">
         <div class="notification-element-created-at-container">
@@ -13,7 +13,7 @@
                 <li class="notification-element-title">{{ notifications.title }}</li>
                 <form method="post" action="{% url 'news_posts:delete_notification' notifications.id %}">
                     {% csrf_token %}
-                    <button type="submit" onclick='return confirm("Do you really want to delete this?");'>
+                    <button type="submit" onclick='return confirm("本当に削除しますか？復元はできません。");'>
                         <i class="far fa-trash-alt" style="height: 20px; width: 20px; position: absolute; right: -5%; top: 2px;"></i>
                     </button>
                 </form>

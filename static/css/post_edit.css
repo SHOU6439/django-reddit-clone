@@ -11,6 +11,7 @@
 .post-content-input-textarea-edit{
     border: solid 1px #cccccc;
     border-radius: 4px 4px 0px 0px;
+    width: 378px;
 }
 
 .news-posts-edited-data-save-button-container {

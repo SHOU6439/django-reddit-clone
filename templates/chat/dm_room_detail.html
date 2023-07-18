@@ -4,20 +4,20 @@
 <div class="chat-home-background-container">
     <div class="chat-home-left-menu">
         <div class="chat-home-left-menu-heading-container">
-            <h2 class="chat-home-left-menu-heading">Chat</h2>
+            <h2 class="chat-home-left-menu-heading">チャット</h2>
             <div class="add-dm-room-button-wrapper">
                 <a href="{% url 'chat:home' %}"><i class="fas fa-comment-medical" style="width: 25px; height: 25px;"></i></a>
             </div>
         </div>
         <div class="chat-select-chat-type-row">
             <ul class="chat-type-list">
-                <a href="{% url 'chat:home' %}"><li class="chat-type-list-element">All</li></a>
-                <a href="{% url 'chat:dm_home' %}"><li class="chat-type-list-displaying-element">DMs</li></a>
-                <a href=""><li class="chat-type-list-element">Group</li></a>
+                <a href="{% url 'chat:home' %}"><li class="chat-type-list-element">全て</li></a>
+                <a href="{% url 'chat:dm_home' %}"><li class="chat-type-list-displaying-element">ダイレクトメッセージ</li></a>
+                <a href=""><li class="chat-type-list-element">グループ</li></a>
             </ul>
         </div>
         {% if dm_invites %}
-        <h3 class="chat-home-chat-status-heading">Invites</h3>
+        <h3 class="chat-home-chat-status-heading">招待一覧</h3>
         {% for dm_invite in dm_invites %}
         {% if current_room.id == dm_invite.room.id %}
         <div class="chat-dm-addressee-list">
@@ -41,7 +41,7 @@
         {% endfor %}
         {% endif %}
         {% if dm_invites and dm_rooms %}
-        <h3 class="chat-home-chat-status-heading">Chats</h3>
+        <h3 class="chat-home-chat-status-heading">チャット一覧</h3>
         {% endif %}
         {% for dm_room in dm_rooms %}
         {% if current_room.id == dm_room.id %}
@@ -103,16 +103,16 @@
                 </div>
             {% if current_invite %}
             <div class="dm-room-detail-footer-container">
-                <p class="dm-room-detail-footer-text">Do you want to accept the invitation?</p>
-                <a class="dm-room-invite-ignore-button" href="{% url 'chat:ignore_dm_invite' current_room.author.id %}">Ignore</a>
-                <a class="dm-room-invite-accept-button" href="{% url 'chat:accept_dm_invite' current_room.author.id %}">Accept</a>
+                <p class="dm-room-detail-footer-text">こちらの招待を承認しますか？</p>
+                <a class="dm-room-invite-ignore-button" href="{% url 'chat:ignore_dm_invite' current_room.author.id %}">拒否</a>
+                <a class="dm-room-invite-accept-button" href="{% url 'chat:accept_dm_invite' current_room.author.id %}">承認</a>
             </div>
             {% else %}
             <form class="dm-send-message-form-container" id="dmSendMessageFormId" method="POST" action="{% url 'chat:create_dm' current_room.addressee.id %}"> <!-- 非同期の場合はdivタグを使っていた -->
                 <!-- 同期の場合のhtml -->
                 {% csrf_token %}
                 <i class="fas fa-camera" style="height: 25px; width: 25px; margin-left: 10px; margin-right: 10px;"></i>
-                <input maxlength="512" class="dm-send-message-text-input" placeholder="Message" type="text" name="content" required>
+                <input maxlength="512" class="dm-send-message-text-input" placeholder="メッセージ" type="text" name="content" required>
                 <button type="submit" action="{% url 'chat:create_dm' current_room.addressee.id %}"><i class="fas fa-paper-plane" style="height: 25px; width: 25px; margin-left: 25px; margin-right: 10px; color: #0079d3;"></i></button>
                 <!-- 非同期の場合のhtml -->
                 <!-- <i class="fas fa-camera" style="height: 25px; width: 25px; margin-left: 10px; margin-right: 10px;"></i>

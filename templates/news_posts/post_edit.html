@@ -24,56 +24,56 @@
                         <span class="posted-by-user-name-span">{{ object.created_at|timesince }}</span>
                         {% else %}
                         <a href="{% url 'communities:detail' object.community.id %}">r/{{ object.community }}</a>
-                        <a href="{% url 'users:detail' object.user.id %}"><span class="posted-by-user-name-span">Posted By {{ object.user }} {{ object.created_at|date:'n/j H:i' }}</span></a>
+                        <a href="{% url 'users:detail' object.user.id %}"><span class="posted-by-user-name-span">投稿者: {{ object.user }} {{ object.created_at|date:'n/j H:i' }}</span></a>
                         {% endif %}
                     </li>
                 </div>
                 <li class="posted-title-string-list-expansion">{{ object.title }}</li>
                 {{ form.content }} <!-- post-content-input-textarea-edit -->
                 <div class="news-posts-edited-data-save-button-container">
-                    <button class="news-posts-edited-data-save-button" type="submit">Save</button>
+                    <button class="news-posts-edited-data-save-button" type="submit">保存</button>
                 </div>
                 <ul class="posted-post-control-button-list">
                     <a class="posted-post-comment-button" href="{% url 'news_posts:create_comment' object.pk %}">
                         <li class="posted-post-control-button">
                             <i class="far fa-comment-alt" style="height: 20px; width: 20px;"></i>
-                            <lable class="posted-post-control-button-label">Comments</label>
+                            <lable class="posted-post-control-button-label">コメント</label>
                         </li>
                     </a>
                     {% if object.user.id == user.id %}
                     <form class="posted-news-delete-form" method="POST" action="{% url 'news_posts:delete_post' object.id %}">
                         {% csrf_token %}
-                        <button class="posted-news-delete-button" type="submit" onclick='return confirm("Are you sure you want to delete your post? You cant undo this.");'>
+                        <button class="posted-news-delete-button" type="submit" onclick='return confirm("本当に削除しますか？復元はできません。");'>
                             <li class="posted-post-control-button">
                                 <i class="far fa-trash-alt" style="height: 20px; width: 20px;"></i>
-                                <lable class="posted-post-control-button-label">Delete</label>
+                                <lable class="posted-post-control-button-label">削除</label>
                             </li>
                         </button>
                     </form>
                     {% else %}
                     <li class="posted-post-control-button">
                         <i class="fas fa-gift" style="height: 20px; width: 20px;"></i>
-                        <lable class="posted-post-control-button-label">Award</label>
+                        <lable class="posted-post-control-button-label">アワード</label>
                     </li>
                     {% endif %}
                     <a href="https://twitter.com/share?url={{ request.scheme }}://{{ request.get_host }}{% url 'news_posts:post_detail' object.id %}" target="_blank" rel="nofollow">
                         <li class="posted-post-control-button">
                             <i class="fas fa-share" style="height: 20px; width: 20px;"></i>
-                            <lable class="posted-post-control-button-label">Share</label>
+                            <lable class="posted-post-control-button-label">シェア</label>
                         </li>
                     </a>
                     {% if object in saved_posts %}
                     <a href="{% url 'news_posts:unsave' object.id %}">
                         <li class="posted-post-control-button">
                             <i class="fas fa-bookmark" style="height: 20px; width: 20px;"></i>
-                            <lable class="posted-post-control-button-label">UnSave({{ object.save_counter }})</label>
+                            <lable class="posted-post-control-button-label">保存済み({{ object.save_counter }})</label>
                         </li>
                     </a>
                     {% else %}
                     <a href="{% url 'news_posts:save' object.id %}">
                         <li class="posted-post-control-button">
                             <i class="far fa-bookmark" style="height: 20px; width: 20px;"></i>
-                            <lable class="posted-post-control-button-label">Save({{ object.save_counter }})</label>
+                            <lable class="posted-post-control-button-label">保存({{ object.save_counter }})</label>
                         </li>
                     </a>
                     {% endif %}
@@ -81,7 +81,7 @@
                     <a href="{% url 'news_posts:edit' object.id %}">
                         <li class="posted-post-control-button">
                             <i class="fas fa-pen" style="height: 20px; width: 20px;"></i>
-                            <lable class="posted-post-control-button-label">Edit Post</label>
+                            <lable class="posted-post-control-button-label">編集</label>
                         </li>
                     </a>
                     {% endif %}
@@ -103,7 +103,7 @@
                 {% endif %}
             </div>
             <div class="profile-detail-user-about-container">
-                <p class="profile-detail-user-about">{% if object.user.about %}{{ object.user.about }}{% else %}My name is {{ object.user }}{% endif %}</p>
+                <p class="profile-detail-user-about">{% if object.user.about %}{{ object.user.about }}{% else %}私の名前は {{ object.user }}{% endif %}</p>
             </div>
         </div>
         {% else %}
@@ -114,14 +114,14 @@
             <div class="community-detail-community-about-main-content-community-active-info">
                 <div class="community-detail-community-about-main-content-community-member-info-box">
                     <p class="community-detail-community-about-main-content-community-info-count">{{ member_count }}</p>
-                    <p class="community-detail-community-about-main-content-community-name-of-info" title="{{ member_count }} Members">Members</p>
+                    <p class="community-detail-community-about-main-content-community-name-of-info" title="{{ member_count }} 名">メンバー数</p>
                 </div>
                 <div class="community-detail-community-about-main-content-community-post-info-box">
                     <p class="community-detail-community-about-main-content-community-info-count">{{ community_post_count }}</p>
-                    <p class="community-detail-community-about-main-content-community-name-of-info" title="{{ community_post_count }} Posts">Posts</p>
+                    <p class="community-detail-community-about-main-content-community-name-of-info" title="{{ community_post_count }} 件">投稿数</p>
                 </div>
             </div>
-            <p class="community-detail-community-about-main-content-created">created {{ object.created_at|date:"M d, Y" }}</p>
+            <p class="community-detail-community-about-main-content-created">設立日時: {{ object.created_at|date:"M d, Y" }}</p>
         </div>
         {% endif %}
 

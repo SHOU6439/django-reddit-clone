@@ -14,9 +14,9 @@ class CommunityForm(forms.ModelForm):
     name = forms.CharField(max_length=21, widget=forms.widgets.TextInput(attrs={'class': "community-name-input-textarea"}))
     community_type = forms.fields.ChoiceField(
         choices = (
-            ('0', mark_safe(help_format.format('fas fa-user', 'Public', 'Anyone can view, post, and comment to this community'))),
-            ('1', mark_safe(help_format.format('far fa-eye', 'Restricted', 'Anyone can view this community, but only approved users can post'))),
-            ('2', mark_safe(help_format.format('fas fa-lock', 'Private', 'Only approved users can view and submit to this community'))),
+            ('0', mark_safe(help_format.format('fas fa-user', '公開', '誰でもこのコミュニティを閲覧、投稿、コメントすることができます。'))),
+            ('1', mark_safe(help_format.format('far fa-eye', '制限あり', 'このコミュニティは誰でも閲覧できますが、投稿できるのは承認されたユーザーだけです。'))),
+            ('2', mark_safe(help_format.format('fas fa-lock', '非公開', '承認されたユーザーだけがこのコミュニティを閲覧し、投稿することができます。'))),
         ),
         required=True,
         widget=forms.widgets.RadioSelect(attrs={'class': "community-type-select-radio-button"}),

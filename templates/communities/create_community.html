@@ -1,34 +1,42 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block main-content %}
+{% extends 'base.html' %} {% load static %} {% block main-content %}
 <div class="create-community-big-container">
-    <div class="create-community-container">
-        <div class="create-community-title-container">
-            <h1 class="create-community-title">Create a community</h1>
-        </div>
-        <form class="create-community-form" method="POST">
-            {% csrf_token %}
-            <p class="create-community-subtitle">Name</p>
-            <p class="create-community-name-warning-txt">Community names including capitalization cannot be changed.</p>
-            {{ form.name }}
-            <p class="create-community-name-character-limit">21 Characters remaining</p>
-            <p class="create-community-subtitle">Community type</p>
-            {% for community_type_radio in form.community_type %}
-            <label for="" class="community-type-select-label">
-                {{ community_type_radio.tag }}
-                <span class="community-type-typename">{{ community_type_radio.choice_label }}</span>
-            </label>
-            {% endfor %}
-            <p class="create-community-subtitle">Adult content</p>
-            <label class="create-community-is-nsfw-check-container" for="">
-                {{ form.is_nsfw }}
-                <span class="community-is-nsfw-check-text">18+ year old community</span>
-            </label>
-            <div class="create-community-display-control-container">
-                <a href="{% url 'news_posts:hot_index' %}" class="create-Cancel-button">Cancel</a>
-                <button type="submit" class="create-community-Decision-button">Create Community</button>
-            </div>
-        </form>
+  <div class="create-community-container">
+    <div class="create-community-title-container">
+      <h1 class="create-community-title">コミュニティの設立</h1>
     </div>
+    <form class="create-community-form" method="POST">
+      {% csrf_token %}
+      <p class="create-community-subtitle">名前</p>
+      <p class="create-community-name-warning-txt">
+        コミュニティ名の変更はできません。
+      </p>
+      {{ form.name }}
+      <p class="create-community-name-character-limit">
+        21 文字以内で入力してください。
+      </p>
+      <p class="create-community-subtitle">コミュニティタイプ</p>
+      {% for community_type_radio in form.community_type %}
+      <label for="" class="community-type-select-label">
+        {{ community_type_radio.tag }}
+        <span class="community-type-typename">
+          {{ community_type_radio.choice_label }}
+        </span>
+      </label>
+      {% endfor %}
+      <p class="create-community-subtitle">アダルトコンテンツ</p>
+      <label class="create-community-is-nsfw-check-container" for="">
+        {{ form.is_nsfw }}
+        <span class="community-is-nsfw-check-text">18禁コミュニティ</span>
+      </label>
+      <div class="create-community-display-control-container">
+        <a href="{% url 'news_posts:hot_index' %}" class="create-Cancel-button">
+          キャンセル
+        </a>
+        <button type="submit" class="create-community-Decision-button">
+          コミュニティ作成
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 {% endblock %}

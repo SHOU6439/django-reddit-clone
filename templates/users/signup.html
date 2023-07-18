@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-    <title>Signup</title>
+    <title>ユーザー登録</title>
 </head>
 <body>
     <div class="signup-container">
@@ -16,18 +16,18 @@
             <img src="{% static 'img/signup_img.jpeg' %}" class="signup-img">
         </div>
         <div class="signup-form">
-            <h1 class="signup-form-h2">Signup</h1>
+            <h1 class="signup-form-h2">ユーザー登録</h1>
             <p class="Policy-text">
-                By continuing, you agree to our <a class="Policy-sentence-url" href="https://www.redditinc.com/policies/user-agreement">User Agreement</a><br>
-                and <a class="Policy-sentence-url" href="https://www.redditinc.com/policies/privacy-policy">Privacy Policy</a>.
+                続行することで、当社の<a class="Policy-sentence-url" href="https://www.redditinc.com/policies/user-agreement">利用規約</a><br>
+                および<a class="Policy-sentence-url" href="https://www.redditinc.com/policies/privacy-policy">プライバシーポリシー</a>に同意するものとします。
             </p>
             <div class="linked-login-button">
                 <img class="linked-login-button-img" src="{% static 'img/google_logo.jpeg' %}" alt="google">
-                <p class="linked-login-button-text">CONTINUE WITH GOOGLE</p>
+                <p class="linked-login-button-text">GOOGLEで登録</p>
             </div>
             <div class="linked-login-button">
                 <img class="linked-login-button-img" src="{% static 'img/apple_logo.jpeg' %}" alt="apple">
-                <p class="linked-login-button-text">CONTINUE WITH APPLE</p>
+                <p class="linked-login-button-text">APPLEで登録</p>
             </div>
             <div class="signup-catch">
                 OR
@@ -39,9 +39,9 @@
                         <div>{{ field }}</div>
                     {% endif %}
                 {% endfor %}
-                <button type="submit" class="signup-Continue-button">Continue</button>
+                <button type="submit" class="signup-Continue-button">登録</button>
             </form>
-            <p>Already a redditor? <a class="LOGIN-url" href="{% url 'users:login' %}">LOG IN</a></p>
+            <p>既にアカウントをお持ちの場合は <a class="LOGIN-url" href="{% url 'users:login' %}">ログイン</a>してください。</p>
         </div>
     </div>
 </body>

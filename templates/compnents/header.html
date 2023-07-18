@@ -1,102 +1,164 @@
 {% load static %}
 
 <header class="header-cover">
-    <div class="header-content">
-        <div class="header-site-logo">
-            <a class="header-top-icon" href="{% url 'news_posts:hot_index' %}">
-                <img class="reddit_logo" src="{% static 'img/reddit_logo.jpeg' %}" alt="reddit_logo">
-            </a>
-        </div>
-        <div class="header-search-area">
-            <form action="{% url 'search:index' %}" class="header-search-form" method="get">
-                <label class="header-search-laber" for="header_search_bar">
-                    <div><i class="fas fa-search" style="height: 16px; width: 16px; opacity: 0.3;"></i></div>
-                </label>
-                <input class="header-search-content" type="text" id="header_search_bar" name="q" placeholder="Search Reddit"/>
-            </form>
-        </div>
-        {% if user.is_authenticated %}
-        <div class="header-menu-bar">
-            <ul class="header-menu-bar-ul">
-                <a href="{% url 'chat:home' %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/chat_button_icon.jpeg' %}" alt="chat" title="Chat"></li></a>
-                <a href="{% url 'news_posts:notification' request.user.id %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/notifications_button_icon.jpeg' %}" alt="notifications" title="Notifications"></li></a>
-                <a href="{% url 'news_posts:create_post' %}"><li class="header-menu-bar-li"><img class="header-menu-bar-img" src="{% static 'img/create_post_button_icon.jpeg' %}" alt="createpost" title="Create Post"></li></a>
-            </ul>
-            <div class="header-account-fix">
-                <button class="header-account-config-fix" type="button" id="account-drop-down-button">
-                    <img class="user-icon-img" src="{% if request.user.thumbnail %}{{ request.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon">
-                    <div class="user-info-container">
-                        <div class="user-name-container">{{ request.user.username }}</div>
-                        <i class="fas fa-angle-down" style="margin-top: 5px;"></i>
-                    </div>
-                </button>
-            </div>
-        </div>
-        {% else %}
-        <div class="header-account">
-            <a class="header-login-button" href="{% url 'users:login' %}">
-                Log In
-            </a>
-            <a class="header-signup-button" href="{% url 'users:signup' %}">
-                Sign Up
-            </a>
-            <button class="header-account-config" type="button" id="account-drop-down-button">
-                <i class="far fa-user"></i>
-                <i class="fas fa-angle-down"></i>
-            </button>
-        </div>
-        {% endif %}
+  <div class="header-content">
+    <div class="header-site-logo">
+      <a class="header-top-icon" href="{% url 'news_posts:hot_index' %}">
+        <img
+          class="reddit_logo"
+          src="{% static 'img/reddit_logo.jpeg' %}"
+          alt="reddit_logo"
+        />
+      </a>
     </div>
+    <div class="header-search-area">
+      <form
+        action="{% url 'search:index' %}"
+        class="header-search-form"
+        method="get"
+      >
+        <label class="header-search-laber" for="header_search_bar">
+          <div>
+            <i
+              class="fas fa-search"
+              style="height: 16px; width: 16px; opacity: 0.3;"
+            ></i>
+          </div>
+        </label>
+        <input
+          class="header-search-content"
+          type="text"
+          id="header_search_bar"
+          name="q"
+          placeholder="検索"
+        />
+      </form>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="header-menu-bar">
+      <ul class="header-menu-bar-ul">
+        <a href="{% url 'chat:home' %}">
+          <li class="header-menu-bar-li">
+            <img
+              class="header-menu-bar-img"
+              src="{% static 'img/chat_button_icon.jpeg' %}"
+              alt="chat"
+              title="Chat"
+            />
+          </li>
+        </a>
+        <a href="{% url 'news_posts:notification' request.user.id %}">
+          <li class="header-menu-bar-li">
+            <img
+              class="header-menu-bar-img"
+              src="{% static 'img/notifications_button_icon.jpeg' %}"
+              alt="notifications"
+              title="Notifications"
+            />
+          </li>
+        </a>
+        <a href="{% url 'news_posts:create_post' %}">
+          <li class="header-menu-bar-li">
+            <img
+              class="header-menu-bar-img"
+              src="{% static 'img/create_post_button_icon.jpeg' %}"
+              alt="createpost"
+              title="Create Post"
+            />
+          </li>
+        </a>
+      </ul>
+      <div class="header-account-fix">
+        <button
+          class="header-account-config-fix"
+          type="button"
+          id="account-drop-down-button"
+        >
+          <img
+            class="user-icon-img"
+            src="{% if request.user.thumbnail %}{{ request.user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}"
+            alt="icon"
+          />
+          <div class="user-info-container">
+            <div class="user-name-container">{{ request.user.username }}</div>
+            <i class="fas fa-angle-down" style="margin-top: 5px;"></i>
+          </div>
+        </button>
+      </div>
+    </div>
+    {% else %}
+    <div class="header-account">
+      <a class="header-login-button" href="{% url 'users:login' %}">
+        ログイン
+      </a>
+      <a class="header-signup-button" href="{% url 'users:signup' %}">
+        サインアップ
+      </a>
+      <button
+        class="header-account-config"
+        type="button"
+        id="account-drop-down-button"
+      >
+        <i class="far fa-user"></i>
+        <i class="fas fa-angle-down"></i>
+      </button>
+    </div>
+    {% endif %}
+  </div>
 </header>
 {% if user.is_authenticated %}
 <div class="drop-down-menu-container" id="drop-down-id">
-    <ul class="drop-down-menu-ul">
-        <li class="drop-down-menu-li">
-            <a class="user-menu-button" href="{% url 'users:detail' request.user.id %}">
-                <i class="far fa-user-circle" style="height: 18px; margin-right:5px;"></i>
-                <p class="drop-down-menu-li-p">Profile</p>
-            </a>
-        </li>
-        <li class="drop-down-menu-li">
-            <a class="user-menu-button" href="{% url 'users:edit' %}">
-                <i class="fas fa-cog" style="height: 18px; margin-right:5px;"></i>
-                <p class="drop-down-menu-li-p">User Settings</p>
-            </a>
-        </li>
-        <li class="drop-down-menu-li">
-            <a class="user-menu-button" href="{% url 'communities:create' %}">
-                <i class="far fa-plus-square" style="height: 18px; margin-right:5px;"></i>
-                <p class="drop-down-menu-li-p">Create a Community</p>
-            </a>
-        </li>
-        <li class="drop-down-menu-li">
-            <a class="user-menu-button" href="{% url 'users:logout' %}">
-                <i class="fas fa-external-link-alt" style="height: 18px; margin-right:5px;"></i>
-                <p class="drop-down-menu-li-p">Log Out</p>
-            </a>
-        </li>
-
-    </ul>
+  <ul class="drop-down-menu-ul">
+    <li class="drop-down-menu-li">
+      <a
+        class="user-menu-button"
+        href="{% url 'users:detail' request.user.id %}"
+      >
+        <i
+          class="far fa-user-circle"
+          style="height: 18px; margin-right: 5px;"
+        ></i>
+        <p class="drop-down-menu-li-p">プロフィール</p>
+      </a>
+    </li>
+    <li class="drop-down-menu-li">
+      <a class="user-menu-button" href="{% url 'users:edit' %}">
+        <i class="fas fa-cog" style="height: 18px; margin-right: 5px;"></i>
+        <p class="drop-down-menu-li-p">ユーザー設定</p>
+      </a>
+    </li>
+    <li class="drop-down-menu-li">
+      <a class="user-menu-button" href="{% url 'communities:create' %}">
+        <i
+          class="far fa-plus-square"
+          style="height: 18px; margin-right: 5px;"
+        ></i>
+        <p class="drop-down-menu-li-p">コミュニティ作成</p>
+      </a>
+    </li>
+    <li class="drop-down-menu-li">
+      <a class="user-menu-button" href="{% url 'users:logout' %}">
+        <i
+          class="fas fa-external-link-alt"
+          style="height: 18px; margin-right: 5px;"
+        ></i>
+        <p class="drop-down-menu-li-p">ログアウト</p>
+      </a>
+    </li>
+  </ul>
 </div>
 {% else %}
 <div class="drop-down-menu-container" id="drop-down-id">
-    <ul class="drop-down-menu-ul" id="drop-down-id">
-        <li class="drop-down-menu-li">
-            <a class="user-menu-button" href="{% url 'users:login' %}">
-                <i class="fas fa-sign-in-alt" style="height: 18px; margin-right:5px;"></i>
-                <p class="drop-down-menu-li-p">Log In/Sign Up</p>
-            </a>
-        </li>
-    </ul>
+  <ul class="drop-down-menu-ul" id="drop-down-id">
+    <li class="drop-down-menu-li">
+      <a class="user-menu-button" href="{% url 'users:login' %}">
+        <i
+          class="fas fa-sign-in-alt"
+          style="height: 18px; margin-right: 5px;"
+        ></i>
+        <p class="drop-down-menu-li-p">ログイン/サインアップ</p>
+      </a>
+    </li>
+  </ul>
 </div>
 {% endif %}
-
-
-
-
-
-
-
-
-
-

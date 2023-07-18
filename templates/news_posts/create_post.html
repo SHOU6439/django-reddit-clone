@@ -1,55 +1,88 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block main-content %}
+{% extends 'base.html' %} {% load static %} {% block main-content %}
 <div class="create-post-big-container">
-    <div class="create-post-title-container">
-        <h1 class="create-post-title">Create a post</h1>
-    </div>
-    <div class="create-post-middle-container">
-        <div class="create-post-container">
-            <form class="create-post-form" action="{% url 'news_posts:create_post' %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.community }}
-                {{ form.title }} <!-- class:post-title-input-textarea -->
-                <div class="add-meta-content">
-                    <ul class="meta-info-list">
-                        <li class="meta-info-list-element">
-                            <label class="post-input-image-field-wrapper" for="post-input-image-field-id">
-                                <i class="fas fa-image" style="height:30px; width: 30px;"></i>
-                                <input type="file" class="post-input-image-field" name="photo" id="post-input-image-field-id" accept='image/*' onchange="previewImage(this);">
-                            </label>
-                        </li>
-                        <li class="meta-info-list-element"><i class="fab fa-youtube" style="height:30px; width: 30px;"></i></li>
-                    </ul>
-                </div>
-                <div class="form-content-box">
-                    {{ form.content }} <!-- post-content-input-textarea -->
-                    <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
-                </div>
-                <div class="create-post-display-control-container">
-                    <button type="submit" class="create-post-submit-post-button">Post</button>
-                </div>
-            </form>
+  <div class="create-post-title-container">
+    <h1 class="create-post-title">投稿作成</h1>
+  </div>
+  <div class="create-post-middle-container">
+    <div class="create-post-container">
+      <form
+        class="create-post-form"
+        action="{% url 'news_posts:create_post' %}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %} {{ form.community }} {{ form.title }}
+        <!-- class:post-title-input-textarea -->
+        <div class="add-meta-content">
+          <ul class="meta-info-list">
+            <li class="meta-info-list-element">
+              <label
+                class="post-input-image-field-wrapper"
+                for="post-input-image-field-id"
+              >
+                <i class="fas fa-image" style="height: 30px; width: 30px;"></i>
+                <input
+                  type="file"
+                  class="post-input-image-field"
+                  name="photo"
+                  id="post-input-image-field-id"
+                  accept="image/*"
+                  onchange="previewImage(this);"
+                />
+              </label>
+            </li>
+            <li class="meta-info-list-element">
+              <i class="fab fa-youtube" style="height: 30px; width: 30px;"></i>
+            </li>
+          </ul>
         </div>
-        <div class="create-post-right-side-element-container">
-            <div class="profile-detail-container-for-create-post-html">
-                <div class="profile-all-image-container">
-                    <img class="profile-header-img" src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.jpeg' %}{% endif %}" alt="header" />
-                    <div class="profile-thumbnail-icon-wrapper">
-                        <img class="profile-thumbnail-icon-img" src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}" alt="icon" />
-                    </div>
-                </div>
-                <div class="profile-username-and-config-button-container">
-                    <div class="profile-detail-user-name-box"><p class="profile-detail-user-name">{{ user.username }}</p></div>
-                    <a href="{% url 'users:edit' %}"><i class="fas fa-cog" style="margin-top: 10px;"></i></a>
-                </div>
-                <div class="profile-detail-user-about-container">
-                    <p class="profile-detail-user-about">{% if user.about %}{{ user.about }}{% else %}My name is {{ user.username }}{% endif %}</p>
-                </div>
-
-            </div>
+        <div class="form-content-box">
+          {{ form.content }}
+          <!-- post-content-input-textarea -->
+          <img
+            id="preview"
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+          />
         </div>
+        <div class="create-post-display-control-container">
+          <button type="submit" class="create-post-submit-post-button">
+            投稿
+          </button>
+        </div>
+      </form>
     </div>
+    <div class="create-post-right-side-element-container">
+      <div class="profile-detail-container-for-create-post-html">
+        <div class="profile-all-image-container">
+          <img
+            class="profile-header-img"
+            src="{% if user.header %}{{ user.header.url }}{% else %}{% static 'img/default_user_header.jpeg' %}{% endif %}"
+            alt="header"
+          />
+          <div class="profile-thumbnail-icon-wrapper">
+            <img
+              class="profile-thumbnail-icon-img"
+              src="{% if user.thumbnail %}{{ user.thumbnail.url }}{% else %}{% static 'img/reddit_default_user_icon.jpeg' %}{% endif %}"
+              alt="icon"
+            />
+          </div>
+        </div>
+        <div class="profile-username-and-config-button-container">
+          <div class="profile-detail-user-name-box">
+            <p class="profile-detail-user-name">{{ user.username }}</p>
+          </div>
+          <a href="{% url 'users:edit' %}">
+            <i class="fas fa-cog" style="margin-top: 10px;"></i>
+          </a>
+        </div>
+        <div class="profile-detail-user-about-container">
+          <p class="profile-detail-user-about">
+            {% if user.about %}{{ user.about }}{% else %}私の名前は{{ user.username }}{% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

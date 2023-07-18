@@ -4,7 +4,7 @@
 <form class="create-comment-form" method="POST" action="{% url 'news_posts:create_replay' target_comment.id %}">
     {% csrf_token %}
     {{ form.content }} <!-- class:replay-content-input-textarea -->
-    <button class="replay-content-data-submit-button" type="submit">Replay</button>
+    <button class="replay-content-data-submit-button" type="submit">返信</button>
 </form>
 
 {% endblock %}
