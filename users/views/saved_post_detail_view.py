@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.views import generic
 from communities.models import Communities
 from django.db.models import Sum, Q, Model
-from news_posts.usecases.post_like_state_highlight import post_like_state_highlight
+from news_posts.utils.post_like_state_highlight import post_like_state_highlight
 
 
 class SavedPostDetailView(LoginRequiredMixin, generic.DetailView):

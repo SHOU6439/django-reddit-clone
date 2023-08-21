@@ -4,8 +4,7 @@ from django.contrib.auth import get_user_model
 from django.views import generic
 from communities.models import Communities
 from django.db.models import Sum, Q, Model
-
-from news_posts.usecases.like_state_highlight import like_state_highlight
+from news_posts.utils.like_state_highlight import like_state_highlight
 
 
 

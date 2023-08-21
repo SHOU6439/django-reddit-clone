@@ -1,25 +1,20 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
-from chat.models import DirectMessage, DMRoom
+from chat.models import DirectMessage
 from django.db.models import Model
 from django.shortcuts import get_object_or_404
 from django.urls.base import reverse
 from django.shortcuts import redirect
+from chat.usecases.delete_direct_message_action import delete_direct_message_action
+from django.http import HttpResponseRedirect
 
 class DeleteDirectMessageView(LoginRequiredMixin, generic.DeleteView):
     model: Model = DirectMessage
 
-    def delete(self, request, *arts, **kwargs):
+    def delete(self, request, *arts, **kwargs)  -> HttpResponseRedirect:
         sender_direct_message_pk = self.kwargs['pk']
         success_url = self.get_success_url()
-        try:
-            sender_direct_message = DirectMessage.objects.get(id=sender_direct_message_pk)
-            addressee_direct_message = DirectMessage.objects.get(id=sender_direct_message.recipient_message.id)
-            sender_direct_message.delete()
-            addressee_direct_message.delete()
-        except Exception:
-            sender_direct_message = DirectMessage.objects.get(id=sender_direct_message_pk)
-            sender_direct_message.delete()
+        delete_direct_message_action(sender_direct_message_pk)
         return redirect(success_url)
 
     def post(self, request, *args, **kwargs):

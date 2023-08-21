@@ -9,6 +9,7 @@ from django.views import generic
 from news_posts.models import Comment, Notification, Replay
 from news_posts.forms import CreateReplayForm
 from django.db.models import Model
+from news_posts.usecases.create_replay_action import create_replay_action
 
 
 class CreateReplayView(LoginRequiredMixin, generic.CreateView):
@@ -19,19 +20,12 @@ class CreateReplayView(LoginRequiredMixin, generic.CreateView):
     def post(self, request: HttpRequest, *args: tuple, **kwargs: dict) -> HttpResponseRedirect:
         form = self.form_class(request.POST)
         comment_pk = self.kwargs['pk']
-        comment = get_object_or_404(Comment, pk=comment_pk)
-        notification = Notification
-        post_pk = comment.target.id
-        replay = form.save(commit=False)
-        # replayの対象をこのメソッド内のcomment変数に設定
-        replay.target = comment
-        replay.user = get_user_model().objects.get(id=self.request.user.id)
-        replay.save()
-        comment.replay.add(replay)
-        notification.objects.create(destination=comment.user, title=self.request.user.username + "からのコメントの返信", message=replay.content)
-        comment.latest_replayed_at = timezone.now()
-        comment.save()
-        return redirect('news_posts:post_detail', pk=post_pk)
+        if form.is_valid():
+            comment = create_replay_action(request.user, form, comment_pk)
+            post_pk = comment.target.id
+            return redirect('news_posts:post_detail', pk=post_pk)
+        return redirect('news_posts:create_replay', pk=comment_pk)
+        
 
     def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)

@@ -1,7 +1,8 @@
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from chat.models import DMRoom, DMInvite
+from chat.models import DMRoom
 from django.db.models import Model
+from chat.usecases.chat_dm_home_list_action import chat_dm_home_list_action
 
 class ChatHomeView(LoginRequiredMixin, generic.ListView):
     model: Model = DMRoom
@@ -9,7 +10,5 @@ class ChatHomeView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
-        context['dm_invites'] = DMInvite.objects.filter(received_user=self.request.user.id).order_by("-created_at")
-        context['dm_rooms'] = DMRoom.objects.filter(author=self.request.user.id).order_by("-created_at")
-        # TODO:のちにグループチャットを追加した際にグループチャットの一覧のコンテキストも渡す
+        chat_dm_home_list_action(self.request.user, context)
         return context

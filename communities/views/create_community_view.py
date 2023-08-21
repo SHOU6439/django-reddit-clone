@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.db.models import Model
 from django.forms import ModelForm
+from communities.usecases.create_community_action import create_community_action
 
 class CreateCommunityView(LoginRequiredMixin, generic.CreateView):
     template_name: str = 'communities/create_community.html'
@@ -17,12 +18,9 @@ class CreateCommunityView(LoginRequiredMixin, generic.CreateView):
 
     def post(self, request: HttpRequest) -> HttpResponseRedirect:
         form = CommunityForm(request.POST)
-
-        post_data = form.save(commit=False)
-        post_data.admin = get_user_model().objects.get(id=request.user.id)
-        post_data.save()
-        community = Communities.objects.get(name=post_data.name)
-        # adminがコミュニティを作ったら自動的にadminはmemberに追加する
-        community.member.add(request.user.id)
-        community.save()
-        return redirect('communities:detail', pk=community.id)
+        
+        if form.is_valid():
+            post_data = form.save(commit=False)
+            community = create_community_action(request.user, post_data)
+            return redirect('communities:detail', pk=community.id)
+        return redirect('communities:create')

@@ -3,7 +3,7 @@ from django.views import generic
 from communities.models import Communities
 from news_posts.models import NewsPosts
 from django.db.models import Model
-from news_posts.usecases.post_like_state_highlight import post_like_state_highlight
+from news_posts.utils.post_like_state_highlight import post_like_state_highlight
 
 
 class NewIndexView(generic.ListView):

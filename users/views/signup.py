@@ -3,21 +3,13 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http.response import HttpResponseRedirect
 from users.forms import UserForm
-from django.contrib.auth import authenticate, login, get_user_model
+from users.usecases.signup_action import signup_action
 
 def signup(request: HttpRequest) -> HttpResponse:
-    User = get_user_model()
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-
-            user = User.objects.create_user(username, email, password)
-            user.save()
-            auth_user = authenticate(request, username=username, password=password)
-            login(request, auth_user)
+            signup_action(request, form)
             return HttpResponseRedirect(reverse('news_posts:hot_index'))
     else:
         form = UserForm()

@@ -1,9 +1,8 @@
-from django.http import QueryDict
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from chat.models import DMRoom, DMInvite
-from django.contrib.auth import get_user_model
 from django.db.models.query import QuerySet
+from chat.usecases.search_user_action import search_user_action
+from chat.usecases.chat_dm_home_list_action import chat_dm_home_list_action 
 
 
 
@@ -13,12 +12,10 @@ class SearchUserView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self) -> QuerySet:
         q = self.request.GET.get('q')
-        object_list = get_user_model().objects.filter(username__icontains=q).order_by('-created_at')
+        object_list = search_user_action(q)
         return object_list
 
     def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
-        context['dm_invites'] = DMInvite.objects.filter(received_user=self.request.user.id).order_by("-created_at")
-        context['dm_rooms'] = DMRoom.objects.filter(author=self.request.user.id).order_by("-created_at")
-        # TODO:のちにグループチャットを追加した際にグループチャットの一覧のコンテキストも渡す
+        chat_dm_home_list_action(self.request.user, context)
         return context

@@ -1,20 +1,9 @@
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import redirect
-from news_posts.models import Notification
-from communities.models import Communities
+from communities.usecases.join_community_action import join_community_action
 from django.contrib.auth.decorators import login_required
 
 @login_required
 def join(request: HttpRequest, pk: int) -> HttpResponseRedirect:
-    community = Communities.objects.get(pk=pk)
-    notification = Notification
-    message = request.user.username + "が      " + community.name + "      に加入した!"
-    join_notification = notification.objects.filter(title="communityメンバー加入通知", message=message, destination=community.admin)
-    community.member.add(request.user.id)
-    community.save()
-    # 直近にcommunityをleaveした場合にjoin_notificationを作り直す
-    if join_notification:
-        join_notification.delete()
-    if not join_notification:
-        notification.objects.create(title="communityメンバー加入通知", message=message, destination=community.admin)
+    join_community_action(request.user, pk)
     return redirect('communities:detail', pk=pk)

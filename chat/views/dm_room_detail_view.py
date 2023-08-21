@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from django.http import Http404, HttpRequest, HttpResponseRedirect
 from django.db.models import Model
+from chat.usecases.dm_room_detail_action import dm_room_detail_action
 
 
 class DMRoomDetailView(LoginRequiredMixin, generic.DetailView):
@@ -30,9 +31,5 @@ class DMRoomDetailView(LoginRequiredMixin, generic.DetailView):
         addressee_pk = DMRoom.objects.get(id=self.kwargs['pk']).author.id
         author = User.objects.get(id=self.request.user.id)
         addressee = User.objects.get(id=addressee_pk)
-        context['current_invite'] = DMInvite.objects.filter(invited_user=addressee, received_user=author)
-        context['current_room'] = DMRoom.objects.get(id=self.kwargs['pk'])
-        context['dm_list'] = DirectMessage.objects.filter(room=self.kwargs['pk'])
-        context['dm_invites'] = DMInvite.objects.filter(received_user=self.request.user.id).order_by("-created_at")
-        context['dm_rooms'] = DMRoom.objects.filter(author=self.request.user.id).order_by("-created_at")
+        dm_room_detail_action(author, addressee, self.kwargs['pk'], context)
         return context

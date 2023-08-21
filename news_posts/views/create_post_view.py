@@ -31,6 +31,7 @@ class CreatePostView(LoginRequiredMixin, generic.View):
             post_data.photo = request.FILES.get('photo')
             post_data.save()
             if post_data.community:
+                # コミュニティに紐づいた投稿をするとコミュニティの最新更新時刻が変更される
                 post_community_at = Communities.objects.get(id=post_data.community.id)
                 post_community_at.latest_posted_at = timezone.now()
                 post_community_at.save()

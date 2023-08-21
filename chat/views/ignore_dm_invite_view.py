@@ -1,13 +1,11 @@
 from django.http import HttpRequest, HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from chat.models import DMRoom, DMInvite
+from chat.models import DMInvite
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from django.db.models import Model
-
-
-
+from chat.usecases.ignore_dm_invite_action import ignore_dm_invite_action
 
 
 class IgnoreDMInviteView(LoginRequiredMixin, generic.View):
@@ -22,11 +20,5 @@ class IgnoreDMInviteView(LoginRequiredMixin, generic.View):
             invited_user=addressee,
             received_user=author
         )
-        dm_invite.ignore = True
-        if not DMRoom.objects.filter(author=author, addressee=addressee):
-            dm_invite.delete()
-            DMRoom.objects.filter(
-                author=addressee,
-                addressee=author
-            ).delete()
+        ignore_dm_invite_action(dm_invite, author, addressee)
         return redirect('chat:home')

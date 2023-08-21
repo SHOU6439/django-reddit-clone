@@ -2,10 +2,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import ModelForm
 from django.urls.base import reverse
 from django.views import generic
-from users.models import User
-from news_posts.models import NewsPosts, Like
+from news_posts.models import NewsPosts
 from news_posts.forms import NewsPostEditForm
 from django.db.models import Model
+from news_posts.usecases.get_news_post_edit_form_action import get_news_post_edit_form_action
 
 
 class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
@@ -19,11 +19,6 @@ class NewsPostEditView(LoginRequiredMixin, generic.UpdateView):
     def get_context_data(self, **kwargs: dict) -> dict:
         post_pk = self.kwargs['pk']
         post = NewsPosts.objects.get(id=post_pk)
-        like_status = Like.objects.filter(liked_post=post_pk, liked_user=self.request.user)
         context = super().get_context_data(**kwargs)
-        context['member_count'] = User.objects.filter(member=post.community).count()
-        context['community_post_count'] = NewsPosts.objects.filter(community_id=post.community).count()
-        context['saved_posts'] = NewsPosts.objects.filter(saved_user=self.request.user.id)
-        if like_status:
-            context['like_status'] = Like.objects.get(liked_post=post_pk, liked_user=self.request.user)
+        get_news_post_edit_form_action(self.request.user, post, context)
         return context
