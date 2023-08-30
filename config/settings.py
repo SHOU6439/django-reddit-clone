@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from pathlib import Path
+import dotenv
 
 import dj_database_url
 
@@ -27,7 +29,7 @@ DEBUG = False
 
 
 
-ALLOWED_HOSTS = ['django-reddit-clone-2022.herokuapp.com', 'www.django-reddit-clone-2022.com', 'django_sendgrid', '127.0.0.1', '163.44.183.138']
+ALLOWED_HOSTS = ['daily-report.onrender.com', 'www.django-reddit-clone-2022.com', 'django_sendgrid', '127.0.0.1', '163.44.183.138']
 
 
 # Application definition
@@ -144,6 +146,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -178,12 +182,18 @@ try:
 except ImportError:
     pass
 
-if not DEBUG:
-    SECRET_KEY = os.environ['SECRET_KEY']
-    import django_heroku #追加
-    django_heroku.settings(locals()) #追加
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# if not DEBUG:
+#     SECRET_KEY = os.environ['SECRET_KEY']
+#     import django_heroku #追加
+#     django_heroku.settings(locals()) #追加
+#     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
+
+dotenv.load_dotenv() # .env ファイルを読み込む
+SECRET_KEY = os.getenv('SECREST_KEY') # .env内の環境変数を取得
+SUPERUSER_NAME = os.getenv('SUPERUSER_NAME')
+SUPERUSER_EMAIL = os.getenv('SUPERUSER_EMAIL')
+SUPERUSER_PASSWORD = os.getenv('SUPERUSER_PASSWORD')
