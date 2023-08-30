@@ -20,14 +20,14 @@ class CreatePostForm(forms.ModelForm):
         fields = ('title', 'content', 'photo', 'community')
 
 class CreateCommentForm(forms.ModelForm):
-    content = forms.CharField(max_length=512, widget=forms.widgets.Textarea(attrs={'class':"comment-content-input-textarea", 'placeholder': "あなたの考えは?"}))
+    content = forms.CharField(max_length=512, widget=forms.widgets.Textarea(attrs={'class':"comment-content-input-textarea", 'placeholder': "コメント内容"}))
 
     class Meta:
         model = Comment
         fields = ('content',)
 
 class CreateReplayForm(forms.ModelForm):
-    content = forms.CharField(max_length=512, widget=forms.widgets.Textarea(attrs={'class':"replay-content-input-textarea", 'placeholder': "あなたの考えは?"}))
+    content = forms.CharField(max_length=512, widget=forms.widgets.Textarea(attrs={'class':"replay-content-input-textarea", 'placeholder': "返信内容"}))
 
     class Meta:
         model = Replay
