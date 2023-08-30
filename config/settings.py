@@ -11,10 +11,15 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from pathlib import Path
 import dotenv
 
 import dj_database_url
+
+dotenv.load_dotenv() # .env ファイルを読み込む
+SECRET_KEY = os.getenv('SECREST_KEY') # .env内の環境変数を取得
+SUPERUSER_NAME = os.getenv('SUPERUSER_NAME')
+SUPERUSER_EMAIL = os.getenv('SUPERUSER_EMAIL')
+SUPERUSER_PASSWORD = os.getenv('SUPERUSER_PASSWORD')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -191,9 +196,3 @@ except ImportError:
 
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
-
-dotenv.load_dotenv() # .env ファイルを読み込む
-SECRET_KEY = os.getenv('SECREST_KEY') # .env内の環境変数を取得
-SUPERUSER_NAME = os.getenv('SUPERUSER_NAME')
-SUPERUSER_EMAIL = os.getenv('SUPERUSER_EMAIL')
-SUPERUSER_PASSWORD = os.getenv('SUPERUSER_PASSWORD')
